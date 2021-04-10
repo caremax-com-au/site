@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF2
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="StorefrontCategoryProductSection">
+        <element name="AmastyPreOrderNote"
+                 type="button"
+                 selector="//main//li[.//a[contains(text(),'{{var1}}')]]//div[@class='ampreorder-note']"
+                 parameterized="true"/>
+    </section>
+</sections>

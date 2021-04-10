@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Mostviewed
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StoreFrontCheckDiscountBundlePackWithDifferentQtyProductsTest">
+        <annotations>
+            <title value="Check Bundle Pack discount with Different Qty Of Bundle Products" />
+            <description value="Check Bundle Pack discount with Different Qty Of Bundle Products" />
+            <testCaseId value="ARP-12" />
+            <severity value="CRITICAL" />
+            <group value="MostViewed" />
+            <group value="MostViewedSmoke" />
+        </annotations>
+        <!-- Create sample data -->
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin" />
+            <createData entity="ApiCategory" stepKey="createCategory" />
+            <createData entity="ApiSimpleProduct" stepKey="createSimpleProduct1">
+                <requiredEntity createDataKey="createCategory" />
+            </createData>
+            <createData entity="ApiSimpleProduct" stepKey="createSimpleProduct2">
+                <requiredEntity createDataKey="createCategory" />
+            </createData>
+            <actionGroup ref="AdminAmastyEnableAllBundlePacksPageActionGroup" stepKey="enableAllBundlePacksPage" />
+            <magentoCLI command="cache:clean" stepKey="cacheClean" />
+        </before>
+
+        <after>
+            <!-- Delete sample data -->
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory" />
+            <deleteData createDataKey="createSimpleProduct1" stepKey="deleteSimpleProduct" />
+            <deleteData createDataKey="createSimpleProduct2" stepKey="deleteSimpleProduct1" />
+            <actionGroup ref="AdminAmastyDisableAllBundlePacksPageActionGroup" stepKey="disableAllBundlePacksPage" />
+            <magentoCLI command="cache:clean" stepKey="cacheClean" />
+            <actionGroup ref="logout" stepKey="logout" />
+        </after>
+        <!-- Fill out form for a new user with address -->
+        <actionGroup ref="SignUpNewUserFromStorefrontActionGroup" stepKey="SignUpNewUser">
+            <argument name="Customer" value="Simple_US_Customer_NY" />
+        </actionGroup>
+        <actionGroup ref="EnterCustomerAddressInfo" stepKey="enterAddressInfo">
+            <argument name="Address" value="US_Address_NY" />
+        </actionGroup>
+        <!-- Configure Bundle Pack -->
+        <actionGroup ref="AdminAmastyBundlePackConfigureActionGroup" stepKey="goToRelatedProductsConfigurePage">
+            <argument name="am_test_bundle" value="TestBundlePack1" />
+            <argument name="product1" value="$$createSimpleProduct1.product[name]$$" />
+            <argument name="product2" value="$$createSimpleProduct2.product[name]$$" />
+        </actionGroup>
+        <magentoCLI command="cache:clean" stepKey="cacheClean1" />
+        <!-- Create Bundle Pack with Different Qty of Bundle Products-->
+        <actionGroup ref="AdminAmastyCreateBundlePackWithDifferentProductsQtyActionGroup" stepKey="goToBundlePacksGridforCreate">
+            <argument name="am_test_bundle" value="TestBundlePack1" />
+            <argument name="product1" value="$$createSimpleProduct1.product[name]$$" />
+            <argument name="product2" value="$$createSimpleProduct2.product[name]$$" />
+        </actionGroup>
+        <!-- Check Discount On StoreFront with Different Qty Of Bundle Products-->
+        <actionGroup ref="StoreFrontAmastyCheckBundlePackDiscountWithDifferentQtyBundleProductsActionGroup" stepKey="goToStoreFrontToCheckBundlePackWithDiscountAndTax">
+            <argument name="am_test_bundle" />
+        </actionGroup>
+        <!-- Delete Bundle Pack-->
+        <actionGroup ref="AdminAmastyDeleteBundlePackActionGroup" stepKey="goToBundlePacksGridforDelete">
+            <argument name="am_test_bundle" value="TestBundlePack1" />
+            <argument name="product" value="$$createProduct$$" />
+        </actionGroup>
+    </test>
+</tests>

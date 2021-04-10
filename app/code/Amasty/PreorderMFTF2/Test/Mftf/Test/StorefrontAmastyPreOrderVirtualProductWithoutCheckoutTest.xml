@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF2
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontAmastyPreOrderVirtualProductWithoutCheckoutTest">
+        <annotations>
+            <title value="PreOrder of a virtual product with positive QTy by a Guest"/>
+            <description value="Virtual product creation and tuning, and checkout as a guest from PDP"/>
+            <testCaseId value="PRE-12"/>
+            <severity value="CRITICAL"/>
+            <group value="Amasty"/>
+            <group value="PreOrder"/>
+        </annotations>
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <createData entity="_defaultCategory" stepKey="createCategory"/>
+            <createData entity="defaultVirtualProduct" stepKey="createVirtualProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+        </before>
+        <after>
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <deleteData createDataKey="createVirtualProduct" stepKey="deleteProduct"/>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+        <actionGroup ref="AmastyFuncOptCLIActionGroup" stepKey="configureFunctionalTab">
+            <argument name="moduleStatus" value="1"/>
+            <argument name="allowNegativeQTy" value="0"/>
+            <argument name="disablePositiveQTy" value="0"/>
+        </actionGroup>
+        <actionGroup ref="SearchForProductOnBackendActionGroup" stepKey="searchForSimpleProduct" >
+            <argument name="product" value="$$createVirtualProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="OpenEditProductOnBackendActionGroup" stepKey="openEditProduct1" >
+            <argument name="product" value="$$createVirtualProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="AmastyEnablePreOrderForAProductActionGroup" stepKey="enablePreorder" />
+        <actionGroup ref="StorefrontAddSimpleProductToShoppingCartActionGroup" stepKey="addProductToCart">
+            <argument name="product" value="$$createVirtualProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenCartPageActionGroup" stepKey="goToTheCart"/>
+        <see userInput="{{AmastyDisplayTextDefaultData.pre_order_note}}"
+             selector="{{CheckoutCartProductSection.AmastyPreOrderNote}}"
+             stepKey="seeCartPreOrderNote"/>
+    </test>
+</tests>

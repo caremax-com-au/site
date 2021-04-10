@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF3
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontAmastyPreOrderWarningForBelowZeroQtyTest" extends="StorefrontAmastyPreOrderSimpleWithPositiveQTyTest">
+        <annotations>
+            <title value="Simple Product. Pre-Order Warning for Below Zero Qty"/>
+            <description value="Add to the cart more goods than there are available for selling,check the warning"/>
+            <testCaseId value="PRE-10"/>
+            <skip>
+                <issueId value="CAT-10120"/>
+            </skip>
+        </annotations>
+        <actionGroup ref="AmastyFuncOptCLIActionGroup" stepKey="configureFunctionalTab">
+            <argument name="moduleStatus" value="1"/>
+            <argument name="allowNegativeQTy" value="1"/>
+            <argument name="disablePositiveQTy" value="1"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAddSimpleProductToShoppingCartActionGroup" stepKey="addProductToCart">
+            <argument name="product" value="$$simpleProductWithBackorderCreation$$"/>
+            <argument name="qty" value="101"/>
+        </actionGroup>
+        <see userInput="{{AmastyDisplayTextDefaultData.pre_order_warning_in_shopping_cart1}}$$simpleProductWithBackorderCreation.name$${{AmastyDisplayTextDefaultData.pre_order_warning_in_shopping_cart2}}" selector="{{CheckoutCartProductSection.AmastyPreOrderWarning}}" stepKey="seeCartPreOrderNote"/>
+    </test>
+</tests>

@@ -1,0 +1,34 @@
+"Countdown Widgets List","Countdown Widgets List"
+"Can't delete some items. Please review the log and try again.","Can't delete some items. Please review the log and try again."
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"No end time.","No end time."
+"No start time.","No start time."
+days,days
+hours,hours
+min,min
+sec,sec
+"The Start Time can not be more or equal than the End Time","The Start Time can not be more or equal than the End Time"
+"Amasty Promo Countdowns List","Amasty Promo Countdowns List"
+"Promotion Countdown","Promotion Countdown"
+General,General
+"Enable Promo Countdown","Enable Promo Countdown"
+"Countdown by Amasty","Countdown by Amasty"
+"Promo Countdown by Amasty","Promo Countdown by Amasty"
+"Start Time","Start Time"
+"Countdown timer will be visible on storefront after this date and time. Applicable for scheduling your future promo actions.","Countdown timer will be visible on storefront after this date and time. Applicable for scheduling your future promo actions."
+"End Time","End Time"
+"Set the exact date and time when your promo ends - it will be used to determine when the count down timer should stop. The timer will vanish after this date and time from storefront automatically.","Set the exact date and time when your promo ends - it will be used to determine when the count down timer should stop. The timer will vanish after this date and time from storefront automatically."
+"Before Countdown Text","Before Countdown Text"
+"HTML tags are supported.","HTML tags are supported."
+"After Countdown Text","After Countdown Text"
+Link,Link
+"Timer Design","Timer Design"
+"Timer Color","Timer Color"
+"Timer Color will not be applicable for design Simple - Transparent.","Timer Color will not be applicable for design Simple - Transparent."
+"Add Countdown Widget","Add Countdown Widget"
+"Delete items","Delete items"
+"Delete selected items?","Delete selected items?"
+Delete,Delete
+"Widget ID","Widget ID"
+"Widget Name","Widget Name"
+Edit,Edit

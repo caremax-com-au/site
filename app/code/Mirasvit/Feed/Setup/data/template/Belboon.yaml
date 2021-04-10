@@ -1,0 +1,57 @@
+name: Belboon
+type: csv
+csv:
+  delimiter: comma
+  enclosure: '"'
+  include_header: 1
+
+  schema:
+    - order: 0
+      header: Merchant_Product_Number
+      type:
+      pattern:
+      attribute: entity_id
+
+    - order: 1
+      header: EAN_Code
+      type:
+      pattern:
+      attribute: sku
+
+    - order: 2
+      header: Product Name
+      type:
+      pattern:
+      attribute: name
+
+    - order: 3
+      header: Product Manufacturer
+      type:
+      pattern:
+      attribute: manufacturer
+
+    - order: 4
+      header: Price
+      type:
+      pattern:
+      attribute: price
+      modifiers:
+        - {modifier: price}
+
+    - order: 5
+      header: Currency
+      type: pattern
+      pattern: EUR
+      attribute:
+
+    - order: 6
+      header: DeepLink_URL
+      type:
+      pattern:
+      attribute: url
+
+    - order: 7
+      header: Image_Small_URL
+      type:
+      pattern:
+      attribute: small_image

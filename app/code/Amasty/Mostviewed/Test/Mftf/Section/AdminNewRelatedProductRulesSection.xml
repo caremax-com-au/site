@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Mostviewed
+ */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+
+    <section name="AdminNewRelatedProductRulesSection">
+        <element name="relatedProductRuleName" type="input" selector=".admin__field[data-index=name] input" />
+        <element name="relatedProductRulePriority" type="input" selector=".admin__field[data-index=priority] input" />
+        <element name="storeViewSwitcher" type="select" selector=".admin__field _required[data-index=stores] select" />
+        <element name="allStoreViewSelect" type="button" selector="//option[contains(string(), 'All Store Views')]" />
+        <element name="customerGroupSwitcher" type="select" selector=".admin__field[data-index=customer_group_ids] select" />
+        <element name="displaySettingsTab" type="button" selector="//strong[contains(string(), 'Display Settings')]" />
+        <element name="relatedBlockTitle" type="input" selector=".admin__field[data-index=block_title] input" />
+        <element name="saveNewRelatedProductRule" type="button" selector="#save" />
+        <element name="whereToDisplayConditionTab" type="button" selector=".fieldset-wrapper:nth-child(2) .admin__collapsible-title > span:nth-child(1)" />
+        <element name="newRuleParam" type="button" selector="span[class='rule-param rule-param-new-child']" />
+        <element name="ruleConditionInput" type="input" selector="input[class=' input-text admin__control-text element-value-changer']" />
+        <element name="skuRuleButton" type="button" selector="//option[contains(string(), 'SKU')]" />
+        <element name="skuSelectButton" type="button" selector="//a[contains(text(),'...')]" />
+        <element name="openChooser" type="button" selector="img[title='Open Chooser']" />
+        <element name="applyRuleParamButton" type="button" selector="a[class='rule-param-apply']" />
+        <element name="outOfStockProductToggle" type="button" selector=".ammost-where-to-display .admin__actions-switch-label" />
+        <element name="maxProductsToDisplayField" type="input" selector="input[name='max_products']" />
+        <element name="gridProductBlock" type="block" selector="//div[@class='block widget amrelated-grid-wrapper block-products-list grid']//li[@class='product-item']" />
+        <element name="blockLayoutDropDown" type="button" selector="select[name='block_layout']" />
+        <element name="selectSliderButton" type="button" selector="//option[contains(string(), 'Slider')]" />
+        <element name="sliderProductBlock1" type="block" selector="//div[contains(@id,'slick-slide')]" />
+        <element name="sliderProductBlock2" type="block" selector="div[class='slick-list draggable']" />
+        <element name="storeFrontRelatedProductRuleTitle" type="block" selector="//div[@class='block widget amrelated-grid-wrapper block-products-list grid']//div[@class='block-title']" />
+        <element name="displayAddToCartButtonToggle" type="button" selector="(//label[@class='admin__actions-switch-label'])[2]" />
+        <element name="storeFrontAddToCartButton" type="button" selector="button[class='action tocart primary']" />
+    </section>
+
+</sections>

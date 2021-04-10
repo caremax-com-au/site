@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF3
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontAmastyPreOrderGroupedProductAllOptionsPreorderTest">
+        <annotations>
+            <title value="PreOrder for grouped product"/>
+            <description value="PreOrder of a grouped product with all options on preorder"/>
+            <testCaseId value="PRE-4"/>
+            <severity value="CRITICAL"/>
+            <group value="Amasty"/>
+            <group value="PreOrder"/>
+        </annotations>
+        <before>
+            <!-- Create grouped product with three simple products -->
+            <createData entity="SimpleProduct2" stepKey="createFirstSimpleProduct"/>
+            <createData entity="SimpleProduct2" stepKey="createSecondSimpleProduct"/>
+            <createData entity="SimpleProduct2" stepKey="createThirdSimpleProduct"/>
+            <createData entity="ApiGroupedProduct" stepKey="createGroupedProduct"/>
+            <createData entity="OneSimpleProductLink" stepKey="addFirstProductToLink">
+                <requiredEntity createDataKey="createGroupedProduct"/>
+                <requiredEntity createDataKey="createFirstSimpleProduct"/>
+            </createData>
+            <updateData entity="OneMoreSimpleProductLink" createDataKey="addFirstProductToLink" stepKey="addSecondProductTwo">
+                <requiredEntity createDataKey="createGroupedProduct"/>
+                <requiredEntity createDataKey="createSecondSimpleProduct"/>
+            </updateData>
+            <updateData entity="OneMoreSimpleProductLink" createDataKey="addFirstProductToLink" stepKey="addThirdProductThree">
+                <requiredEntity createDataKey="createGroupedProduct"/>
+                <requiredEntity createDataKey="createThirdSimpleProduct"/>
+            </updateData>
+        </before>
+        <after>
+            <!-- Delete grouped product data -->
+            <deleteData createDataKey="createFirstSimpleProduct" stepKey="deleteFirstProduct"/>
+            <deleteData createDataKey="createSecondSimpleProduct" stepKey="deleteSecondProduct"/>
+            <deleteData createDataKey="createThirdSimpleProduct" stepKey="deleteThirdProduct"/>
+            <deleteData createDataKey="createGroupedProduct" stepKey="deleteGroupedProduct"/>
+        </after>
+        <!-- configure the module -->
+        <actionGroup ref="AmastyFuncOptCLIActionGroup" stepKey="configureFunctionalTab">
+            <argument name="moduleStatus" value="1"/>
+            <argument name="allowNegativeQTy" value="0"/>
+            <argument name="disablePositiveQTy" value="0"/>
+        </actionGroup>
+        <actionGroup ref="AmastyComplexProductsDetectionCLIActionGroup" stepKey="configureAdditionalOptionsTab">
+            <argument name="complexDetectionStatus" value="1"/>
+        </actionGroup>
+        <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+        <!-- Enable first product -->
+        <actionGroup ref="SearchForProductOnBackendActionGroup" stepKey="searchForFirstSimpleProduct">
+            <argument name="product" value="$$createFirstSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="OpenEditProductOnBackendActionGroup" stepKey="openFirstSimpleProduct">
+            <argument name="product" value="$$createFirstSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="AmastyEnablePreOrderForAProductActionGroup" stepKey="enablePreorderFirstSimpleProduct"/>
+        <!-- Enable second product -->
+        <actionGroup ref="SearchForProductOnBackendActionGroup" stepKey="searchForSecondSimpleProduct">
+            <argument name="product" value="$$createSecondSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="OpenEditProductOnBackendActionGroup" stepKey="openSecondSimpleProduct">
+            <argument name="product" value="$$createSecondSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="AmastyEnablePreOrderForAProductActionGroup" stepKey="enablePreorderSecondSimpleProduct"/>
+        <!-- Enable third product -->
+        <actionGroup ref="SearchForProductOnBackendActionGroup" stepKey="searchForThirdSimpleProduct">
+            <argument name="product" value="$$createThirdSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="OpenEditProductOnBackendActionGroup" stepKey="openThirdSimpleProduct">
+            <argument name="product" value="$$createThirdSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="AmastyEnablePreOrderForAProductActionGroup" stepKey="enablePreorderThirdSimpleProduct"/>
+
+        <actionGroup ref="AmastyCheckNoteAndButtonOnPDPActionGroup" stepKey="checkPDP">
+            <argument name="product" value="$$createGroupedProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <!-- Add grouped product to the cart -->
+        <actionGroup ref="StorefrontAddThreeGroupedProductToTheCartActionGroup" stepKey="addGropedProductsToTheCart">
+            <argument name="urlKey" value="$$createGroupedProduct.custom_attributes[url_key]$$"/>
+            <argument name="product1" value="$$createFirstSimpleProduct.name$$"/>
+            <argument name="product2" value="$$createSecondSimpleProduct.name$$"/>
+            <argument name="product3" value="$$createThirdSimpleProduct.name$$"/>
+            <argument name="qty1" value="1"/>
+            <argument name="qty2" value="1"/>
+            <argument name="qty3" value="1"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCartPageOpenActionGroup" stepKey="goToTheCart"/>
+        <see userInput="{{AmastyDisplayTextDefaultData.pre_order_note}}" selector="{{CheckoutCartProductSection.AmastyPreOrderNote}}" stepKey="seeCartPreOrderNote"/>
+        <click selector="{{CheckoutCartSummarySection.proceedToCheckout}}" stepKey="goToCheckout"/>
+        <actionGroup ref="GuestCheckoutFillingShippingSectionActionGroup" stepKey="fillInShippingInformation"/>
+        <actionGroup ref="CheckoutSelectCheckMoneyOrderPaymentActionGroup" stepKey="selectCMOpayment"/>
+        <actionGroup ref="CheckoutPlaceOrderActionGroup" stepKey="customerPlaceOrder">
+            <argument name="orderNumberMessage" value="CONST.successGuestCheckoutOrderNumberMessage"/>
+            <argument name="emailYouMessage" value="CONST.successCheckoutEmailYouMessage"/>
+        </actionGroup>
+        <grabTextFrom stepKey="grabOrderNumber" selector="{{CheckoutSuccessMainSection.orderNumber}}"/>
+        <!-- Go to the Order Grid-->
+        <actionGroup ref="FilterOrderGridByIdActionGroup" stepKey="OpenOrderById">
+            <argument name="orderId" value="$grabOrderNumber"/>
+        </actionGroup>
+        <!-- Check order status-->
+        <see userInput="Yes" selector="{{AdminOrdersGridSection.preOrderCell}}" stepKey="checkOrderStatus"/>
+        <!-- Go to the Order Page -->
+        <actionGroup ref="OpenOrderByIdActionGroup" stepKey="openOrderGridById">
+            <argument name="orderId" value="$grabOrderNumber"/>
+        </actionGroup>
+        <!-- Check order note -->
+        <see userInput="$$createFirstSimpleProduct.name$$ {{AmastyDisplayTextDefaultData.pre_order_note}}" selector="{{AdminOrderItemsOrderedSection.productNameColumn}}" stepKey="seeTitle1"/>
+        <see userInput="$$createSecondSimpleProduct.name$$ {{AmastyDisplayTextDefaultData.pre_order_note}}" selector="{{AdminOrderItemsOrderedSection.productNameColumn}}" stepKey="seeTitle2"/>
+        <see userInput="$$createThirdSimpleProduct.name$$ {{AmastyDisplayTextDefaultData.pre_order_note}}" selector="{{AdminOrderItemsOrderedSection.productNameColumn}}" stepKey="seeTitle3"/>
+    </test>
+</tests>

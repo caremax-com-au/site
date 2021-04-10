@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF3
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontAmastyPreOrderSimpleWithPositiveQTyTest">
+        <annotations>
+            <title value="PreOrder a simple product with positive QTy by a Guest"/>
+            <description value="Simple product creation and tuning, and checkout as a guest from the PDP"/>
+            <testCaseId value="PRE-5"/>
+            <severity value="CRITICAL"/>
+            <group value="Amasty"/>
+            <group value="PreOrder"/>
+        </annotations>
+        <!-- Create simple product with positive QTy-->
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="subCategoryCreation"/>
+            <createData entity="SimpleProductBackorder" stepKey="simpleProductWithBackorderCreation">
+                <requiredEntity createDataKey="subCategoryCreation"/>
+            </createData>
+        </before>
+        <after>
+            <deleteData createDataKey="subCategoryCreation" stepKey="subCategoryDeletion"/>
+            <deleteData createDataKey="simpleProductWithBackorderCreation" stepKey="simpleProductWithBackorderDeletion"/>
+        </after>
+        <!-- Configure the module to allow pre-order for positive QTy-->
+        <actionGroup ref="AmastyFuncOptCLIActionGroup" stepKey="configureFunctionalTab">
+            <argument name="moduleStatus" value="1"/>
+            <argument name="allowNegativeQTy" value="0"/>
+            <argument name="disablePositiveQTy" value="0"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAddSimpleProductToShoppingCartActionGroup" stepKey="addProductToCart">
+            <argument name="product" value="$$simpleProductWithBackorderCreation$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontCartPageOpenActionGroup" stepKey="goToTheCart"/>
+        <see userInput="{{AmastyDisplayTextDefaultData.pre_order_note}}" selector="{{CheckoutCartProductSection.AmastyPreOrderNote}}" stepKey="seeCartPreOrderNote"/>
+        <!-- Complete checkout-->
+        <click selector="{{CheckoutCartSummarySection.proceedToCheckout}}" stepKey="goToCheckout"/>
+        <actionGroup ref="GuestCheckoutFillingShippingSectionActionGroup" stepKey="fillInShippingInformation"/>
+        <actionGroup ref="CheckoutSelectCheckMoneyOrderPaymentActionGroup" stepKey="selectCMOpayment"/>
+        <actionGroup ref="CheckoutPlaceOrderActionGroup" stepKey="customerPlaceOrder">
+            <argument name="orderNumberMessage" value="CONST.successGuestCheckoutOrderNumberMessage"/>
+            <argument name="emailYouMessage" value="CONST.successCheckoutEmailYouMessage"/>
+        </actionGroup>
+        <grabTextFrom stepKey="grabOrderNumber" selector="{{CheckoutSuccessMainSection.orderNumber}}"/>
+        <!-- Go to the Order Grid-->
+        <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+        <actionGroup ref="FilterOrderGridByIdActionGroup" stepKey="FilterOrderGridById">
+            <argument name="orderId" value="$grabOrderNumber"/>
+        </actionGroup>
+        <!-- Check order status-->
+        <see userInput="Yes" selector="{{AdminOrdersGridSection.preOrderCell}}" stepKey="checkOrderStatus"/>
+        <!-- Go to the Order Page -->
+        <actionGroup ref="OpenOrderByIdActionGroup" stepKey="openOrderGridById">
+            <argument name="orderId" value="$grabOrderNumber"/>
+        </actionGroup>
+        <!-- Check order note -->
+        <see userInput="$$simpleProductWithBackorderCreation.name$$ {{AmastyDisplayTextDefaultData.pre_order_note}}" selector="{{AdminOrderItemsOrderedSection.productNameColumn}}" stepKey="seeTitle"/>
+    </test>
+</tests>

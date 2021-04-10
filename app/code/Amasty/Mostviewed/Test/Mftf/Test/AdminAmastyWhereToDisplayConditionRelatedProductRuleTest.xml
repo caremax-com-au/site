@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Mostviewed
+ */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminAmastyWhereToDisplayConditionRelatedProductRuleTest">
+        <annotations>
+            <title value="Check display Related Product Rule on different With Where To Display Condition" />
+            <description value="Check display Related Product Rule on different With Where To Display Condition" />
+            <testCaseId value="ARP-6" />
+            <severity value="CRITICAL" />
+            <group value="MostViewed" />
+            <group value="MostViewedSmoke" />
+        </annotations>
+        <!-- Create sample data -->
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin" />
+            <createData entity="ApiCategory" stepKey="createCategory" />
+            <createData entity="ApiSimpleProduct" stepKey="createSimpleProduct1">
+                <requiredEntity createDataKey="createCategory" />
+            </createData>
+            <createData entity="ApiSimpleProduct" stepKey="createSimpleProduct2">
+                <requiredEntity createDataKey="createCategory" />
+            </createData>
+            <magentoCLI command="cache:clean" stepKey="cacheClean" />
+        </before>
+
+        <!-- Delete sample data -->
+        <after>
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory" />
+            <deleteData createDataKey="createSimpleProduct1" stepKey="deleteSimpleProduct1" />
+            <deleteData createDataKey="createSimpleProduct2" stepKey="deleteSimpleProduct2" />
+            <magentoCLI command="cache:clean" stepKey="cacheClean" />
+            <actionGroup ref="logout" stepKey="logout" />
+        </after>
+        <!-- Create Related Product Rule With Where to display condition -->
+        <actionGroup ref="AdminAmastyCreateRelatedProductRuleWithWhereToDisplayConditionActionGroup" stepKey="goToRulesGrid1">
+            <argument name="am_test_rule" value="TestRelatedProductRule1" />
+            <argument name="product1" value="$$createSimpleProduct1.product[sku]$$" />
+            <argument name="product2" value="$$createSimpleProduct2.product[sku]$$" />
+        </actionGroup>
+        <!-- Check Related Product Rule On StoreFront -->
+        <actionGroup ref="StoreFrontAmastyCheckRelatedProductRulesBlockWithWhereToDisplayConditions" stepKey="goToProductPage1">
+            <argument name="am_test_rule" value="TestRelatedProductRule1" />
+            <argument name="product1" value="$$createSimpleProduct1.product[sku]$$" />
+            <argument name="product2" value="$$createSimpleProduct2.product[sku]$$" />
+        </actionGroup>
+        <!-- Delete Related Product Rule -->
+        <actionGroup ref="AdminAmastyDeleteRelatedProductRuleActionGroup" stepKey="goToRulesGridForDelete">
+            <argument name="am_test_rule" value="TestRelatedProductRule1" />
+        </actionGroup>
+    </test>
+</tests>

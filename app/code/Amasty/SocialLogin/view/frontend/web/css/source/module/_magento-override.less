@@ -1,0 +1,35 @@
+//
+//  Magento Styles Override
+//  ____________________________________________
+
+//
+//  Common
+//  --------------------------------------------
+
+& when (@media-common = true) {
+    .amsl-register-content .form.create.account,
+    .amsl-forgot-content .form.password.forget {
+        min-width: inherit;
+        max-width: 100%;
+        width: 100%;
+    }
+
+    // Hide magento checkout login popup
+    .amsl-popup-observed .modal-custom.authentication-dropdown,
+    .amsl-popup-observed .authentication-wrapper .dropdown-overlay {
+        display: none;
+    }
+    // END hide magento checkout login popup
+}
+
+//
+//  Tablet
+//  ----------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    // Fix Varnish bug
+    .header.panel > .header.links > li.greet.welcome:not(:first-of-type) {
+        margin: 0;
+    }
+    // END Fix Varnish bug
+}

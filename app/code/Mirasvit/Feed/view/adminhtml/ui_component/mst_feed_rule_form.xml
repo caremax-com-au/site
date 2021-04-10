@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">mst_feed_rule_form.mst_feed_rule_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">General Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+
+    <settings>
+        <buttons>
+            <button name="save_and_continue" class="Mirasvit\Feed\Ui\Rule\Form\Control\SaveAndContinueButton"/>
+            <button name="save" class="Mirasvit\Feed\Ui\Rule\Form\Control\SaveButton"/>
+            <button name="reset" class="Mirasvit\Feed\Ui\Rule\Form\Control\ResetButton"/>
+            <button name="delete" class="Mirasvit\Feed\Ui\Rule\Form\Control\DeleteButton"/>
+            <button name="back" class="Mirasvit\Feed\Ui\Rule\Form\Control\BackButton"/>
+        </buttons>
+        <namespace>mst_feed_rule_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>mst_feed_rule_form.mst_feed_rule_form_data_source</dep>
+        </deps>
+    </settings>
+
+    <dataSource name="mst_feed_rule_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="mst_feed/rule/save"/>
+        </settings>
+
+        <dataProvider class="Mirasvit\Feed\Ui\Rule\Form\DataProvider" name="mst_feed_rule_form_data_source">
+            <settings>
+                <requestFieldName>rule_id</requestFieldName>
+                <primaryFieldName>rule_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="general">
+        <settings>
+            <label/>
+        </settings>
+
+        <field name="rule_id" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <visible>false</visible>
+            </settings>
+        </field>
+
+        <field name="is_active" formElement="checkbox">
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Is Active</label>
+            </settings>
+
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+
+        <field name="name" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Name</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+
+        <field name="feed_ids" formElement="checkboxset">
+            <settings>
+                <dataType>array</dataType>
+                <label translate="true">Feeds</label>
+            </settings>
+
+            <formElements>
+                <checkboxset>
+                    <settings>
+                        <options class="Mirasvit\Feed\Ui\Rule\Source\FeedSource"/>
+                    </settings>
+                </checkboxset>
+            </formElements>
+        </field>
+
+        <fieldset name="conditions_serialized">
+            <settings>
+                <label/>
+            </settings>
+
+            <htmlContent name="html_content">
+                <argument name="block" xsi:type="object">Mirasvit\Feed\Ui\Rule\Form\Block\Rule</argument>
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="showSpinner" xsi:type="boolean">true</item>
+                    </item>
+                </argument>
+            </htmlContent>
+        </fieldset>
+    </fieldset>
+</form>

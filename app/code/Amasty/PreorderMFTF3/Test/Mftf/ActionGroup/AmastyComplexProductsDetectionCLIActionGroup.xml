@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF3
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AmastyComplexProductsDetectionCLIActionGroup">
+        <arguments>
+            <argument name="complexDetectionStatus" type="string" defaultValue="0"/>
+        </arguments>
+        <magentoCLI command="config:set {{AmastyPreOrderCLIData.detect_complex_products}} {{complexDetectionStatus}}" stepKey="switchComplexDetectionStatus"/>
+    </actionGroup>
+</actionGroups>

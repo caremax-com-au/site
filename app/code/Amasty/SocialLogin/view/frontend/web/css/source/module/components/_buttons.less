@@ -1,0 +1,290 @@
+//
+//  Buttons Styles
+//  ____________________________________________
+
+//
+//  Imports
+//  ----------------------------------------------
+
+@import '../_helpers';
+
+//
+//  Common
+//  --------------------------------------------
+
+& when (@media-common = true) {
+    .amsl-button {
+        & {
+            .transition(.2, ease);
+
+            display: block;
+            border-radius: 100px;
+            background-repeat: no-repeat;
+        }
+
+        .amsl-social-icon {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    }
+
+    .amsl-button.-google {
+        & {
+            background: @amsl-google-button__background;
+        }
+
+        .amsl-social-icon {
+            background-image: @amsl-google-icon__background;
+        }
+    }
+
+    .amsl-button.-twitter {
+        & {
+            background: @amsl-twitter-button__background;
+        }
+
+        .amsl-social-icon {
+            background-image: @amsl-twitter-icon__background;
+        }
+    }
+
+    .amsl-button.-facebook {
+        & {
+            background: @amsl-facebook-button__background;
+        }
+
+        .amsl-social-icon {
+            background-image: @amsl-facebook-icon__background;
+            background-repeat: no-repeat;
+        }
+    }
+
+    .amsl-button.-apple {
+        & {
+            background: #fff;
+        }
+
+        .amsl-social-icon {
+            background-image: @amsl-apple-icon__background;
+            background-repeat: no-repeat;
+        }
+    }
+
+    .amsl-button.-linkedin {
+        & {
+            background: @amsl-linkedin-button__background;
+        }
+
+        .amsl-social-icon {
+            background-image: @amsl-linkedin-icon__background;
+        }
+    }
+
+    .amsl-button.-instagram {
+        & {
+            background: @amsl-instagram-button__background;
+        }
+
+        .amsl-social-icon {
+            background-image: @amsl-instagram-icon__background;
+        }
+    }
+
+    .amsl-button.-amazon {
+        & {
+            background: @amsl-amazon-button__background;
+        }
+
+        .amsl-social-icon {
+            background-image: @amsl-amazon-icon__background;
+        }
+    }
+
+    .amsl-button.-paypal {
+        & {
+            background: @amsl-paypal-button__background;
+        }
+
+        .amsl-social-icon {
+            background-image: @amsl-paypal-icon__background;
+        }
+    }
+
+    .amsl-button.-twitch {
+        & {
+            .am-flex(center, center);
+
+            background: @amsl-twitch-button__background;
+        }
+
+        .amsl-social-icon {
+            width: 50%;
+            height: 50%;
+            border: 1px solid black;
+            border-radius: 5px;
+            background-image: @amsl-twitch-icon__background;
+            background-size: 50%;
+            filter: invert(1);
+        }
+    }
+
+    .amsl-button-wrapper.-rectangular .amsl-button,
+    .amsl-linked-wrapper.-rectangular .amsl-button {
+        border-radius: 4px;
+    }
+
+    .amsl-button-wrapper.-rectangular {
+        .amsl-button.-twitch .amsl-social-icon {
+            border: none;
+            background-size: 100%;
+        }
+
+        &.with-label .amsl-button.-twitch .amsl-social-icon {
+            background-size: 70%;
+        }
+    }
+
+    .amsl-button-wrapper.with-label.-rectangular {
+        & {
+            width: 100%;
+        }
+
+        .amsl-button {
+            .am-flex(start, center);
+
+            box-sizing: border-box;
+            width: 100%;
+            height: 50px;
+            border: 2px solid @amsl-background-color;
+            box-shadow: none;
+        }
+
+        .amsl-button:hover {
+            box-shadow: none;
+        }
+
+        .amsl-button:focus,
+        .amsl-button:hover:focus {
+            .amsl-focus;
+        }
+
+        .amsl-button.-google {
+            background: @amsl-google-button__rectangle__background;
+        }
+
+        .amsl-button.-google:hover {
+            background: lighten(@amsl-google-button__rectangle__background, 10%);
+        }
+
+        .amsl-button.-paypal {
+            background: @amsl-paypal-button__rectangle__background;
+        }
+
+        .amsl-button.-paypal:hover {
+            background: lighten(@amsl-paypal-button__rectangle__background, 10%);
+        }
+
+        .amsl-button.-amazon {
+            background: @amsl-amazon-button__rectangle__background;
+        }
+
+        .amsl-button.-amazon:hover {
+            background: lighten(@amsl-amazon-button__rectangle__background, 10%);
+        }
+
+        .amsl-button.-facebook .amsl-social-icon {
+            background: @amsl-facebook-icon__rectangle__background;
+            background-position: center center;
+            background-size: 13px;
+            background-repeat: no-repeat;
+        }
+
+        .amsl-button.-apple {
+            &:hover {
+                background: #f2f2f7;
+            }
+
+            .amsl-social-icon {
+                background: @amsl-apple-icon__background;
+                background-position: center center;
+                background-size: 24px;
+                background-repeat: no-repeat;
+            }
+
+            .amsl-text {
+                color: #1c1c1e;
+            }
+        }
+
+        .amsl-button.-google .amsl-social-icon,
+        .amsl-button.-facebook .amsl-social-icon,
+        .amsl-button.-amazon .amsl-social-icon,
+        .amsl-button.-paypal .amsl-social-icon {
+            border-radius: 4px;
+            background-color: #fff;
+        }
+
+        .amsl-social-icon {
+            margin: 0 10px;
+            min-width: 30px;
+            width: 30px;
+            height: 30px;
+            background-size: 70%;
+            transform: none;
+        }
+
+        .amsl-text {
+            margin-right: 5px;
+            color: #fff;
+        }
+    }
+
+    .amsl-button-showmore {
+        & {
+            position: relative;
+            display: block;
+            margin: 25px 0;
+            width: 100%;
+            height: 1px;
+            color: #4878bf;
+        }
+
+        &:before {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: @amsl-main-gray__color;
+            content: '';
+        }
+
+        > .amsl-label {
+            & {
+                .transition(.3, ease-in-out);
+
+                display: inline-block;
+                padding: 5px 15px;
+                background: @amsl-background-color;
+                cursor: pointer;
+                transform: translateY(-50%);
+            }
+
+            &:hover {
+                opacity: .8;
+            }
+        }
+
+        .amsl-arrow {
+            display: inline-block;
+            margin-left: 5px;
+            width: 12px;
+            height: 7px;
+            background-image: @amsl-showmore-icon__background;
+            background-position: center;
+            vertical-align: middle;
+        }
+    }
+}

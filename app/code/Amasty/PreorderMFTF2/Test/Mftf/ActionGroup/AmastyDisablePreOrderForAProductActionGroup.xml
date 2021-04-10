@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF2
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AmastyDisablePreOrderForAProductActionGroup" extends="AmastyEnablePreOrderForAProductActionGroup">
+        <selectOption userInput="0" selector="{{AdminProductFormAdvancedInventorySection.backordersSelect}}" stepKey="selectBackorders"/>
+    </actionGroup>
+</actionGroups>

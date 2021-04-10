@@ -1,0 +1,102 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_PromoCountdown
+ */
+?>
+<?php /** @var \Amasty\PromoCountdown\Block\Widgets\Countdown $block */ ?>
+<?php
+    $bgColor = $block->getData('backgroundColor');
+    $bgColorLight = $block->luminance($bgColor, 55);
+    $widgetId = "amasty-promo-countdown-" . $block->getPostfix();
+?>
+<div id="<?= $widgetId ?>" data-bind="scope: '<?= $widgetId ?>'">
+    <style type="text/css">
+    <?php if ($block->getData('design') === \Amasty\PromoCountdown\Model\Config\Design::PROGRESS): ?>
+        #<?= $widgetId ?> .amcountdown-block-wrapper.-progress .amcountdown-progress::-webkit-progress-value {
+            background: linear-gradient(90deg, <?= $bgColorLight ?>  0%, <?= $bgColor ?> 100%);
+        }
+        #<?= $widgetId ?> .amcountdown-block-wrapper.-progress .amcountdown-progress::-moz-progress-bar {
+            background: linear-gradient(90deg, <?= $bgColorLight ?>  0%, <?= $bgColor ?> 100%);
+        }
+        #<?= $widgetId ?> .amcountdown-block-wrapper.-progress .amcountdown-progress::-ms-fill {
+            background: linear-gradient(90deg, <?= $bgColorLight ?>  0%, <?= $bgColor ?> 100%);
+        }
+        #<?= $widgetId ?> .amcountdown-block-wrapper.-progress .amcountdown-progressbar:before {
+            background: <?= $bgColorLight ?>;
+        }
+        #<?= $widgetId ?> .amcountdown-block-wrapper.-progress .amcountdown-pointer {
+            background: <?= $bgColor ?>;
+        }
+    <?php elseif ($block->getData('design') === \Amasty\PromoCountdown\Model\Config\Design::ROUND): ?>
+        .amcountdown-block-wrapper.-round .amcountdown-pointer.-static {
+            fill: <?= $bgColorLight ?>;
+        }
+        .amcountdown-block-wrapper.-round .amcountdown-pointer {
+            fill: <?= $bgColor ?>;
+        }
+    <?php endif; ?>
+    </style>
+
+    <?php if ($block->getRequest()->getFullActionName() == 'catalog_product_view'): ?>
+    <style>
+        .product-info-main .widget-product-tagline {
+            display: block;
+        }
+        @media (min-width:662px) {
+            .product-info-main .product-add-form {
+                float: left;
+            }
+        }
+        [id^="amasty-promo-countdown-"] {
+            display: inline-block;
+        }
+        [id^="amasty-promo-countdown-"] #timer-default {
+            max-width: unset;
+            padding-top: 0;
+            padding-left: 0;
+            padding-bottom: 40px;
+        }
+        .product-info-main .product.attribute.ox-expand.overview {
+            display: inline-block;
+        }
+        [id^="amasty-promo-countdown-"] #timer-default .amcountdown-text {
+            margin-bottom: 0;
+        }
+    </style>
+    <?php endif; ?>
+
+
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Ui/js/core/app": {
+                    "components": {
+                        "amasty-promo-countdown-<?= $block->getPostfix() ?>": {
+                            "component": "Amasty_PromoCountdown/js/countdown",
+                            "widgetId": "<?= $widgetId ?>",
+                            "serviceUrl": "<?= $block->getServiceUrl() ?>",
+                            "targetTime": "<?= $block->getTargetTime() ?>",
+                            "startTime": "<?= $block->getStartTime() ?>",
+                            "link": "<?= $block->getData('link') ?>",
+                            "backgroundColor": "<?= $bgColor ?>",
+                            "backgroundColorLight": "<?= $bgColorLight ?>",
+                            "textBefore": <?= json_encode($block->getData('text_before')) ?>,
+                            "textAfter": <?= json_encode($block->getData('text_after')) ?>,
+                            "designClass": "-<?= $block->getData('design') ?>",
+                            "children": {
+                                "<?= $block->getData('design') ?>": {
+                                    "component": "<?= $block->getDesignComponent() ?>",
+                                    "template" : "Amasty_PromoCountdown/design/<?= $block->getData('design') ?>",
+                                    "displayArea": "design"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</div>

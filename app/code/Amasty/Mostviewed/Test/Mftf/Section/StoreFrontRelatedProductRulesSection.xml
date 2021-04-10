@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Mostviewed
+ */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+
+    <section name="StoreFrontRelatedProductRulesSection">
+        <element name="RelatedProductRuleBlock" type="block" selector="div[class='block widget amrelated-grid-wrapper block-products-list grid']" />
+        <element name="storeViewSwitcher" type="select" selector="div[id='switcher-language-trigger']" />
+        <element name="storeViewSelect" type="button" selector="(//li[@class='view-{{storeViewName}} switcher-option'])[1]" parameterized="true" />
+        <element name="apiCategorySelect" type="button" selector="//span[contains(string(), '{{apiCategoryName}}')]" parameterized="true" />
+        <element name="apiProductSelect" type="button" selector="//span[@class='product-image-wrapper']" />
+    </section>
+
+</sections>

@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <CIA_CareMax>
+      <version>0.1.0</version>
+    </CIA_CareMax>
+  </modules>
+  <global>
+    <helpers>
+      <caremax>
+        <class>CIA_CareMax_Helper</class>
+      </caremax>
+    </helpers>
+	<blocks>
+	  <caremax>
+		<class>CIA_CareMax_Block</class>
+	  </caremax>
+	</blocks>
+  </global>
+  <admin>
+	<routers>
+	  <caremax>
+	    <use>admin</use>
+		<args>
+		  <module>CIA_CareMax</module>
+		  <frontName>admin_caremax</frontName>
+		</args>
+	  </caremax>
+	</routers>
+  </admin>
+  <adminhtml>
+	<menu>
+	  <caremax module="caremax">
+		<title>CareMax</title>
+		<sort_order>100</sort_order>
+		<children>
+		  <caremaxbackend module="caremax">
+			<title>Generate shortcode</title>
+			<sort_order>0</sort_order>
+			<action>admin_caremax/adminhtml_caremaxbackend</action>
+		  </caremaxbackend>
+		</children>
+	  </caremax>
+	</menu>
+	<acl>
+	  <resources>
+		<all>
+		  <title>Allow Everything</title>
+		</all>
+		<admin>
+		  <children>
+			<caremax translate="title" module="caremax">
+			  <title>CareMax</title>
+			  <sort_order>1000</sort_order>
+			  <children>
+				  <caremaxbackend translate="title">
+					<title>Generate shortcode</title>
+				  </caremaxbackend>
+			  </children>
+			</caremax>
+		  </children>
+		</admin>
+	  </resources>
+	</acl>
+	<layout>
+	  <updates>
+		<caremax>
+		  <file>caremax.xml</file>
+		</caremax>
+	  </updates>
+	</layout>
+  </adminhtml>
+</config> 

@@ -1,0 +1,197 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+$theme_settings		 = $this->helper( 'Olegnax\Athlete2\Helper\Helper' )->getConfig( 'athlete2_settings/product' );
+if( $theme_settings[ 'product_tabs_accordion' ] ) {
+	$tabType = 'accordion';
+} else {
+	$tabType = 'tabs';
+}
+/** @var \Magento\Catalog\Block\Product\View\Details $block */
+?>
+<?php if ($detailedInfoGroup = $block->getGroupSortedChildNames('detailed_info', 'getChildHtml')): ?>
+	<div class="product info detailed">
+		<?php $layout = $block->getLayout(); ?>
+	        <div class="product data items <?= $tabType ?>" data-mage-init='{"<?= $tabType ?>":{"openedState":"active", "active":false }}'>
+			<?php foreach ($detailedInfoGroup as $name): ?>
+				<?php
+                $html = $layout->renderElement($name);
+                if (!trim($html)) {
+                    continue;
+                }
+                $alias = $layout->getElementAlias($name);
+                $label = $block->getChildData($alias, 'title');
+                ?>
+				<div class="data item title"
+					data-role="collapsible" id="tab-label-<?= $block->escapeHtmlAttr($alias) ?>">
+					<a class="data switch"
+					   tabindex="-1"
+					   data-toggle="trigger"
+					   href="#<?= $block->escapeUrl($alias) ?>"
+					   id="tab-label-<?= $block->escapeHtmlAttr($alias) ?>-title">
+						<?= /* @noEscape */ $label ?>
+					</a>
+				</div>
+				<div class="data item content"
+					 aria-labelledby="tab-label-<?= $block->escapeHtmlAttr($alias) ?>-title" id="<?= $block->escapeHtmlAttr($alias) ?>" data-role="content">
+					<?= /* @noEscape */ $html ?>
+				</div>
+			<?php endforeach; ?>
+
+		 <link rel="stylesheet" href="https://d1azc1qln24ryf.cloudfront.net/40686/revsglobal-pr-mod/style-cf.css?-c0avz5">
+			<script src="https://widget.reviews.io/combined/dist.js?v1"></script>
+			<link rel="stylesheet" href="https://widget.reviews.io/combined/style.css?v1">
+			<script src="https://widget.reviews.io/product/dist.js"></script>
+
+			<script src="https://widget.reviews.io/rating-snippet/dist.js"></script>
+			<link rel="stylesheet" href="https://widget.reviews.io/rating-snippet/dist.css" />
+
+			<script>
+			   	window.onload = function () {
+						var productSku = jQuery("[data-product-sku]").attr("data-product-sku");
+
+						if(productSku) {
+
+							var reviewsWidgetCode = "<div class='clearfix'></div><div id='ReviewsWidget'></div><div class='clearfix'></div>";
+
+							if(jQuery("#maincontent").find('.additional-products').length > 0) {
+								jQuery("#maincontent").find('.additional-products').before(reviewsWidgetCode);
+							} else if(jQuery("#maincontent").find('.amrelated-pack-wrapper').length > 0) {
+								jQuery("#maincontent").find('.amrelated-pack-wrapper').before(reviewsWidgetCode);
+							} else {
+								jQuery("#maincontent").append(reviewsWidgetCode);
+							}
+
+							new ReviewsWidget('#ReviewsWidget', {
+								 store: 'caremaxcomau',
+								 widget: 'combined-widget',
+								 options: {
+										 types: 'product_review', // store_review,product_review,questions (choose what content you prefer to show in this widget)
+										 per_page: 20, // Any number (set how many reviews/questions you want to show per page)
+
+										 /* Product Reviews Settings */
+										 product_review: {
+												 sku: productSku,  //Multiple SKU's seperated by semicolon
+												 enable_write_review:true,
+												 enable_smart_filters:true,
+												 enable_rating_filters:true,
+												 enable_toggle_filters:true,
+												 enable_social_sharing:false,
+												 enable_helpful:false,
+												 enable_featured_review_photos:true,
+												 enable_featured_social_photos:true,
+												 show_mention_text:true,
+												 show_dates:true,
+												 show_replies:true,
+												 show_avatars:true,
+												 show_photos:true,
+												 show_verify_status:true,
+												 structured_data: {
+													 mpn: productSku,
+													 gtin8: (jQuery('[data-th="UPC"]').length > 0 ? jQuery('[data-th="UPC"]').html() : ""),
+													 description: (jQuery("meta[property='og:description']").length > 0 ? jQuery("meta[property='og:description']").attr("content") : ''),
+													 image: jQuery("meta[property='og:image']").attr("content"),
+													 brand: [{
+														type: "Brand",
+														name: (jQuery('[data-th="brand"]').length > 0 ? jQuery('[data-th="brand"]').html() : "Caremax"),
+													}],
+
+
+
+
+													  offers: [{
+														type: "Offer",
+														price: jQuery("meta[property='product:price:amount']").attr("content"),
+														priceCurrency: jQuery("meta[property='product:price:currency']").attr("content"),
+														url: jQuery("meta[property='og:url']").attr("content"),
+														availability: ("http://schema.org/" + (jQuery('.stock.available').length > 0 ? 'InStock' : 'OutOfStock')),
+														priceValidUntil: new Date(Date.now() + (30 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
+													}],
+												 },
+										 },
+
+								 },
+
+								 /* Customise Colours & Fonts */
+								 styles: {
+										 starColor:'#f47e27',
+										 textColor:'#333333',
+										 primaryColor:'#92D244',
+										 textColor:'#666666',
+										 neutralColor:'#ececec',
+										 backgroundColor:'#ffffff',
+										 formColor:'#dcdcdc',
+										 baseTextSize:'14px',
+										 header_style:'',
+										 primaryFont: "'Poppins', Helvetica, Arial, sans-serif",
+								 },
+
+								 /* Customise Buttons */
+								 buttons:{
+										 smart_filter:'solid',
+										 write_review:'solid',
+										 selected_page:'outline'
+								 },
+
+								 /* Avatar Settings */
+								 avatars:{
+										 enable_gravatar:false,
+										 gravatar_fallback:'identicon'
+								 },
+
+								 /* Other Options*/
+								 reviewsLogo:{
+										 show_logo:true,
+										 style:'black'
+								 }
+
+						 });
+
+						 jQuery(".product-info-price").css("margin-bottom", "0px");
+						 jQuery(".product-info-price").after("<div class='ruk_rating_snippet' data-sku='" + productSku + "'></div>");
+
+						 ratingSnippet("ruk_rating_snippet",{
+							 store: "caremaxcomau",
+							 color: "#f47e27",
+							 linebreak: false,
+							 text: "Reviews"
+						 });
+
+						 var snippet = document.querySelectorAll(".ruk_rating_snippet");
+								 for(var i=0;i<snippet.length;i++) {
+									 snippet[i].onclick = function(event) {
+										 jQuery('html, body').animate({
+											scrollTop: jQuery("#ReviewsWidget").offset().top-50
+										}, 0);
+									 }
+								 }
+
+						}
+
+
+				 };
+			</script>
+
+			<style>
+				.ruk_rating_snippet .ruk-rating-snippet-count {
+					font-family: 'Poppins', Helvetica, Arial, sans-serif !important;
+				}
+			</style>
+
+		</div>
+	</div>
+<?php endif; ?>
+
+<script type="text/javascript">
+	require(["jquery"],function($){
+	 $(document).ready(function(){
+	 	$(".data.item").click(function(){
+			$(this).toggleClass("open");
+		});
+	 })
+	});
+
+</script>

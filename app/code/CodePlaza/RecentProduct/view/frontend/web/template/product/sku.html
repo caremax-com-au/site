@@ -1,0 +1,11 @@
+<strong if="isAllowed($row())"
+   class="product sku">
+    <div class="ruk_rating_snippet" data-bind="attr: {'data-sku': getValue($row())},afterRender: 
+    ratingSnippet('ruk_rating_snippet',{
+        store: 'caremaxcomau',
+        color: '#f47e27',
+        linebreak: false,
+        text: 'Reviews'
+        });
+    "></div>
+</strong>

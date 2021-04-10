@@ -1,0 +1,137 @@
+//
+//  Datepicker
+//  _____________________________________
+
+//
+//  Common
+//  -------------------------------------
+
+& when (@media-common = true) {
+    .amform-body .ui-datepicker {
+        overflow: hidden;
+        padding: 0;
+        border: 0;
+        border-radius: 4px;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
+    }
+
+    .amform-body  .ui-datepicker .ui-datepicker-header {
+        padding: 16px 22px;
+    }
+
+    .amform-body .ui-datepicker .ui-datepicker-title {
+        margin: 0;
+        text-align: left;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+
+    .amform-body .ui-datepicker .ui-datepicker-title .ui-datepicker-month {
+        margin-right: 0;
+        width: auto;
+    }
+
+    .amform-body .ui-datepicker .ui-datepicker-title .ui-datepicker-year {
+        & {
+            width: 70px;
+            border: 0;
+        }
+
+        &:focus {
+            outline: none;
+            box-shadow: none;
+        }
+    }
+
+    .amform-body .ui-datepicker .ui-datepicker-prev,
+    .amform-body .ui-datepicker .ui-datepicker-next {
+        top: 20px;
+        right: 22px;
+        left: auto;
+    }
+
+    .amform-body .ui-datepicker .ui-datepicker-prev {
+        right: 38px;
+    }
+
+    .amform-body .ui-datepicker .ui-datepicker-prev span.ui-icon,
+    .amform-body .ui-datepicker .ui-datepicker-next span.ui-icon {
+        width: 7px;
+        height: 7px;
+        border: 0;
+        border-top: 1px solid #333;
+        border-left: 1px solid #333;
+        transform: rotate(-45deg);
+    }
+
+    .amform-body .ui-datepicker .ui-datepicker-next span.ui-icon {
+        transform: rotate(135deg);
+    }
+
+    .amform-body .ui-datepicker .ui-datepicker-calendar {
+        margin-bottom: @amcform__indent;
+        border: 0;
+    }
+
+    .amform-body .ui-datepicker .ui-datepicker-calendar th {
+        border: 0;
+        border-bottom: 1px solid @amcform-pager__border-color;
+        background: transparent;
+        color: @amcform-pager__disabled__color;
+        text-align: center;
+        font-weight: 400;
+    }
+
+    .amform-body .ui-datepicker .ui-datepicker-calendar td {
+        & {
+            padding: 0;
+            border: 0;
+            text-align: center;
+        }
+
+        &.ui-state-disabled,
+        &.ui-datepicker-today {
+            background: none;
+        }
+
+        &:first-child {
+            padding-left: @amcform__indent;
+        }
+
+        &:last-child {
+            padding-right: @amcform__indent;
+        }
+    }
+
+    .amform-body .ui-datepicker .ui-datepicker-calendar tr:first-child td {
+        padding-top:  @amcform__indent;
+    }
+
+    .amform-body .am-picker-year .ui-datepicker-calendar td a {
+        & {
+            display: block;
+            padding: 0;
+            width: 43px;
+            height: 43px;
+            border-radius: 42px;
+            text-align: center;
+            line-height: 42px;
+        }
+
+        &.ui-state-hover {
+            background: #edf4ff;
+            color: @amcform-text__color;
+        }
+
+        &.ui-state-highlight {
+            background: @amcform-pager__border-color;
+        }
+
+        &.ui-state-active {
+            background: @amcform-button__background;
+            color: #fff;
+            font-weight: 700;
+        }
+    }
+}

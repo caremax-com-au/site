@@ -1,0 +1,101 @@
+<link type="text/css" rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/ui-lightness/jquery-ui.css" />
+<link type="text/css" rel="stylesheet" href="//www.caremax.com.au/js/cia/ui.multiselect.css" />
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
+<script type="text/javascript" src="//www.caremax.com.au/js/cia/ui.multiselect.js"></script>
+<script type="text/javascript">
+    jQuery.noConflict();
+	jQuery(function(){
+		jQuery("#products").multiselect( );          
+		jQuery("#attributelist").multiselect();   		
+	});
+</script> 
+
+<form action="<?php echo $this->getUrl("caremax/generatecode")?>" method="post" id="validate-license" name="validate-license" enctype="multipart/form-data">
+   <?php echo $block->getBlockHtml('formkey') ?>
+   <div class="entry-edit">
+      <div class="entry-edit-head">
+         <h4 class="icon-head head-edit-form fieldset-legend">Admin configuration for compare products</h4>
+      </div>
+      <div class="fieldset " id="base_fieldset">
+         <div class="hor-scroll">
+            <table cellspacing="0" class="form-list">
+               <tbody>
+                  <tr>
+                     <td class="label"><label for="importtype">Selected SKUs</label></td>
+                     <td class="value">
+                         <select id="products" class="multiselect" multiple="multiple" name="products[]">
+                                        <?php 
+								$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$productCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\CollectionFactory');
+$collection = $productCollection->create()
+                                ->addAttributeToSelect('*') 
+                                ->addAttributeToFilter('status', \Magento\Catalog\Model\Product\Attribute\Source\Status::STATUS_ENABLED)
+                                ->setOrder('created_at', 'desc')
+                                ->load();
+foreach($collection as $prod)
+                                         {
+                                           $productid = $prod->getId();
+										   echo "<option value='".$prod->getSku()."'>".$prod->getName()." | ".$prod->getSku()."</option>";  
+                                         }								
+										  
+                                         ?>
+                                    </select>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td class="label"><label for="importtype">Selected Product Features</label></td>
+                     <td class="value">
+                        <select id="attributelist" class="multiselect" multiple="multiple" name="attributelist[]">
+                            <?php 
+							
+							 $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+                             $collectionFactory = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\Attribute\CollectionFactory');
+                             $attributes = $collectionFactory->create();
+
+						   //$attributes = Mage::getResourceModel('catalog/product_attribute_collection')->getItems();
+							foreach ($attributes as $attribute){
+								echo ' <option value="'.$attribute->getAttributecode().'">'.$attribute->getFrontendLabel().'</option>';
+							}
+							?>
+                          
+                        </select>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td colspan="2">
+                        <button type="button" onclick="checkcode()" class="scalable save" title="Save"><span><span>Save</span></span></button>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </div>
+</form>
+
+<div class="entry-edit">
+      <div class="entry-edit-head">
+         <h4 class="icon-head head-edit-form fieldset-legend">Generated code</h4>
+      </div>
+      <div class="fieldset " id="base_fieldset">
+         <div id="bageneratecode" class="hor-scroll">it will show here after generate code </div></div>
+		  
+<script>
+function checkcode(){
+	var replaced =  "Cia\\Caremax\\Block\\Compare"; 
+var products = jQuery("#products option:selected").map(function(i, opt) {
+  return jQuery(this).val();
+}).toArray().join(',');
+
+var attributelist = jQuery("#attributelist option:selected").map(function(i, opt) {
+  return jQuery(this).val();
+}).toArray().join(',');
+	
+	
+	var code = '{{block class="'+replaced+'" name="customblock" template="Cia_Caremax::compare.phtml" skus="'+products+'" attributes="'+attributelist+'"}}'
+	jQuery("#bageneratecode").html(code);
+}
+</script>
+
+ 

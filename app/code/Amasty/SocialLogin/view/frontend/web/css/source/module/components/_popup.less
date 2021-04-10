@@ -1,0 +1,436 @@
+//
+//  Popup Styles
+//  ____________________________________________
+
+//
+//  Imports
+//  ----------------------------------------------
+
+@import '../_helpers';
+
+//
+//  Common
+//  --------------------------------------------
+
+& when (@media-common = true) {
+    .amsl-login-success {
+        padding: 50px;
+        color: @amsl-success-message__color;
+    }
+
+    .amsl-popup-overlay {
+        .am-flex(none, center);
+
+        position: fixed;
+        top: 0;
+        z-index: 99999;
+        overflow: auto;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, .4);
+    }
+
+    .amsl-popup-block {
+        & {
+            position: relative;
+            box-sizing: border-box;
+            margin: 10px auto auto;
+            min-width: 300px;
+            max-width: 95vw;
+            border-radius: 8px;
+            background: #fff;
+        }
+
+        .amsl-social-login {
+            min-height: 180px;
+        }
+
+        .amsl-button-wrapper {
+            margin: 0 10px 15px;
+        }
+
+        .amsl-form {
+            margin: 0 20px 65px;
+            min-width: 250px;
+        }
+
+        .block {
+            margin-bottom: 0;
+        }
+
+        .actions-toolbar > .primary {
+            margin-bottom: 0;
+        }
+    }
+
+    .amsl-popup-block.-social-top .amsl-login-content {
+        & {
+            .am-flex();
+
+            flex-direction: column-reverse;
+        }
+
+        .amsl-separator {
+            display: block;
+            margin: 45px 20px;
+        }
+
+        .amsl-form {
+            margin-bottom: 20px;
+        }
+
+        .amsl-social-login {
+            align-items: center;
+            -ms-flex-pack: distribute;
+            justify-content: space-around;
+            margin: 0 20px;
+            padding: 0;
+            min-height: inherit;
+            border-radius: 4px;
+        }
+
+        .amsl-social-login .amsl-title {
+            display: none;
+        }
+
+        .amsl-social-login .amsl-title.-short {
+            position: relative;
+            display: block;
+            margin: 0;
+            padding: 0;
+            background: none;
+            transform: none;
+        }
+
+        .amsl-social-login .amsl-buttons {
+            margin: 20px 0;
+            padding: 0;
+            width: 60%;
+        }
+
+        .amsl-social-login .amsl-button-wrapper {
+            margin: 5px;
+        }
+
+        .amsl-social-login .amsl-button {
+            width: @amsl-social-button__on-top__size;
+            height: @amsl-social-button__on-top__size;
+        }
+
+        .amsl-social-login .amsl-social-icon {
+            transform: scale(.6);
+        }
+
+        .amsl-error {
+            order: 1;
+            margin: 5px 20px;
+        }
+
+        .amsl-error.-social {
+            margin: 0;
+        }
+    }
+
+    .amsl-popup-block.-social-top .amsl-login-content .amsl-social-login.-labeled-buttons {
+        & {
+            flex-direction: column;
+            padding: 20px 0 0;
+        }
+
+        .amsl-error.-social {
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .amsl-buttons {
+            align-items: flex-start;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .amsl-button-wrapper {
+            box-sizing: border-box;
+            margin: 0 0 15px;
+            padding: 0 15px;
+            width: 100%;
+        }
+
+        .amsl-button {
+            width: auto;
+        }
+
+        .amsl-social-icon {
+            margin: auto 5px;
+            transform: none;
+        }
+    }
+
+    .amsl-popup-block .actions-toolbar {
+        & {
+            .am-flex(center, center);
+
+            flex-direction: column;
+            margin-top: 35px;
+        }
+
+        &:before,
+        &:after {
+            display: none;
+        }
+
+        .action.primary {
+            box-sizing: border-box;
+            margin: 0;
+            /*padding: 14px 45px;*/
+            /*height: 50px;*/
+            /*border: 2px solid transparent;*/
+            /*border-radius: 4px;*/
+            /*background: @amsl-main-blue__color;*/
+            box-shadow: none;
+            /*color: #fff;*/
+            /*font-weight: 400;
+            font-size: 18px;*/
+        }
+
+        /*.action.primary:hover,
+        .action.primary:hover:focus {
+            background: #5891e6;
+        }
+
+        .action.primary:focus {
+            .amsl-focus;
+        }*/
+    }
+
+    .amsl-popup-block .fieldset {
+        & {
+            margin-bottom: 25px;
+        }
+
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+
+        & > .field > .label,
+        & > .fields > .field > .label {
+            font-weight: 400;
+        }
+    }
+
+    .amsl-popup-block .checkbox {
+        & {
+            margin: 0 5px 0 0;
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+        }
+
+        & + .label {
+            vertical-align: middle;
+        }
+    }
+
+    .amsl-popup-block .input-text {
+        & {
+            height: 45px;
+            border: 0;
+            border-radius: 4px;
+            background: #f2f2f2;
+            color: @amsl-input-text__color;
+        }
+
+        &::placeholder {
+            color: #a1a1a1;
+        }
+    }
+
+    .amsl-popup-block .amsl-close {
+        & {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 15px;
+            height: 15px;
+            background: @amsl-close-icon__background;
+            background-size: contain;
+            cursor: pointer;
+        }
+
+        &:hover {
+            background: @amsl-close-icon__hover__background;
+            background-size: contain;
+        }
+    }
+
+    .amsl-popup-block .form-create-account .fieldset.create.account:after,
+    .amsl-popup-block .block-title,
+    .amsl-popup-block .field.note {
+        display: none;
+    }
+
+    .amsl-popup-block.-social-top .amsl-button-showmore {
+        margin: 25px 0 7px;
+    }
+}
+
+//
+//  Tablet
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .amsl-popup-block {
+        & {
+            margin: auto;
+            max-width: 570px;
+        }
+
+        &.-social-right,
+        &.-social-left {
+            max-width: 850px;
+        }
+
+        &.-social-left .amsl-login-content {
+            flex-direction: row-reverse;
+        }
+
+        &.-social-right .amsl-login-content {
+            flex-direction: row;
+        }
+
+        .amsl-login-content {
+            width: 425px;
+        }
+
+        .amsl-register-content {
+            width: 570px;
+        }
+
+        .amsl-register-content .fieldset.create.info .field-name-firstname,
+        .amsl-register-content .fieldset.create.info .field-name-lastname {
+            display: inline-block;
+            margin-bottom: 0;
+            width: 48%;
+        }
+
+        .amsl-tablist {
+            margin: 30px 40px 40px;
+        }
+
+        .amsl-form {
+            margin: 0 40px 70px;
+            min-width: 300px;
+        }
+
+        .amsl-social-login .amsl-buttons {
+            padding: 50px;
+        }
+
+        .amsl-button-wrapper {
+            margin: 0 15px 15px;
+        }
+
+        .amsl-login-content .amsl-button-wrapper.with-label.-rectangular {
+            margin: 0 0 15px;
+        }
+    }
+
+    .amsl-popup-block.-social-right .amsl-login-content,
+    .amsl-popup-block.-social-left .amsl-login-content {
+        & {
+            .am-flex(none, none, wrap);
+
+            padding-bottom: 50px;
+            width: 100%;
+        }
+
+        .amsl-form {
+            flex: auto;
+            max-width: 330px;
+        }
+
+        .amsl-form,
+        .fieldset {
+            margin-bottom: 0;
+        }
+
+        .amsl-separator {
+            display: block;
+        }
+
+        .amsl-social-wrapper {
+            flex: 1;
+            margin: 0 40px;
+            min-width: 300px;
+            width: auto;
+        }
+
+        .amsl-social-login {
+            flex-direction: column;
+            padding: 0;
+            border-radius: 4px;
+        }
+
+        .amsl-social-login .amsl-buttons {
+            box-sizing: border-box;
+            padding: 0 35px;
+            width: 100%;
+        }
+
+        .amsl-social-login .amsl-title {
+            margin: 18px auto;
+            padding: 10px 10px;
+            background: none;
+            transform: none;
+        }
+
+        .amsl-error.-default {
+            order: 0;
+            margin: 0 40px 10px;
+            width: 100%;
+        }
+
+        .amsl-error.-social {
+            flex-basis: auto;
+            order: 1;
+            margin: auto 0 0;
+        }
+
+        .amsl-title {
+            position: relative;
+        }
+    }
+
+    .amsl-popup-block.-social-right .amsl-login-content.-empty,
+    .amsl-popup-block.-social-left .amsl-login-content.-empty {
+        & {
+            flex-direction: column;
+        }
+
+        .amsl-error {
+            max-width: 320px;
+        }
+    }
+
+    .amsl-popup-block.-social-top .amsl-login-content {
+        .amsl-separator {
+            margin: 45px 40px;
+        }
+
+        .amsl-social-login {
+            margin: 0 40px;
+            border-radius: 4px;
+        }
+
+        .amsl-form {
+            margin-bottom: 55px;
+        }
+
+        .amsl-error {
+            margin: 0 40px 10px;
+        }
+    }
+
+    .amsl-popup-block.-social-bottom .amsl-error {
+        margin: 35px 40px 10px;
+    }
+}

@@ -1,0 +1,26 @@
+<div class="amcountdown-list">
+    <div class="amcountdown-wrap">
+        <div class="amcountdown-item">
+            <span class="amcountdown-number" data-bind="text: $parent.days"></span>
+            <!-- ko i18n: 'days' --><!-- /ko -->
+        </div>
+        <div class="amcountdown-item">
+            <span class="amcountdown-number" data-bind="text: $parent.hours"></span>
+            <!-- ko i18n: 'hours' --><!-- /ko -->
+        </div>
+    </div>
+    <div class="amcountdown-wrap">
+        <div class="amcountdown-item">
+            <span class="amcountdown-number" data-bind="text: $parent.min"></span>
+            <!-- ko i18n: 'min' --><!-- /ko -->
+        </div>
+        <div class="amcountdown-item">
+            <span class="amcountdown-number" data-bind="text: $parent.sec"></span>
+            <!-- ko i18n: 'sec' --><!-- /ko -->
+        </div>
+    </div>
+</div>
+<div class="amcountdown-progressbar">
+    <progress class="amcountdown-progress" value="70" max="100" data-bind="value: getCurrentPercent()"></progress>
+    <div class="amcountdown-pointer" data-bind="style: {'left' : getCurrentPercentString()}"></div>
+</div>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF2
+ */
+-->
+<operations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataOperation.xsd">
+    <operation name="CreateStockItemBackorder" dataType="stock_item_backorder" type="create">
+        <field key="qty">integer</field>
+        <field key="is_in_stock">boolean</field>
+        <field key="use_config_backorders">boolean</field>
+        <field key="backorders">integer</field>
+    </operation>
+    <operation name="UpdateStockItemBackorder" dataType="stock_item_backorder" type="update">
+        <field key="qty">integer</field>
+        <field key="is_in_stock">boolean</field>
+        <field key="use_config_backorders">boolean</field>
+        <field key="backorders">integer</field>
+    </operation>
+</operations>

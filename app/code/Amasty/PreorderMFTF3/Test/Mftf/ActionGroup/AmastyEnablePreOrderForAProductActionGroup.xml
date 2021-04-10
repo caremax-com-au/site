@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF3
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AmastyEnablePreOrderForAProductActionGroup">
+        <click selector="{{AdminProductFormSection.advancedInventoryLink}}" stepKey="openAdvInventory"/>
+        <waitForPageLoad stepKey="waitForPageLoad0"/>
+        <uncheckOption selector="{{AdminProductFormAdvancedInventorySection.useConfigSettingsBackorder}}" stepKey="uncheckCheckbox"/>
+        <selectOption userInput="101" selector="{{AdminProductFormAdvancedInventorySection.backordersSelect}}" stepKey="selectBackorders"/>
+        <click selector="{{AdminProductFormAdvancedInventorySection.doneButton}}" stepKey="closeAdvInventory"/>
+        <waitForPageLoad stepKey="waitForPageLoad2"/>
+        <click selector="{{AdminProductFormActionSection.saveArrow}}" stepKey="saveDropdown"/>
+        <click selector="{{AdminProductFormActionSection.saveAndClose}}" stepKey="saveChanges"/>
+        <waitForPageLoad stepKey="waitForPageLoad1"/>
+    </actionGroup>
+</actionGroups>

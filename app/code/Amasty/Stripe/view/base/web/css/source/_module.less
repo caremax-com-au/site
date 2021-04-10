@@ -1,0 +1,263 @@
+//
+//  Stripe
+//  ____________________________________________
+
+//
+//  Imports
+//  ____________________________________________
+
+@import 'module/_icons';
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .amstipe-add-wrapper {
+        & {
+            margin-top: 30px;
+        }
+
+        .amstripe-error {
+            color: #e02522;
+            font-weight: 600;
+        }
+    }
+
+    .amasty-save-card-checkbox {
+        margin-top: 15px;
+    }
+
+    //magento payment method styles
+    .payment-method-amasty_stripe {
+        .amstripe-image {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            margin-left: auto;
+            width: 71px;
+            transform: translateY(-50%);
+        }
+
+        .payment-method-title {
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+        }
+
+        .payment-method-title .label {
+            position: relative;
+            display: flex;
+            align-items: center;
+            flex: auto;
+            margin: 0;
+            padding: 20px 0 17px 4px;
+        }
+    }
+
+    .amstripe-saved-cards {
+        .amstripe-card {
+            width: auto;
+            height: 20px;
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .amstripe-card.-visa {
+            background-image: @amstripe-card__visa__background-image;
+        }
+
+        .amstripe-card.-mastercard {
+            background-image: @amstripe-card__mastercard__background-image;
+        }
+
+        .amstripe-card.-jcb {
+            background-image: @amstripe-card__jcb__background-image;
+        }
+
+        .amstripe-card.-diners {
+            background-image: @amstripe-card__diners__background-image;
+        }
+
+        .amstripe-card.-unionpay {
+            background-image: @amstripe-card__unionpay__background-image;
+        }
+
+        .amstripe-card.-american {
+            background-image: @amstripe-card__american__background-image;
+        }
+
+        .amstripe-card.-discover {
+            background-image: @amstripe-card__discover__background-image;
+        }
+
+        .amstripe-td {
+            padding: 6px 3px;
+            vertical-align: middle;
+            text-align: left;
+        }
+
+        .amstripe-td.-name {
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+    }
+
+    .amastripe-card-saved {
+        & {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .amstripe-card {
+            & {
+                display: flex;
+                align-items: center;
+            }
+
+            &:before {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+        }
+
+        .amstripe-card > * {
+            margin-right: 5px;
+        }
+
+        .amstripe-radiobutton {
+            margin-right: 0;
+        }
+
+        .amstripe-logo {
+            width: 60px;
+            height: 30px;
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .amstripe-logo.-visa {
+            &:extend(.amstripe-saved-cards .amstripe-card.-visa);
+        }
+
+        .amstripe-logo.-mastercard {
+            &:extend(.amstripe-saved-cards .amstripe-card.-mastercard);
+        }
+
+        .amstripe-logo.-jcb {
+            &:extend(.amstripe-saved-cards .amstripe-card.-jcb);
+        }
+
+        .amstripe-logo.-diners {
+            &:extend(.amstripe-saved-cards .amstripe-card.-diners);
+        }
+
+        .amstripe-logo.-unionpay {
+            &:extend(.amstripe-saved-cards .amstripe-card.-unionpay);
+        }
+
+        .amstripe-logo.-american {
+            &:extend(.amstripe-saved-cards .amstripe-card.-american);
+        }
+
+        .amstripe-logo.-discover {
+            &:extend(.amstripe-saved-cards .amstripe-card.-discover);
+        }
+
+        .amstripe-name {
+            font-weight: bold;
+        }
+    }
+
+    .amstripe-newcard {
+        margin-bottom: 5px;
+    }
+}
+
+//
+//  Tablet
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .amstripe-saved-cards {
+        .amstripe-card {
+            height: 12px;
+            background-position: left;
+        }
+
+        .amstripe-td {
+            padding: 10px;
+        }
+
+        .amstripe-td.-button {
+            padding-right: 0;
+            text-align: right;
+        }
+
+        .amstripe-action {
+            text-align: right;
+        }
+
+        .amstripe-primary {
+            float: initial;
+        }
+
+        .amstripe-primary .amstripe-button {
+            margin-right: 0;
+        }
+    }
+
+    .amstipe-add-wrapper .amstripe-button {
+        padding: 7px 21px;
+    }
+
+    //magento payment method styles
+    .checkout-payment-method .payment-method.payment-method-amasty_stripe .payment-method-title {
+        padding: 0;
+    }
+}
+
+#customer-co-stripe-form label {
+    display: inline-block;
+    margin: 0 0 8px;
+    font-weight: 600;
+}
+
+#customer-co-stripe-form label:after {
+    margin: 0 0 0 5px;
+    color: #e02b27;
+    content: '*';
+    font-size: 1.2rem;
+}
+
+.fieldset.payment.items.ccard.amasty_stripe {
+    border: none;
+}
+
+#payment_form_amasty_stripe .data-grid tr td {
+    border: none;
+}
+
+.amstripe-newcard {
+    margin-top: 10px;
+}
+
+#payment_form_amasty_stripe {
+    margin-top: 10px;
+}
+
+#customer-co-stripe-form {
+    margin-top: unset;
+}
+
+#customer-co-stripe-form fieldset {
+    padding-left: 0;
+}
+
+.amstripe-td {
+    padding: 0;
+    width: 40px;
+}

@@ -1,0 +1,10 @@
+<script type="text/x-magento-init">
+    <?php 
+
+    echo \Mirasvit\Core\Service\SerializeService::encode($block->getJsConfig()) ?>
+</script>
+
+<div data-bind="scope: 'feed_export'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+

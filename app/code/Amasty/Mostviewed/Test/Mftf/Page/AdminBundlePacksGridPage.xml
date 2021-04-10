@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Mostviewed
+ */
+-->
+
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/pageSchema.xsd">
+    <page name="AdminBundlePacksGridPage" url="/amasty_mostviewed/pack/index/" area="admin" module="Mostviewed">
+        <section name="AdminBundlePacksGridSection" />
+    </page>
+    <page name="AdminRelatedProductConfigPage" url="/admin/system_config/edit/section/ammostviewed/key/" area="admin" module="Mostviewed">
+        <section name="AdminBundlePacksConfiguration" />
+    </page>
+    <page name="AdminCreateSimpleProductPage" url="/catalog/product/" area="admin" module="Mostviewed">
+        <section name="AdminCreateSimpleProduct" />
+    </page>
+</pages>

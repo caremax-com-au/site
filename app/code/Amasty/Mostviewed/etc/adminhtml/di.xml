@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2021 Amasty (https://www.amasty.com)
+ * @package Amasty_Mostviewed
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Amasty\Mostviewed\Controller\Adminhtml\Product\Mui\Render">
+        <plugin name="Amasty_Mostviewed::save-matched-products" type="Amasty\Mostviewed\Plugin\Mui\Render" />
+    </type>
+
+    <type name="Magento\Sales\Model\ResourceModel\Order\Grid\Collection">
+        <plugin name="Amasty_Mostviewed::join-pack-data" type="Amasty\Mostviewed\Plugin\Sales\Model\ResourceModel\Order\Grid\Collection\JoinPackData" />
+        <plugin name="Amasty_Mostviewed::apply-pack-filters" type="Amasty\Mostviewed\Plugin\Sales\Model\ResourceModel\Order\Grid\Collection\ApplyPackFilters" />
+    </type>
+
+    <type name="Amasty\Mostviewed\Plugin\Sales\Model\ResourceModel\Order\Grid\Collection\ApplyPackFilters">
+        <arguments>
+            <argument name="filterPool" xsi:type="array">
+                <item name="mostviewed_includes_bundles" xsi:type="object">Amasty\Mostviewed\Model\ResourceModel\Pack\Analytic\Sales\OrderFilters\OrderIncludePackFilter</item>
+                <item name="mostviewed_bundles" xsi:type="object">Amasty\Mostviewed\Model\ResourceModel\Pack\Analytic\Sales\OrderFilters\OrderByPackFilter</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Sales\Block\Adminhtml\Order\View\Tab\Info">
+        <plugin name="Amasty_Mostviewed::append-pack-info" type="Amasty\Mostviewed\Plugin\Sales\Block\Adminhtml\Order\View\Tab\Info\AppendPackInfo" />
+    </type>
+</config>

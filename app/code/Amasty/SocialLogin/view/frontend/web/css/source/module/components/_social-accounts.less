@@ -1,0 +1,131 @@
+//
+//  Social Accounts Styles
+//  ____________________________________________
+
+//
+//  Common
+//  --------------------------------------------
+
+& when (@media-common = true) {
+    .amsl-accounts {
+        & {
+            flex-direction: column;
+        }
+
+        &,
+        .amsl-linked {
+            .am-flex(space-between);
+        }
+
+        .amsl-accounts-block {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .amsl-button {
+            width: @amsl-social-button__accounts__size;
+            height: @amsl-social-button__accounts__size;
+        }
+
+        .amsl-button.-amazon,
+        .amsl-button.-paypal {
+            border: 1px solid #ececec;
+        }
+
+        .amsl-linked {
+            & {
+                align-items: center;
+                box-sizing: border-box;
+                margin: 0 0 15px 23px;
+                padding: 8px 8px 8px 0;
+                height: 45px;
+                background: #ececec;
+            }
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+
+        .amsl-linked .amsl-button {
+            position: absolute;
+            transform: translateX(-50%);
+        }
+
+        .amsl-name {
+            overflow: hidden;
+            margin: 0 2px 0 40px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .amsl-social-icon {
+            transform: scale(.7);
+        }
+
+        .amsl-unlink {
+            & {
+                .am-flex(none, center);
+
+                padding: 1px 15px;
+                height: 100%;
+                border-radius: 4px;
+                background: @amsl-main-blue__color;
+                line-height: 1;
+            }
+
+            &,
+            &:hover,
+            &:visited {
+                color: #fff;
+                text-decoration: none;
+            }
+
+            &:hover {
+                background: #5891e6;
+            }
+        }
+
+        .amsl-social-login {
+            height: inherit;
+        }
+
+        .amsl-buttons {
+            padding: 35px;
+        }
+
+        .amsl-button-wrapper {
+            margin: 0 15px;
+        }
+
+        .amsl-button-wrapper:nth-of-type(n+4),
+        .amsl-button-wrapper.with-label.-rectangular:not(:first-of-type) {
+            margin-top: 15px;
+        }
+    }
+}
+
+//
+//  Tablet
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .amsl-accounts {
+        & {
+            flex-direction: row;
+        }
+
+        .amsl-accounts-block {
+            width: 45%;
+        }
+
+        .amsl-button-wrapper:not(.with-label):nth-of-type(3),
+        .amsl-button-wrapper:not(.with-label):nth-of-type(4) {
+            margin-top: 0;
+        }
+
+        .amsl-button-wrapper:nth-of-type(n+5) {
+            margin-top: 15px;
+        }
+    }
+}

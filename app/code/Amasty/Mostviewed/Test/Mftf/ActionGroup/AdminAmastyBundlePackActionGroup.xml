@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Mostviewed
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminAmastyCreateBundlePackActionGroup">
+        <arguments>
+            <argument name="am_test_bundle" />
+            <argument name="product1" />
+            <argument name="product2" />
+        </arguments>
+        <amOnPage url="{{AdminBundlePacksGridPage.url}}" stepKey="amOnBundlePacksGridPageForCreate" />
+        <waitForAjaxLoad stepKey="waitForAjaxLoad" />
+        <click selector="{{AdminBundlePacksGridSection.addNewBundlePack}}" stepKey="pressAddBundlePackButton" />
+        <waitForElementVisible selector="{{AdminNewBundlePacksSection.bundlePackName}}" stepKey="waitForBundlePackNameFieldVisible" />
+        <fillField userInput="{{am_test_bundle.bundle_name}}" selector="{{AdminNewBundlePacksSection.bundlePackName}}" stepKey="fillFieldBundlePackName" />
+        <generateDate date="Now" format="m/d/Y g:i A" stepKey="generateDateFrom" />
+        <fillField userInput="{$generateDateFrom}" selector="{{AdminNewBundlePacksSection.fromDate}}" stepKey="fillFromDateField" />
+        <generateDate date="+1 day" format="m/d/Y g:i A" stepKey="generateDateTo" />
+        <fillField userInput="{$generateDateTo}" selector="{{AdminNewBundlePacksSection.toDate}}" stepKey="fillToDateField" />
+        <click selector="{{AdminNewBundlePacksSection.displayBundlePackProductsTab}}" stepKey="pressToExpandBundlePackChildProductsTab" />
+        <waitForElementVisible selector="{{AdminNewBundlePacksSection.addBundlePackProducts}}" time="10" stepKey="waitForElementAddtoBundlePackVisible" />
+        <click selector="{{AdminNewBundlePacksSection.addBundlePackProducts}}" stepKey="pressToAddChildProducts" />
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1" />
+        <click selector="{{AdminNewBundlePacksSection.filterButton}}" stepKey="pressToExpandFilterMenu" />
+        <waitForAjaxLoad stepKey="waitForAjaxLoad2" />
+        <fillField userInput="{{product1}}" selector="{{AdminNewBundlePacksSection.productNameField}}" stepKey="fillProductNameFilterField" />
+        <click selector="{{AdminNewBundlePacksSection.applyFilterButton}}" stepKey="pressToApplyFilter" />
+        <waitForElementVisible selector="{{AdminNewBundlePacksSection.bundlePackProductCheckBox(product1)}}" time="10" stepKey="waitForElementAddtoBundlePackVisible1" />
+        <waitForElementNotVisible selector="{{AdminRelatedProductRulesGridSection.ajaxSpinner}}" stepKey="waitForElementAjaxSpinnerNotVisible" />
+        <click selector="{{AdminNewBundlePacksSection.bundlePackProductCheckBox(product1)}}" stepKey="pressToSelectProduct" />
+        <click selector="{{AdminNewBundlePacksSection.addSelectedMainProductsToBundlePack('1')}}" stepKey="pressToAddSelectedChildProducts" />
+        <waitForAjaxLoad stepKey="waitForBundleAjaxLoad" />
+        <waitForElementVisible selector="{{AdminNewBundlePacksSection.displayMainProductsTab}}" time="10" stepKey="waitForElementMainProductsTabVisible" />
+        <click selector="{{AdminNewBundlePacksSection.displayMainProductsTab}}" stepKey="pressToExpandBundlePackMainProductsTab" />
+        <waitForAjaxLoad stepKey="waitForBundleAjaxLoad1" />
+        <click selector="{{AdminNewBundlePacksSection.addMainProduct}}" stepKey="pressToExpandBundlePackMainProductsGrid" />
+        <waitForAjaxLoad stepKey="waitForBundleAjaxLoad2" />
+        <click selector="{{AdminNewBundlePacksSection.filterButtonForMainProduct}}" stepKey="pressToExpandFilterMenu1" />
+        <waitForElementVisible selector="{{AdminNewBundlePacksSection.productNameFieldForMainProduct}}" time="20" stepKey="waitForElementNameOfBundlePackFieldVisible" />
+        <fillField userInput="{{product2}}" selector="{{AdminNewBundlePacksSection.productNameFieldForMainProduct}}" stepKey="fillMainProductNameFilterField" />
+        <waitForAjaxLoad stepKey="waitForBundleAjaxLoad3" />
+        <click selector="{{AdminNewBundlePacksSection.applyFilterButton}}" stepKey="pressToApplyFilter1" />
+        <waitForElementVisible selector="{{AdminNewBundlePacksSection.bundlePackProductCheckBox(product2)}}" time="10" stepKey="waitForElementAddtoBundlePackVisible3" />
+        <click selector="{{AdminNewBundlePacksSection.bundlePackProductCheckBox(product2)}}" stepKey="pressToSelectMainProduct" />
+        <click selector="{{AdminNewBundlePacksSection.addSelectedMainProductsToBundlePack('2')}}" stepKey="pressToAddSelectedMainProducts" />
+        <click selector="{{AdminNewBundlePacksSection.saveNewBundlePack}}" stepKey="pressToSaveNewBundlePack" />
+        <see userInput="The Bundle Pack was successfully saved." selector="{{AdminBundlePacksGridSection.successMessage}}" stepKey="checkSaveRuleMessage" />
+    </actionGroup>
+
+    <actionGroup name="StoreFrontAmastyCheckBundlePackOnDifferentStoreViews">
+        <arguments>
+            <argument name="am_test_bundle" />
+        </arguments>
+        <amOnPage url="/tsv2/bundles" stepKey="amOnAllBundlePacksPage" />
+        <waitForElementVisible selector="{{StoreFrontBundlePacksSection.BundlePackBlock}}" stepKey="waitForRBundlePackBlockVisibleOnDefaultStoreView" />
+        <seeElement selector="{{StoreFrontBundlePacksSection.BundlePackBlock}}" stepKey="seeBlockWithBundlePackOnDefaultStoreView" />
+        <waitForPageLoad stepKey="waitForPageLoad1" />
+        <amOnPage url="/bundles" stepKey="amOnAllBundlePacksPage1" />
+        <seeElement selector="{{StoreFrontBundlePacksSection.BundlePackBlock}}" stepKey="seeBlockWithBundlePackOnCustomStoreView" />
+    </actionGroup>
+
+    <actionGroup name="AdminAmastyDeleteBundlePackActionGroup">
+        <arguments>
+            <argument name="am_test_bundle" />
+        </arguments>
+        <amOnPage url="{{AdminBundlePacksGridPage.url}}" stepKey="amOnBundlePackGridPageForDelete" />
+        <waitForAjaxLoad stepKey="waitForBundleGridAjaxLoad" />
+        <click selector="{{AdminBundlePacksGridSection.expandFilterButton}}" stepKey="pressExpandFilterBundleButton" />
+        <fillField userInput="{{am_test_bundle.bundle_name}}" selector="{{AdminNewBundlePacksSection.bundlePackName}}" stepKey="fillFieldBundlePackName" />
+        <click selector="{{AdminBundlePacksGridSection.applyFilterButton}}" stepKey="pressApplyFilterBundlePackButton" />
+        <waitForAjaxLoad stepKey="waitForRuleFilterAjaxLoad" />
+        <click selector="{{AdminBundlePacksGridSection.checkboxBundlePacksGrid}}" stepKey="pressBundlePackCheckBox" />
+        <click selector="{{AdminBundlePacksGridSection.dropdownActions}}" stepKey="pressBundlePackActionDropDown" />
+        <click selector="{{AdminBundlePacksGridSection.dropdownDeleteAction}}" stepKey="pressBundlePackDeleteAction" />
+        <waitForElementVisible selector="{{AdminBundlePacksGridSection.popupSubmitAction}}" stepKey="waitForDeleteBundlePackPopUp" />
+        <click selector="{{AdminBundlePacksGridSection.popupSubmitAction}}" stepKey="confirmDeleteBundlePackPopUp" />
+        <waitForElementVisible selector="{{AdminBundlePacksGridSection.successMessage}}" stepKey="waitForSuccessMessageVisible" />
+        <waitForElementNotVisible selector="{{AdminRelatedProductRulesGridSection.ajaxSpinner}}" stepKey="waitForElementAjaxSpinnerNotVisible" />
+        <see userInput="A total of 1 record(s) have been deleted." selector="{{AdminBundlePacksGridSection.successMessage}}" stepKey="checkRuleSuccessMessage" />
+        <waitForAjaxLoad stepKey="waitForRuleFilterAjaxLoad1" />
+        <click selector="{{AdminBundlePacksGridSection.resetBundlePacksGridFilter}}" stepKey="resetCardsGridFilter" />
+    </actionGroup>
+
+    <actionGroup name="StoreFrontAmastyCheckBundlePackDiscountAndTaxActionGroup">
+        <arguments>
+            <argument name="am_test_bundle" />
+        </arguments>
+        <amOnPage url="/bundles" stepKey="amOnAllBundlePacksPage" />
+        <waitForElementVisible selector="{{StoreFrontBundlePacksSection.AddBundlePackToCartButton}}" stepKey="waitForRBundlePackAddToCartButtonVisible" />
+        <click selector="{{StoreFrontBundlePacksSection.AddBundlePackToCartButton}}" stepKey="pressToAddBundlePackToCart" />
+        <waitForAjaxLoad stepKey="waitForAjaxLoad1" />
+        <see stepKey="seeSuccessMessage" selector="{{StoreFrontBundlePacksSection.successMessage}}" userInput="You added products to your shopping cart." />
+        <click selector="{{StoreFrontBundlePacksSection.showMiniCart}}" stepKey="pressToShowMiniCartPopUp" />
+        <waitForElementVisible selector="{{StoreFrontBundlePacksSection.productsInCart}}" stepKey="waitForProductsInCartVisible" />
+        <seeNumberOfElements userInput="2" selector="{{StoreFrontBundlePacksSection.productsInCart}}" stepKey="seeQtyProductsInCart" />
+        <click selector="{{StoreFrontBundlePacksSection.proceedToCheckoutButton}}" stepKey="pressToGoToCheckOutPage" />
+        <waitForPageLoad stepKey="waitForPageLoad1" />
+        <click selector="{{StoreFrontBundlePacksSection.bestwayShippingCheckBox}}" stepKey="pressToSelectShippingMethod" />
+        <waitForAjaxLoad stepKey="waitForAjaxLoad2" />
+        <click selector="{{StoreFrontBundlePacksSection.submitShippingMethodButton}}" stepKey="pressToSubmitShippingMethod" />
+        <waitForPageLoad stepKey="waitForPageLoad3" />
+        <seeElement selector="{{StoreFrontBundlePacksSection.discountBlock(TestBundlePack1.bundlediscount_twoproducts)}}" stepKey="seeDiscountBlock" />
+        <click selector="{{StoreFrontBundlePacksSection.expandTaxBlock}}" stepKey="pressToExpandTaxBlock" />
+        <seeElement selector="{{StoreFrontBundlePacksSection.taxBlock(TestBundlePack1.bundle_tax)}}" stepKey="seeTaxBlock" />
+        <click selector="{{StoreFrontBundlePacksSection.submitOrderButton}}" stepKey="pressToSubmitOrder" />
+        <waitForPageLoad stepKey="waitForPageLoad4" />
+        <click selector="{{StoreFrontBundlePacksSection.orderNumberLink}}" stepKey="pressToGoToStoreFrontOrderGrid" />
+        <waitForPageLoad stepKey="waitForPageLoad5" />
+        <seeElement selector="{{StoreFrontBundlePacksSection.discountBlock(TestBundlePack1.bundlediscount_twoproducts)}}" stepKey="seeDiscountBlockOnStoreFrontOrderGrid" />
+        <seeElement selector="{{StoreFrontBundlePacksSection.taxBlock(TestBundlePack1.bundle_tax)}}" stepKey="seeTaxBlockOnStoreFrontOrderGrid" />
+    </actionGroup>
+
+    <actionGroup name="AdminAmastyCreateBundlePackForLoginCustomerActionGroup" extends="AdminAmastyCreateBundlePackActionGroup">
+        <arguments>
+            <argument name="am_test_bundle" />
+            <argument name="product1" />
+            <argument name="product2" />
+        </arguments>
+        <click selector="{{AdminNewBundlePacksSection.generalCustomerGroup}}" stepKey="pressToSelectGeneralCustomerGroup" after="fillToDateField" />
+    </actionGroup>
+
+    <actionGroup name="AdminAmastyCreateBundlePackWithDifferentProductsQtyActionGroup" extends="AdminAmastyCreateBundlePackActionGroup">
+        <arguments>
+            <argument name="am_test_bundle" />
+            <argument name="product1" />
+            <argument name="product2" />
+        </arguments>
+        <click selector="{{AdminNewBundlePacksSection.generalCustomerGroup}}" stepKey="pressToSelectGeneralCustomerGroup" after="fillToDateField" />
+        <clearField selector="{{AdminNewBundlePacksSection.bundleProductQtyField}}" stepKey="clearFieldWithBundleProductQty" after="waitForBundleAjaxLoad" />
+        <fillField userInput="3" selector="{{AdminNewBundlePacksSection.bundleProductQtyField}}" stepKey="fillFieldWithBundleProductQty" after="clearFieldWithBundleProductQty" />
+    </actionGroup>
+
+    <actionGroup name="StoreFrontAmastyCheckBundlePackDiscountWithDifferentQtyBundleProductsActionGroup" extends="StoreFrontAmastyCheckBundlePackDiscountAndTaxActionGroup">
+        <arguments>
+            <argument name="am_test_bundle" />
+        </arguments>
+        <seeElement selector="{{StoreFrontBundlePacksSection.discountBlockWithDifferentQty(TestBundlePack1.bundlediscount_fourproducts)}}" stepKey="seeDiscountBlock" />
+        <remove keyForRemoval="pressToExpandTaxBlock" />
+        <remove keyForRemoval="seeTaxBlock" />
+        <seeElement selector="{{StoreFrontBundlePacksSection.discountBlockWithDifferentQty(TestBundlePack1.bundlediscount_fourproducts)}}" stepKey="seeDiscountBlockOnStoreFrontOrderGrid" />
+        <remove keyForRemoval="seeTaxBlockOnStoreFrontOrderGrid" />
+    </actionGroup>
+
+</actionGroups>

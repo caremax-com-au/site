@@ -1,0 +1,162 @@
+//
+//  Form
+//  _____________________________________
+
+//
+//  Common
+//  -------------------------------------
+
+& when (@media-common = true) {
+    .amform-form {
+        margin: 0 auto @amcform__indent;
+        max-width: 700px;
+    }
+
+    .amform-form-fieldset.fieldset {
+        margin-bottom: @amcform__indent;
+    }
+
+    .amform-form .fb-number {
+        max-width: 200px;
+    }
+
+    .amform-groupv2 {
+        display: inline-block;
+    }
+
+    .amcform-gdpr {
+        display: none;
+        margin-bottom: 20px;
+    }
+
+    .amform-versiontwo-label {
+        display: inline;
+        margin-right: @amcform__indent;
+        padding-right: @amcform__indent * 2;
+        word-break: break-all;
+    }
+
+
+    .amform-form .amform-hide-formload,
+    .amform-form .amform-hide-formload.action.primary {
+        display: none;
+    }
+
+    .amform-form .action.primary,
+    .amform-parent .action.primary {
+        & {
+            padding: 9px;
+            min-width: 120px;
+            background: @amcform-button__background;
+        }
+
+        &:hover {
+            background: @amcform-button__hover__background;
+        }
+
+        &:disabled {
+            background: @amcform-button__disable__background;
+        }
+    }
+
+    .amcform-toolbar {
+        text-align: right;
+    }
+
+    .amcform-toolbar > div {
+        display: inline-block;
+    }
+
+    .amform-form:not(.default) .amform-checkbox,
+    .amform-form:not(.default) .amform-radio,
+    .amform-form:not(.default) .amform-checkboxtwo,
+    .amform-form:not(.default) .amform-radiotwo {
+        & {
+            display: none;
+        }
+
+        & + label {
+            position: relative;
+            padding-left: 26px;
+            line-height: 16px;
+        }
+
+        & + label:before {
+            position: absolute;
+            top: 2px;
+            left: 0;
+            display: block;
+            box-sizing: border-box;
+            margin-right: 10px;
+            width: 16px;
+            height: 16px;
+            border: 1px solid @amcform-pager__border-color;
+            border-radius: 1px;
+            content: '';
+        }
+
+        &:checked + label:before {
+            border-color: @amcform-button__background;
+            background:  @amcform-button__background;
+        }
+    }
+
+    .amform-form:not(.default) .amform-checkbox:checked + label:after,
+    .amform-form:not(.default) .amform-checkboxtwo:checked + label:after {
+        position: absolute;
+        top: 3px;
+        left: 5px;
+        width: 4px;
+        height: 9px;
+        border-right: 2px solid #fff;
+        border-bottom: 2px solid #fff;
+        content: '';
+        transform: rotate(45deg);
+    }
+
+    .amform-form:not(.default) .amform-radio + label:before,
+    .amform-form:not(.default) .amform-radiotwo + label:before {
+        border-radius: 50%;
+    }
+
+    .amform-form:not(.default) .amform-radio:checked + label:before,
+    .amform-form:not(.default) .amform-radiotwo:checked + label:before {
+        border-width: 4px;
+        background: #fff;
+    }
+
+    .amform-form:not(.default) .kc-toggle {
+        & {
+            margin: 0 4px 0 0;
+            width: 26px;
+            height: 16px;
+            border: 0;
+            border-radius: 20px;
+            background: @amcform-pager__border-color;
+        }
+
+        &.on {
+            background: @amcform-button__background;
+        }
+    }
+
+    .amform-form:not(.default) .kc-toggle .kct-inner {
+        top: 2px;
+        left: 2px;
+        width: 12px;
+        height: 12px;
+        border: 0;
+        border-radius: 12px;
+        background: #fff;
+    }
+
+    .amform-form:not(.default) .kc-toggle.on .kct-inner {
+        left: 12px;
+    }
+
+    .amform-form:not(.default) .kct-on,
+    .amform-form:not(.default) .kct-off,
+    .amform-form:not(.default) .kct-handle {
+        display: none;
+    }
+}

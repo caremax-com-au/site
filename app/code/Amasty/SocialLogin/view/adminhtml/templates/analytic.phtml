@@ -1,0 +1,120 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_SocialLogin
+ */
+?>
+<?php
+/** @var \Amasty\SocialLogin\Block\Adminhtml\Analytic $block */
+?>
+
+<?php if ($block->isSocialLoginExists()): ?>
+    <div class="amsl-stat-title"><?= $block->escapeHtml(__('Social Login'))?></div>
+    <div class="amsl-stat-wrap">
+        <?php if ($block->getTopSocialLogin()): ?>
+            <div class="amsl-item">
+                <p class="amsl-title"><?= $block->escapeHtml(__('Top Social Login'))?></p>
+                <table class="amsl-top-login">
+                    <?php foreach ($block->getTopSocialLogin() as $key => $item): ?>
+                        <tr class="amsl-row -<?= $block->escapeHtml($item['key'])?>">
+                            <td>
+                                <div class="amsl-cell -type">
+                                    <div class="amsl-numb">
+                                        <?= $block->escapeHtml($key + 1)?>
+                                    </div>
+                                    <div class="amsl-label amsl-icon">
+                                        <?= $block->escapeHtml(ucfirst($item['key']))?>
+                                    </div>
+                                    <div class="amsl-count">
+                                        <?= $block->escapeHtml($item['percent'])?>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="amsl-cell -users">
+                                    <div class="amsl-label">
+                                        <?= $block->escapeHtml(__('Users:'))?>
+                                    </div>
+                                    <div class="amsl-count"><?= $block->escapeHtml($item['count'])?></div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="amsl-cell -purchased">
+                                    <div class="amsl-label">
+                                        <?= $block->escapeHtml(__('Purchased Items:'))?>
+                                    </div>
+                                    <div class="amsl-count">
+                                        <?= $block->escapeHtml($item['items'] ?: 0)?>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="amsl-cell -amount">
+                                    <div class="amsl-label">
+                                        <?= $block->escapeHtml(__('Amount:'))?>
+                                    </div>
+                                    <div class="amsl-count">
+                                        <?= /* @noEscape */ $item['amount']?>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach;?>
+                </table>
+            </div>
+        <?php endif;?>
+
+        <div class="amsl-wrapper">
+            <?php if ($block->getOtherConnection()): ?>
+                <div class="amsl-item">
+                    <p class="amsl-title"><?= $block->escapeHtml(__('Other connections'))?></p>
+                    <table class="amsl-other-connection">
+                        <thead>
+                            <tr class="amsl-thead">
+                                <th class="amsl-cell"></th>
+                                <th class="amsl-cell"><?= $block->escapeHtml(__('Users'))?></th>
+                                <th class="amsl-cell -purchased"><?= $block->escapeHtml(__('Purchased Items'))?></th>
+                                <th class="amsl-cell"><?= $block->escapeHtml(__('Amount'))?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($block->getOtherConnection() as $item): ?>
+                            <tr class="amsl-row -<?= $block->escapeHtml($item['key'])?>">
+                                <td class="amsl-cell -type">
+                                    <span class="amsl-name amsl-icon -small">
+                                        <?= $block->escapeHtml(ucfirst($item['key']))?>
+                                    </span>
+                                </td>
+                                <td class="amsl-cell">
+                                    <?= $block->escapeHtml($item['count'])?>
+                                </td>
+                                <td class="amsl-cell">
+                                    <?= $block->escapeHtml($item['items'] ?: 0)?>
+                                </td>
+                                <td class="amsl-cell">
+                                    <?= /* @noEscape */ $item['amount']?>
+                                </td>
+                            </tr>
+                        <?php endforeach;?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php endif;?>
+
+            <?php if ($block->getTopSocialLogin()): ?>
+                <div class="amsl-item">
+                    <p class="amsl-title"><?= $block->escapeHtml(__('Social Login Chart'))?></p>
+                    <div id="amslogin-pie"
+                         class="amsl-social-chart -loading"
+                         data-amsl="loading"
+                         data-mage-init='{
+                            "amslAnalytic": {
+                                "dataProvider": <?= /* @noEscape */ $block->getPieData() ?>
+                            }}'>
+                    </div>
+                </div>
+            <?php endif;?>
+        </div>
+    </div>
+<?php endif; ?>

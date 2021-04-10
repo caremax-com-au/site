@@ -1,0 +1,195 @@
+& when (@media-common = true) {
+    .tippy-iOS {
+            cursor: pointer !important;
+    }
+    .tippy-notransition {
+            transition: none !important;
+    }
+    .tippy-popper {
+            -webkit-perspective: 700px;
+            perspective: 700px;
+            z-index: 9999;
+            outline: 0;
+            transition-timing-function: cubic-bezier(.165, .84, .44, 1);
+            pointer-events: none;
+            line-height: 1.4;
+    }
+    .tippy-popper[x-placement^=top] {
+            .tippy-arrow {
+                    border-top: 5px solid #000;
+                    border-right: 5px solid transparent;
+                    border-left: 5px solid transparent;
+                    bottom: -5px;
+                    margin: 0px 6px;
+                    -webkit-transform-origin: 50% 0;
+                    transform-origin: 50% 0;
+            }
+            [data-animation=shift-toward][data-state=visible] {
+                    -webkit-transform: translateY(-10px);
+                    transform: translateY(-10px);
+            }
+            [data-animation=shift-toward][data-state=hidden] {
+                    opacity: 0;
+                    -webkit-transform: translateY(-20px);
+                    transform: translateY(-20px);
+            }
+            [data-animation=fade][data-state=visible] {
+                    -webkit-transform: translateY(-10px);
+                    transform: translateY(-10px);
+            }
+            [data-animation=fade][data-state=hidden] {
+                    opacity: 0;
+                    -webkit-transform: translateY(-10px);
+                    transform: translateY(-10px);
+            }
+            [data-animation=shift-away][data-state=visible] {
+                    -webkit-transform: translateY(-10px);
+                    transform: translateY(-10px);
+            }
+            [data-animation=shift-away][data-state=hidden] {
+                    opacity: 0;
+                    -webkit-transform: translateY(0);
+                    transform: translateY(0);
+            }
+    }
+    .tippy-popper[x-placement^=right] {
+            .tippy-arrow {
+                    border-right: 5px solid #333;
+                    border-top: 5px solid transparent;
+                    border-bottom: 5px solid transparent;
+                    left: -5px;
+                    margin: 3px 0;
+                    -webkit-transform-origin: 100% 50%;
+                    transform-origin: 100% 50%;
+            }
+            [data-animation=shift-toward][data-state=visible] {
+                    -webkit-transform: translateX(10px);
+                    transform: translateX(10px);
+            }
+            [data-animation=shift-toward][data-state=hidden] {
+                    opacity: 0;
+                    -webkit-transform: translateX(20px);
+                    transform: translateX(20px);
+            }
+            [data-animation=fade][data-state=visible] {
+                    -webkit-transform: translateX(10px);
+                    transform: translateX(10px);
+            }
+            [data-animation=fade][data-state=hidden] {
+                    opacity: 0;
+                    -webkit-transform: translateX(10px);
+                    transform: translateX(10px);
+            }
+            [data-animation=shift-away][data-state=visible] {
+                    -webkit-transform: translateX(10px);
+                    transform: translateX(10px);
+            }
+            [data-animation=shift-away][data-state=hidden] {
+                    opacity: 0;
+                    -webkit-transform: translateX(0);
+                    transform: translateX(0);
+            }
+    }
+    .tippy-popper[x-placement^=bottom] {
+            .tippy-arrow {
+                    border-bottom: 5px solid #333;
+                    border-right: 5px solid transparent;
+                    border-left: 5px solid transparent;
+                    top: -5px;
+                    margin: 0 6px;
+                    -webkit-transform-origin: 50% 100%;
+                    transform-origin: 50% 100%;
+            }
+            [data-animation=shift-toward][data-state=visible] {
+                    -webkit-transform: translateY(10px);
+                    transform: translateY(10px);
+            }
+            [data-animation=shift-toward][data-state=hidden] {
+                    opacity: 0;
+                    -webkit-transform: translateY(20px);
+                    transform: translateY(20px);
+            }
+            [data-animation=fade][data-state=visible] {
+                    -webkit-transform: translateY(10px);
+                    transform: translateY(10px);
+            }
+            [data-animation=fade][data-state=hidden] {
+                    opacity: 0;
+                    -webkit-transform: translateY(10px);
+                    transform: translateY(10px);
+            }
+            [data-animation=shift-away][data-state=visible] {
+                    -webkit-transform: translateY(10px);
+                    transform: translateY(10px);
+            }
+            [data-animation=shift-away][data-state=hidden] {
+                    opacity: 0;
+                    -webkit-transform: translateY(0);
+                    transform: translateY(0);
+            }
+    }
+    .tippy-popper[x-placement^=left] {
+            .tippy-arrow {
+                    border-left: 5px solid #333;
+                    border-top: 5px solid transparent;
+                    border-bottom: 5px solid transparent;
+                    right: -5px;
+                    margin: 3px 0;
+                    -webkit-transform-origin: 0 50%;
+                    transform-origin: 0 50%;
+            }
+            [data-animation=shift-toward][data-state=visible] {
+                    -webkit-transform: translateX(-10px);
+                    transform: translateX(-10px);
+            }
+            [data-animation=shift-toward][data-state=hidden] {
+                    opacity: 0;
+                    -webkit-transform: translateX(-20px);
+                    transform: translateX(-20px);
+            }
+            [data-animation=fade][data-state=visible] {
+                    -webkit-transform: translateX(-10px);
+                    transform: translateX(-10px);
+            }
+            [data-animation=fade][data-state=hidden] {
+                    opacity: 0;
+                    -webkit-transform: translateX(-10px);
+                    transform: translateX(-10px);
+            }
+            [data-animation=shift-away][data-state=visible] {
+                    -webkit-transform: translateX(-10px);
+                    transform: translateX(-10px);
+            }
+            [data-animation=shift-away][data-state=hidden] {
+                    opacity: 0;
+                    -webkit-transform: translateX(0);
+                    transform: translateX(0);
+            }
+    }
+    .tippy-arrow {
+            position: absolute;
+            width: 0;
+            height: 0;
+    }
+    .tippy-tooltip {
+            position: relative;
+            color: #fff;
+            font-size: 13px;
+            padding: 5px 10px;
+            border-radius: 0;
+            font-weight: @font-weight__bold;
+            text-transform: uppercase;
+            max-width: 350px;
+            text-align: center;
+            will-change: transform;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #000;
+    }
+    @media (max-width: 360px) {
+            .tippy-popper {
+                    max-width: 96%;
+                    max-width: calc(100% - 20px);
+            }
+    }
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF3
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontAmastyCustomerPreOrderSimpleWithPositiveQTyTest" extends="StorefrontAmastyPreOrderSimpleWithPositiveQTyTest">
+        <annotations>
+            <title value="PreOrder of a simple product with positive QTy by a Customer"/>
+            <description value="Simple product creation and tuning, and checkout as a customer from PDP"/>
+            <testCaseId value="PRE-7"/>
+        </annotations>
+        <before>
+            <createData entity="Simple_US_Customer" stepKey="createSimpleUSCustomer"/>
+        </before>
+        <after>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+            <deleteData createDataKey="createSimpleUSCustomer" stepKey="deleteCustomer"/>
+        </after>
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="customerLogin" after="configureFunctionalTab">
+            <argument name="Customer" value="$$createSimpleUSCustomer$$"/>
+        </actionGroup>
+        <click selector="{{CheckoutShippingMethodsSection.firstShippingMethod}}" stepKey="fillInShippingInformation"/>
+        <click stepKey="clickNextButton" selector="{{CheckoutShippingMethodsSection.next}}" after="fillInShippingInformation"/>
+        <actionGroup ref="ClickPlaceOrderActionGroup" stepKey="customerPlaceOrder"/>
+        <grabTextFrom selector="{{CheckoutSuccessMainSection.orderNumber22}}" stepKey="grabOrderNumber"/>
+        <!-- Go to the order in customer account, check order warning -->
+        <actionGroup ref="AmastyCheckOrderWaringOnOrderPageActionGroup" stepKey="checkOrderOnStorefront">
+            <argument name="orderId" value="$grabOrderNumber"/>
+        </actionGroup>
+    </test>
+</tests>

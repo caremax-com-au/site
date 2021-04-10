@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Mostviewed
+ */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+
+    <section name="AdminBundlePacksConfigurationSection">
+        <element name="displayBundlePacksConfigureTab" type="button" selector="//div[@class='entry-edit-head admin__collapsible-block']/following::a[@id='ammostviewed_bundle_packs-head']" />
+        <element name="bundlePackCmsPages" type="select" selector="//select[@id='ammostviewed_bundle_packs_cms_page']" />
+        <element name="selectbundlePackCmsPage" type="button" selector="//option[contains(string(), 'All Bundle Packs Page')]" />
+        <element name="enableBundlePacksInTopMenu" type="select" selector="//select[@id='ammostviewed_bundle_packs_top_menu_enabled']" />
+        <element name="selectenableBundlePacksInTopMenu" type="button" selector="//option[contains(string(), 'Display First')]" />
+        <element name="saveBundlePacksConfig" type="button" selector="#save" />
+        <element name="successMessage" type="block" selector="//div[@data-ui-id='messages-message-success']" />
+    </section>
+
+</sections>

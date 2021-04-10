@@ -1,0 +1,57 @@
+name: Awin
+type: txt
+csv:
+  delimiter: tab
+  enclosure: '"'
+  include_header: 1
+
+  schema:
+    - order: 0
+      header: product_id
+      type:
+      pattern:
+      attribute: entity_id
+
+    - order: 1
+      header: product_name
+      type:
+      pattern:
+      attribute: name
+
+    - order: 2
+      header: description
+      type:
+      pattern:
+      attribute: description
+
+    - order: 3
+      header: ean
+      type:
+      pattern:
+      attribute: sku
+
+    - order: 4
+      header: price
+      type:
+      pattern:
+      attribute: price
+      modifiers:
+        - {modifier: price}
+
+    - order: 5
+      header: deep_link
+      type:
+      pattern:
+      attribute: url
+
+    - order: 6
+      header: manufacturer
+      type:
+      pattern:
+      attribute: manufacturer
+
+    - order: 7
+      header: image_url
+      type:
+      pattern:
+      attribute: image

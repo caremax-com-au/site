@@ -1,0 +1,18 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\SocialLogin\Api\Data\SocialInterface" type="Amasty\SocialLogin\Model\Social" />
+    <preference for="Amasty\SocialLogin\Api\SocialRepositoryInterface" type="Amasty\SocialLogin\Model\Repository\SocialRepository" />
+    <preference for="Amasty\SocialLogin\Api\Data\SalesInterface" type="Amasty\SocialLogin\Model\Sales" />
+    <preference for="Amasty\SocialLogin\Api\SalesRepositoryInterface" type="Amasty\SocialLogin\Model\Repository\SalesRepository" />
+
+    <type name="Amasty\Gdpr\Model\Source\CheckboxLocationCombine">
+        <arguments>
+            <argument name="optionGroups" xsi:type="array">
+                <item name="amasty" xsi:type="array">
+                    <item name="optionSources" xsi:type="array">
+                        <item name="social_login" xsi:type="object">Amasty\SocialLogin\Model\Config\GdprSocialLogin</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

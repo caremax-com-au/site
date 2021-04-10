@@ -1,0 +1,30 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Stripe
+ */
+?>
+<?php /** @var Amasty\Stripe\Block\Form $block */
+
+use Amasty\Stripe\Block\Form; ?>
+<div data-bind="scope: 'amasty-stripe-saved-cards'" class="amstripe-saved-cards" id="payment_form_amasty_stripe"
+     style="display: none">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script>
+        require([
+            'ko',
+            'jquery',
+            'Magento_Ui/js/core/app'
+        ], function (ko, $, App) {
+            App(
+                <?= $block->getJsLayout() ?>
+            );
+            if ($('#payment_form_amasty_stripe').length) {
+                ko.cleanNode(document.getElementById('payment_form_amasty_stripe'));
+                $('body').trigger('contentUpdated');
+                $('#payment_form_amasty_stripe').applyBindings();
+            }
+        })
+    </script>
+</div>

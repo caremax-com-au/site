@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Stripe
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Controller\Adminhtml\Order\View">
+        <plugin name="Amasty_Stripe::OrderView" type="Amasty\Stripe\Plugin\Adminhtml\Order\ViewPlugin" />
+    </type>
+
+    <type name="Amasty\Stripe\Model\StripeAccountManagement">
+        <arguments>
+            <argument name="session" xsi:type="object">Magento\Backend\Model\Session\Quote</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Sales\Controller\Adminhtml\Order\Invoice\Save">
+        <plugin name="Amasty_Stripe::InvoiceSave" type="Amasty\Stripe\Plugin\Adminhtml\Order\InvoiceSavePlugin" />
+    </type>
+
+    <type name="Magento\Shipping\Controller\Adminhtml\Order\Shipment\Save">
+        <plugin name="Amasty_Stripe::ShipmentSave" type="Amasty\Stripe\Plugin\Adminhtml\Order\ShipmentSavePlugin" />
+    </type>
+
+    <type name="Magento\Framework\View\Page\Config\Renderer">
+        <plugin name="Amasty_Stripe::make-js" type="Amasty\Stripe\Plugin\Adminhtml\View\Page\Config\Renderer" />
+    </type>
+</config>

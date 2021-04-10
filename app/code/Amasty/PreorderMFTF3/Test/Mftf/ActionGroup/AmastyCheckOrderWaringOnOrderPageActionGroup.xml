@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF3
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AmastyCheckOrderWaringOnOrderPageActionGroup">
+        <arguments>
+            <argument name="orderId" type="string"/>
+        </arguments>
+        <amOnPage url="{{StorefrontCustomerDashboardPage.url}}" stepKey="goToCustomerDashboardPage"/>
+        <waitForPageLoad stepKey="waitForCustomerDashboardPageLoad"/>
+        <click selector="{{StorefrontCustomerSidebarSection.sidebarTab('My Orders')}}" stepKey="navigateToOrders"/>
+        <waitForPageLoad stepKey="waitForOrdersPageLoad"/>
+        <click selector="{{StorefrontCustomerOrdersGridSection.orderView(orderId)}}" stepKey="openOrder"/>
+        <see userInput="{{AmastyDisplayTextDefaultData.pre_order_warning_in_order}}" selector=".note-msg" stepKey="checkPreOrderWarning"/>
+    </actionGroup>
+</actionGroups>

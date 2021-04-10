@@ -1,0 +1,130 @@
+//
+//  Top Social Login Styles
+//  ____________________________________________
+
+//
+//  Common
+//  --------------------------------------------
+
+& when (@media-common = true) {
+    .amsl-top-login {
+        & {
+            margin-bottom: 50px;
+        }
+
+        .amsl-cell {
+            margin: 0 0 15px 0;
+            height: 60px;
+            border-radius: 4px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, .15);
+            color: #000;
+            line-height: 60px;
+        }
+
+        .amsl-cell > .amsl-count {
+            display: inline-block;
+            font-size: 20px;
+        }
+
+        .amsl-cell > .amsl-label {
+            display: inline-block;
+            margin-right: 10px;
+            vertical-align: top;
+            font-size: 14px;
+        }
+
+        .amsl-cell.-type .amsl-numb {
+            display: inline-block;
+            margin-right: 12px;
+            width: 25px;
+            border-radius: 4px 0 0 4px;
+            color: #fff;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        .amsl-cell.-type .amsl-count {
+            float: right;
+            margin-right: 15px;
+        }
+
+        .amsl-cell.-users,
+        .amsl-cell.-purchased,
+        .amsl-cell.-amount {
+            margin-left: 20px;
+            padding: 0 15px;
+        }
+
+        .amsl-row.-facebook .amsl-cell.-type .amsl-numb {
+            background-color: @amsl-facebook-button__background;
+        }
+
+        .amsl-row.-twitter .amsl-cell.-type .amsl-numb {
+            background-color: @amsl-twitter-button__background;
+        }
+
+        .amsl-row.-google .amsl-cell.-type .amsl-numb {
+            background-color: @amsl-google-button__background__alternative;
+        }
+
+        .amsl-row.-linkedin .amsl-cell.-type .amsl-numb {
+            background-color: @amsl-linkedin-button__background;
+        }
+
+        .amsl-row.-twitch .amsl-cell.-type .amsl-numb {
+            background-color: @amsl-twitch-button__background;
+        }
+
+        .amsl-row.-instagram .amsl-cell.-type .amsl-numb {
+            background: @amsl-instagram-button__background;
+        }
+
+        .amsl-row.-paypal .amsl-cell.-type .amsl-numb {
+            background-color: @amsl-paypal-button__background__alternative;
+        }
+
+        .amsl-row.-amazon .amsl-cell.-type .amsl-numb {
+            background-color: @amsl-amazon-button__background__alternative;
+        }
+
+        .amsl-row.-apple .amsl-cell.-type .amsl-numb {
+            background-color: @amsl-apple-button__background;
+        }
+
+        &.amsl-cell.-users {
+            background: @amsl-users-icon__background;
+            background-position: 90%;
+        }
+
+        &.amsl-cell.-purchased {
+            background: @amsl-purchased-icon__background;
+            background-position: 90%;
+        }
+
+        &.amsl-cell.-amount {
+            background: @amsl-amount-icon__background;
+            background-position: 90%;
+        }
+    }
+
+    .amsl-cell.-type > .amsl-icon {
+        &:before {
+            display: inline-block;
+            margin-right: 7px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            content: '';
+            vertical-align: middle;
+        }
+
+        &.-small {
+            &:before {
+                width: 27px;
+                height: 27px;
+                background-size: 27px 27px;
+            }
+        }
+    }
+}

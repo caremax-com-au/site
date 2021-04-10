@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF3
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontAmastyPreOrderEnableOnlyForPositiveQTyTest" extends="StorefrontAmastyPreOrderDisableForPositiveQTyTest">
+        <annotations>
+            <title value="PreOrder is enabled only for positive QTy"/>
+            <description value="Check if pre-order note and button are shown for product with positive qty only"/>
+            <testCaseId value="PRE-2"/>
+        </annotations>
+        <actionGroup ref="AmastyFuncOptCLIActionGroup" stepKey="configureFunctionalTab">
+            <argument name="moduleStatus" value="1"/>
+            <argument name="allowNegativeQTy" value="0"/>
+            <argument name="disablePositiveQTy" value="0"/>
+        </actionGroup>
+        <actionGroup ref="AmastyCheckNoteAndButtonAreNotOnCategoryActionGroup" stepKey="checkCategoryPage">
+            <argument name="category" value="$$subCategoryCreation.category[name]$$"/>
+            <argument name="product" value="$$simpleProductWithZeroQTyCreation.name$$"/>
+        </actionGroup>
+        <actionGroup ref="AmastyCheckNoteAndButtonOnCategoryActionGroup" stepKey="checkCategoryPageSecond">
+            <argument name="category" value="$$subCategoryCreation.category[name]$$"/>
+            <argument name="product" value="$$simpleProductWithBackorderCreation.name$$"/>
+        </actionGroup>
+        <actionGroup ref="AmastyCheckNoteAndButtonAreNotOnPDPActionGroup" stepKey="checkPDP">
+            <argument name="product" value="$$simpleProductWithZeroQTyCreation.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="AmastyCheckNoteAndButtonOnPDPActionGroup" stepKey="checkPDPSecond">
+            <argument name="product" value="$$simpleProductWithBackorderCreation.custom_attributes[url_key]$$"/>
+        </actionGroup>
+    </test>
+</tests>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_SocialLogin
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Customer:etc/sections.xsd">
+    <action name="amsociallogin/logout/index">
+        <section name="checkout-data"/>
+        <section name="cart"/>
+        <section name="customer"/>
+    </action>
+    <action name="amsociallogin/social/login">
+        <section name="checkout-data"/>
+        <section name="cart"/>
+        <section name="customer"/>
+    </action>
+    <action name="amsociallogin/account/createPost">
+        <section name="messages"/>
+        <section name="cart"/>
+        <section name="customer"/>
+    </action>
+    <action name="amsociallogin/account/loginPost">
+        <section name="messages"/>
+        <section name="cart"/>
+        <section name="customer"/>
+    </action>
+</config>

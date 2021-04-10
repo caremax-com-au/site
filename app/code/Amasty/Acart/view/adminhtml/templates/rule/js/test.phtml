@@ -1,0 +1,22 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Acart
+ */
+?>
+<?php /** @var \Amasty\Acart\Block\Adminhtml\Rule\Test $block */ ?>
+<script>
+    require([
+        'amasty_acart_test'
+    ], function (test) {
+        //<![CDATA[
+        test.init(
+            '<?= $block->escapeUrl($block->getUrl('amasty_acart/rule/testEmail')) ?>',
+            '<?= /* @noEscape */ (int)$block->getRule()->getId() ?>',
+            '<?= $block->escapeHtml($block->getRuleText()) ?>'
+        );
+        window.amastyAcartTest = test;
+        //]]>
+    })
+</script>

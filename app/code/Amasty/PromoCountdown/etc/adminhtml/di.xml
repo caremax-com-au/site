@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_PromoCountdown
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Magento\Widget\Block\Adminhtml\Widget\Instance\Edit">
+        <plugin sortOrder="10" name="Amasty_PromoCountdown::afterGetBackUrl" type="Amasty\PromoCountdown\Plugin\Widget\Block\Adminhtml\Widget\Instance\EditPlugin"/>
+    </type>
+    <type name="Magento\Widget\Controller\Adminhtml\Widget\Instance\Save">
+        <plugin sortOrder="10" name="Amasty_PromoCountdown::beforeGetUrlAfterSave" type="Amasty\PromoCountdown\Plugin\Widget\Controller\Adminhtml\Widget\Instance\SavePlugin"/>
+    </type>
+    <type name="Magento\Widget\Controller\Adminhtml\Widget\Instance\Delete">
+        <plugin sortOrder="10" name="Amasty_PromoCountdown::beforeGetUrlAfterDelete" type="Amasty\PromoCountdown\Plugin\Widget\Controller\Adminhtml\Widget\Instance\DeletePlugin"/>
+    </type>
+    <type name="Magento\Widget\Block\Adminhtml\Widget\Instance\Edit\Tab\Settings">
+        <plugin sortOrder="10" name="Amasty_PromoCountdown::beforeGetFormHtml" type="Amasty\PromoCountdown\Plugin\Widget\Block\Adminhtml\Widget\Instance\Edit\Tab\SettingsPlugin"/>
+    </type>
+</config>

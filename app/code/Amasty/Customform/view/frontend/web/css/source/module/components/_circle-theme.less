@@ -1,0 +1,185 @@
+//
+//  Circle Theme
+//  _____________________________________
+
+//
+//  Common
+//  -------------------------------------
+
+& when (@media-common = true) {
+    .circle-theme.rendered-form .form-control,
+    .circle-theme.rendered-form .amform-date,
+    .circle-theme.rendered-form .amform-time {
+        & {
+            padding: 9px;
+            min-height: 40px;
+            border: 1px solid @amcform-pager__border-color;
+            border-radius: 4px;
+        }
+
+        &:focus {
+            outline: none;
+            border-color: @amcform-button__background;
+            box-shadow: none;
+            color: @amcform-text__color;
+        }
+
+        &.mage-error {
+            border-color: @amcform-error__color;
+        }
+
+        &::-webkit-input-placeholder {
+            color: @amcform-pager__disabled__color;
+        }
+        &::-moz-placeholder {
+            color: @amcform-pager__disabled__color;
+        }
+        &:-moz-placeholder {
+            color: @amcform-pager__disabled__color;
+        }
+        &:-ms-input-placeholder {
+            color: @amcform-pager__disabled__color;
+        }
+    }
+
+    .circle-theme.rendered-form input[type='file'].form-control {
+        padding: 0;
+        border: 0;
+    }
+
+    .circle-theme.rendered-form input[type=checkbox],
+    .circle-theme.rendered-form input[type=radio] {
+        & {
+            margin-right: 5px;
+            width: 16px;
+            height: 16px;
+            outline: none;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .circle-theme.rendered-form div.mage-error[generated] {
+        position: relative;
+        top: -2px;
+        z-index: -1;
+        margin-top: 0;
+        padding: 2px @amcform__indent 0 @amcform__indent;
+        border-radius: 0 0 4px 4px;
+        background: @amcform-error__color;
+        color: #fff;
+        font-size: 10px;
+        line-height: 16px;
+    }
+
+    .circle-theme.rendered-form .field .label,
+    .circle-theme.rendered-form .fieldset > .field.form-group .label,
+    .circle-theme.rendered-form .fieldset > .fields > .field.form-group > .label {
+        font-weight: 400;
+    }
+
+    .circle-theme.rendered-form .required {
+        color: inherit;
+    }
+
+    .circle-theme.rendered-form .tooltip-element {
+        background: @amcform-button__background;
+    }
+
+
+    /* Pagination */
+
+    .circle-theme .amcform-page-titles {
+        align-items: center;
+    }
+
+    .circle-theme .amcform-title {
+        display: flex;
+        align-items: center;
+        max-width: initial;
+    }
+
+    .circle-theme .amcform-step {
+        margin: 0 @amcform__indent 0 0;
+        min-width: @amcform-page__size;
+        border-radius: 15px;
+    }
+
+    .circle-theme .amcform-label {
+        text-align: left;
+    }
+
+    .circle-theme .amcform-title-wrap {
+        &:after,
+        &:before {
+            display: none;
+        }
+
+        & + .amcform-title-wrap {
+            margin-left: 30px;
+        }
+
+        &:nth-child(3n + 1) {
+            margin-left: 0;
+        }
+
+        &.-disabled .amcform-step {
+            border-color: #bfd1ff;
+            background: #bfd1ff;
+            color: #fff;
+        }
+    }
+
+    .circle-theme .amform-form .action.primary {
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+}
+
+//
+//  Mobile
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .circle-theme .amcform-page-titles {
+        align-items: stretch;
+    }
+
+    .circle-theme .amcform-title {
+        display: block;
+        margin: 0;
+    }
+
+    .circle-theme .amcform-label {
+        display: block;
+        padding: 10px 0;
+    }
+
+    .circle-theme .amcform-title-wrap {
+        margin: 0;
+        border-bottom: @amcform-page__line-size solid @amcform-pager__track-color;
+
+        &:after,
+        &:before {
+            display: none;
+        }
+
+        & + .amcform-title-wrap {
+            margin: 0;
+        }
+
+        &.ui-state-active {
+            border-color: @amcform-pager__background;
+        }
+
+        &.-disabled {
+            border-color: @amcform-pager__border-color;
+        }
+
+        &.-error {
+            border-color: @amcform-error__color;
+        }
+    }
+}

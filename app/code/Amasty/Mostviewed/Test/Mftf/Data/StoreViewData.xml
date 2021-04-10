@@ -1,0 +1,11 @@
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/dataSchema.xsd">
+
+    <entity name="customStoreARP" type="store">
+        <data key="name">Test Store View 2</data>
+        <data key="code">tsv2</data>
+        <data key="is_active">1</data>
+    </entity>
+    <entity name="storeViewARP" type="store">
+        <data key="code">tsv2</data>
+    </entity>
+</entities>

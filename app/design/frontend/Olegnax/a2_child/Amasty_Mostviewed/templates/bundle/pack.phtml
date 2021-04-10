@@ -1,0 +1,241 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Mostviewed
+ */
+?>
+<?php
+use Magento\Catalog\Pricing\Price\FinalPrice;
+
+// @codingStandardsIgnoreFile
+
+/** @var \Amasty\Mostviewed\Block\Product\BundlePack $block */
+/** @var \Amasty\Mostviewed\Api\Data\PackInterface $pack */
+/** @var \Magento\Framework\Escaper $escaper */
+
+$templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+$isEmpty = true;
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$currentProduct = $objectManager->get('Magento\Framework\Registry')->registry('current_product');//get current product information
+?>
+
+<?php foreach ($block->getBundles() as $pack): ?>
+    <?php if ($childIds = $pack->getProductIds()):?>
+        <?php
+            $packKey = $pack->getPackId() . '-' . uniqid();
+            $items = $block->getProductItems($childIds);
+            if (!$block->isPackVisible($pack, $items)) {
+                continue;
+            }
+            $itemsCount = count($items);
+            $isWideLayout = $itemsCount <= 3 && !$block->isCheckoutPage();
+            $isMultirowLayout = $itemsCount >= 5 && !$block->isCheckoutPage();
+            $itemClass = $isWideLayout ? '-wide' : '-narrow';
+            $multipleRowClass = $isMultirowLayout ? '-second-row' : '';
+            $config = $block->getPackJsonConfig($pack, $items);
+            $discountResult = $block->getDiscountResult($config);
+        ?>
+        <div class="amrelated-pack-wrapper" data-amrelated-js="pack-wrapper" id="amrelated-pack-<?= /* @noEscape */ $packKey;?>">
+            <div class="amrelated-title" data-amrelated-js="pack-title">
+                <strong><?= $escaper->escapeHtml($pack->getBlockTitle())?></strong>
+            </div>
+
+            <div class="amrelated-content-wrapper">
+                <div class="amrelated-pack-list <?= /* @noEscape */ $itemClass;?> <?= /* @noEscape */ $multipleRowClass;?>">
+                    <?php $iterator = 1; ?>
+                    <?php foreach ($items as $item): ?>
+                        <?php $isParent = $iterator === 1; ?>
+                        <?php if ($iterator === 2 && $isWideLayout): ?>
+                            <div class="amrelated-pack-items -selected" data-amrelated-js="pack-container">
+                                <div class="amrelated-background" data-amrelated-js="selected-background"></div>
+                        <?php endif;?>
+                        <div class="amrelated-pack-item-parent">
+                            <div class="amrelated-pack-item <?= /* @noEscape */ $itemClass;?><?= /* @noEscape */ $isParent ? ' -discount-applied -main' : ' -selected'?>"
+                                 data-amrelated-js="pack-item"
+                                 <?php if ($isParent): ?>data-item-role="main"<?php endif; ?>
+                                 data-product-id="<?= /* @noEscape */ $item->getId()?>"
+                            >
+                                <div class="amrelated-info">
+                                    <div class="amrelated-photo-container">
+                                        <?php if (!$isParent): ?>
+                                            <?php //$productQty = $pack->getChildProductQty($item->getId()) ?>
+                                            <?php $productQty = 1; ?>
+                                            <input type="checkbox"
+                                                   class="amrelated-checkbox amrelated-checkbox<?= /* @noEscape */ $item->getId();?>"
+                                                   id="amrelated-checkbox<?= /* @noEscape */ $item->getId() . '-' . $packKey ?>"
+                                                   name="amrelated_products[<?= /* @noEscape */ $item->getId() ?>]"
+                                                   data-amrelated-js="checkbox" 
+                                                   value="<?= (int) $productQty  ?>" />
+                                            <label for="amrelated-checkbox<?= /* @noEscape */ $item->getId() . '-' . $packKey ?>"
+                                                   class="amrelated-label"></label>
+                                        <?php endif; ?>
+                                        <!-- <a href="<?= $escaper->escapeUrl($block->getProductUrl($item)) ?>"
+                                           class="amrelated-link"> -->
+                                            <img src="<?= $escaper->escapeUrl($block->getImageUrl($item)) ?>"
+                                                 class="amrelated-photo"
+                                                 alt="<?= $escaper->escapeHtml($item->getName()) ?>">
+                                            <?php if (!$isParent && $productQty > 1): ?>
+                                            <span class="amrelated-qty"><?= (int) $productQty ?></span>
+                                            <?php endif; ?>
+                                        <!-- </a> -->
+                                        <?php $discountHtml = $block->getProductDiscount($pack, (int) $item->getId(), $isParent); ?>
+                                        <?php if ($discountHtml): ?>
+                                            <div class="amrelated-discount -product">
+                                                <?= /* @noEscape */ $discountHtml ?>
+                                                <?php if (!$isParent && $productQty > 1): ?>
+                                                    <span class="amrelated-text"><?= $escaper->escapeHtml(__('each')) ?></span>
+                                                <?php endif; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="amrelated-details">
+                                        <div class="amrelated-name">
+                                            <a title="<?= $escaper->escapeHtml($item->getName()) ?>"
+                                               href="<?= $escaper->escapeUrl($block->getProductUrl($item)) ?>"
+                                               class="amrelated-link"
+                                            >
+                                                <?= $escaper->escapeHtml($item->getName()) ?>
+                                            </a>
+                                        </div>
+
+                                        <?php if ($templateType): ?>
+                                            <?= /* @noEscape */ $block->getReviewsSummaryHtml($item, $templateType) ?>
+                                        <?php endif; ?>
+                                        <?= /* @noEscape */ $block->getProductPriceHtml($item, FinalPrice::PRICE_CODE) ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php if (!$isParent): ?>
+                            <div class="checkbox-bundle-qty-container">
+                                <span class="qty-holder">
+                                    <label><?= $escaper->escapeHtml(__('Qty:'));?></label>
+                                        <select id="qty-amrelated-checkbox<?= /* @noEscape */ $item->getId() . '-' . $packKey ?>"  class="amrelated_product_qty qty-input-custom mojo-opt-qty input-text qty qty-amrelated-checkbox<?= /* @noEscape */ $item->getId() . '-' . $packKey ?>" data_id="amrelated-checkbox<?= /* @noEscape */ $item->getId() . '-' . $packKey ?>" name="amrelated_product_qty">
+                                            
+                                            <?php
+                                                for ($x = 1; $x <= 50; $x++) {
+                                                echo "<option value=".$x.">$x</option>";
+                                                }
+                                            ?>
+                                        </select>
+                                </span>
+                            </div>
+                            <?php endif;?>
+                        </div>
+                        <?php if ($iterator++ !== $itemsCount):?>
+                            <span class="amrelated-plus">+</span>
+                        <?php elseif ($isWideLayout):?>
+                            </div>
+                        <?php endif;?>
+                    <?php endforeach; ?>
+                </div>
+
+                <span class="amrelated-equal <?= /* @noEscape */ $multipleRowClass; ?>">=</span>
+                <div class="amrelated-summary-content <?= /* @noEscape */ $multipleRowClass; ?>">
+                    <div class="amrelated-price-wrapper">
+                        <div class="amrelated-discount -summary">
+                            <?= $escaper->escapeHtml(__('Save'));?>
+                            <!-- <span class="amount" data-amrelated-js="bundle-price-discount">
+                                <?= /* @noEscape */ $block->priceOutput($discountResult['discount'])?>
+                            </span> -->
+                            <?php 
+                            
+                            $regprice = $currentProduct->getPrice();
+                            $specialprice = $currentProduct->getFinalPrice();
+                            $float_cast = (float)$regprice;
+                        ?>
+                        <?php if($specialprice && ($float_cast > 0.00)): ?>
+                            <?php
+                                $yousave = number_format((float)($regprice - $specialprice), 2, '.', '');
+                                if($yousave > 0): ?>
+                                    <span class="amount" data-amrelated-js="bundle-price-discount">
+                                    <?= /* @noEscape */  $objectManager->create('Magento\Framework\Pricing\Helper\Data')->currency(number_format(0,2));?>
+                                    </span>
+                                <?php endif; ?>
+                             <?php else: ?>
+                                <span class="amount" data-amrelated-js="bundle-price-discount">
+                                <?= /* @noEscape */  $objectManager->create('Magento\Framework\Pricing\Helper\Data')->currency(number_format(0,2));?>
+                                </span>
+                        <?php endif; ?>
+
+                        </div>
+                        <div class="main price" data-amrelated-js="bundle-final-price">
+                        <?php  
+                        echo $objectManager->create('Magento\Framework\Pricing\Helper\Data')->currency(number_format($currentProduct->getFinalPrice(),2));
+                        ?>
+                            <!-- <?= /* @noEscape */ $block->priceOutput($discountResult['final_price']) ?> -->
+                        </div>
+                    </div>
+                    <?php $isEmpty = false;?>
+                    <div class="amrelated-tocart-wrapper">
+                        <button class="action primary" type="button"
+                                data-amrelated-js="add-to-cart"
+                                title="<?= $escaper->escapeHtml(__('Add to Cart')) ?>">
+                            <span><?= $escaper->escapeHtml(__('Add to Cart')) ?></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/x-magento-init">
+            {
+                "#amrelated-pack-<?= /* @noEscape */ $packKey;?>": {
+                    "Amasty_Mostviewed/js/ampack":<?= /* @noEscape */ $block->encode($config) ?>
+                }
+            }
+        </script>
+    <?php endif;?>
+<?php endforeach;?>
+
+<?php if (!$isEmpty): ?>
+    <script type="text/x-magento-init">
+        {
+            "[data-amrelated-js='add-to-cart']": {
+                "Amasty_Mostviewed/js/ampackcart":<?= /* @noEscape */ $block->getJsonConfig();?>
+            }
+        }
+    </script>
+    <script type="text/javascript">
+    require(['jquery', 'jquery/ui'], function($){
+    $(document).ready( function() {
+        $( ".amrelated_product_qty" ).change(function() {
+            //console.log('value'+ this.value);
+            //console.log('value id '+ $(this).attr("data_id"));
+            $('#'+$(this).attr("data_id")).val(this.value);
+            
+            
+
+            
+            if($('#'+$(this).attr("data_id")).is(':checked'))
+            {
+                //console.log('fff');
+                
+                
+                //$('#'+$(this).attr("data_id")).prop("checked", false);
+                $('#'+$(this).attr("data_id")).click();
+               // $('#'+$(this).attr("data_id")).prop("checked", true);
+                $('#'+$(this).attr("data_id")).click();
+               // $('#'+$(this).attr("data_id")).val(this.value);
+            }
+        
+
+        });
+        
+        if ($(window).width() < 768) { 
+                //console.log('bigcome');
+                $('.amrelated_product_qty').prop('disabled', 'disabled');
+             }
+     
+        $(window).resize(function() {
+            if ($(window).width() < 768) { 
+                //console.log('MOBILE');
+                $('.amrelated_product_qty').prop('disabled', 'disabled');
+             }
+
+        });
+    });
+});
+
+</script>
+<?php endif;?>
+

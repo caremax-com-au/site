@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Mostviewed
+ */
+-->
+
+<pages xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/pageSchema.xsd">
+  <page name="AdminRelatedProductRulesGridPage" url="/amasty_mostviewed/product_group/" area="admin" module="Mostviewed">
+    <section name="AdminRelatedProductRulesGridSection" />
+  </page>
+</pages>

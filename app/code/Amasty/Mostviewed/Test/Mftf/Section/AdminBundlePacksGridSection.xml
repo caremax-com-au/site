@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Mostviewed
+ */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+
+    <section name="AdminBundlePacksGridSection">
+        <element name="addNewBundlePack" type="button" selector="#add" />
+        <element name="filterBundlePackName" type="input" selector="input[name='name']" />
+        <element name="applyFilterButton" type="button" selector="button[data-action=grid-filter-apply]" />
+        <element name="expandFilterButton" type="button" selector="button[data-action=grid-filter-expand]" />
+        <element name="checkboxBundlePacksGrid" type="checkbox" selector=".admin__control-checkbox[data-action=select-row]" />
+        <element name="dropdownActions" type="select" selector="button[class=action-select]" />
+        <element name="dropdownDeleteAction" type="button" selector="//span[contains(text(), 'Delete')]" />
+        <element name="popupSubmitAction" type="button" selector="//span[contains(text(), 'OK')]" />
+        <element name="successMessage" type="block" selector="//div[@id='messages']" />
+        <element name="resetBundlePacksGridFilter" type="button" selector="//button[@class='action-remove']" />
+        <element name="ajaxSpinner" type="block" selector="div[data-component='amasty_mostviewed_product_group_listing.amasty_mostviewed_product_group_listing.amasty_mostviewed_rule_columns']" />
+    </section>
+
+</sections>

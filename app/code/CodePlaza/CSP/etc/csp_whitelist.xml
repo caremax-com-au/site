@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp/etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="script-src">
+            <values>
+                <value id="cloudflare" type="host">https://www.cloudflare.com</value>
+                <value id="twitter.com" type="host">https://twitter.com</value>
+                <value id="google.com" type="host">https://www.google.com</value>
+                <value id="google.co.in" type="host">https://www.google.co.in</value>
+                <value id="facebook.com" type="host">https://www.facebook.com</value>
+                <value id="googleadservices" type="host">*.googleadservices.com</value>
+                <value id="google-analytics" type="host">*.google-analytics.com</value> 
+                <value id="gstatic" type="host">http://www.gstatic.com</value> 
+                <value id="fontawesome" type="host">https://fontawesome.com</value>
+                <value id="connect-facebook" type="host">https://connect.facebook.net</value>
+                <value id="paypalobjects" type="host">https://www.paypalobjects.com</value>
+                <value id="paypal" type="host">https://www.paypal.com</value>
+                <value id="googletagmanager" type="host">https://www.googletagmanager.com</value>
+                <value id="youtube.com" type="host">https://www.youtube.com</value>
+                <value id="foursixty" type="host">https://foursixty.com</value>
+                <value id="googleapis" type="host">*.googleapis.com</value>
+                <value id="pcapredict" type="host">*.pcapredict.com</value>
+                <value id="postcodeanywhere" type="host">*.postcodeanywhere.co.uk</value>
+                <value id="reviews-io" type="host">*.reviews.io</value>
+                <value id="zipmoney" type="host">*.zipmoney.com.au</value>
+                <value id="chatra" type="host">*.chatra.io</value>
+            </values>
+        </policy>
+        <policy id="style-src">
+            <values>
+                <value id="cloudflare" type="host">*.cloudflare.com</value>
+                <value id="klarna-base" type="host">*.klarna.com</value>
+                <value id="googleadservices" type="host">*.googleadservices.com</value>
+                <value id="google-analytics" type="host">*.google-analytics.com</value>
+                <value id="paypal" type="host">*.paypal.com</value>
+                <value id="twitter.com" type="host">*.twitter.com</value>
+                <value id="twimg" type="host">*.twimg.com</value>
+                <value id="vimeocdn" type="host">*.vimeocdn.com</value>
+                <value id="youtube-img" type="host">*.ytimg.com</value>
+                <value id="data" type="host">'self' data:</value>
+                <value id="lightemporium" type="host">*.lightemporium.com</value>                
+                <value id="usercentrics" type="host">*.usercentrics.eu</value>
+                <value id="cloudfront-net" type="host">*.cloudfront.net</value>
+                <value id="googleapis" type="host">*.googleapis.com</value>
+                <value id="twitter.com" type="host">*.twitter.com</value>
+                <value id="google.com" type="host">*.google.com</value>
+                <value id="google.co.in" type="host">*.google.co.in</value>
+                <value id="facebook.com" type="host">*.facebook.com</value>
+                <value id="gstatic" type="host">*.gstatic.com</value>
+                <value id="fontawesome" type="host">*.fontawesome.com</value>
+                <value id="youtube.com" type="host">*.youtube.com</value>
+                <value id="foursixty" type="host">*.foursixty.com</value>
+                <value id="bootstrapcdn" type="host">*.bootstrapcdn.com</value> 
+                <value id="getfirebug" type="host">*.getfirebug.com</value>
+                <value id="afterpay" type="host">*.afterpay.com/</value>
+                <value id="bootstrapCdn" type="host">*.bootstrapcdn.com</value>
+                <value id="googleapis" type="host">*.googleapis.com</value>
+                <value id="yotpo" type="host">*.yotpo.com</value>
+                <value id="reviews-io" type="host">*.reviews.io</value>
+                <value id="googleapis" type="host">*.googleapis.com</value>
+            </values>
+        </policy>
+        <policy id="img-src">
+            <values>
+                <value id="cloudflare" type="host">*.cloudflare.com</value>
+                <value id="gstatic" type="host">*.gstatic.com</value>
+                <value id="google.com" type="host">*.google.com</value>
+                <value id="google.co.in" type="host">*.google.co.in</value>
+                <value id="google.com.pk" type="host">https://www.google.com.pk</value>
+                <value id="facebook.com" type="host">https://www.facebook.com</value>
+                <value id="facebook.net" type="host">*.facebook.net</value>
+                <value id="klarna-base" type="host">*.klarna.com</value>
+                <value id="googleadservices" type="host">*.googleadservices.com</value>
+                <value id="google-analytics" type="host">*.google-analytics.com</value>
+                <value id="googletagmanager" type="host">*.googletagmanager.com</value>
+                <value id="paypal" type="host">*.paypal.com</value>
+                <value id="twitter.com" type="host">*.twitter.com</value>
+                <value id="twimg" type="host">*.twimg.com</value>
+                <value id="vimeocdn" type="host">*.vimeocdn.com</value> 
+                <value id="youtube.com" type="host">*.youtube.com</value>
+                <value id="d-adroll" type="host">https://d.adroll.com</value>  
+                <value id="instagram" type="host">https://www.instagram.com</value>
+                <value id="cdn-instagram" type="host">*.cdninstagram.com</value> 
+                <value id="googleapis" type="host">*.googleapis.com</value>
+                <value id="inspectlet" type="host">*.inspectlet.com</value> 
+                <value id="amazon-adsystem" type="host">https://s.amazon-adsystem.com</value> 
+                <value id="foursixty" type="host">https://foursixty.com</value>
+                <value id="chart-img" type="host">https://image-charts.com/</value>
+                <value id="pippio" type="host">https://pippio.com</value> 
+                <value id="postcodeanywhere" type="host">*.postcodeanywhere.co.uk</value>
+                <value id="assets" type="host">https://assets.reviews.io</value>
+                <value id="googleadservices" type="host">https://www.googleadservices.com</value>
+                <value id="analytics" type="host">https://www.google-analytics.com</value>
+                <value id="paypalobjects" type="host">https://www.paypalobjects.com</value>
+                <value id="paypal" type="host">https://www.paypal.com</value>
+                <value id="google-bd" type="host">https://www.google.com.bd</value>
+                <value id="zipmoney-au" type="host">*.zipmoney.com.au</value>
+                <value id="zip-co" type="host">*.zip.co</value>
+                <value id="zip" type="host">https://zip.co</value>
+            </values>
+        </policy>
+        <policy id="connect-src">
+            <values>
+                <value id="cloudflare" type="host">*.cloudflare.com</value>
+                <value id="twitter.com" type="host">*.twitter.com</value>
+                <value id="paypal" type="host">*.paypal.com</value>
+                <value id="twimg" type="host">*.twimg.com</value>
+                <value id="google.com" type="host">*.google.com</value>
+                <value id="google.co.in" type="host">*.google.co.in</value>
+                <value id="facebook.com" type="host">*.facebook.com</value>
+                <value id="foursixty.com" type="host">*.foursixty.com</value>
+                <value id="sub-foursixty" type="host">*.foursixty.com</value>
+                <value id="google-analytics" type="host">*.google-analytics.com</value>
+                <value id="google-analytics" type="host">*.g.doubleclick.net</value>
+                <value id="inspectlet" type="host">*.inspectlet.com</value>
+                <value id="ws-inspectlet" type="host">*.inspectlet.com</value>
+                <value id="demdex" type="host">*.demdex.net</value>
+                <value id="google-analystics" type="host">*.google-analytics.com</value>
+                <value id="amcglobal" type="host">*.omtrdc.net</value> 
+                <value id="reviews-io" type="host">*.reviews.io</value>
+                <value id="zip-co" type="host">*.zip.co</value>
+                <value id="zipmoney-au" type="host">*.zipmoney.com.au</value>
+            </values>
+        </policy>
+        <policy id="font-src">
+            <values>
+                <value id="cloudflare" type="host">*.cloudflare.com</value>
+                <value id="cloudfront" type="host">*.cloudfront.net</value>
+                <value id="fontawesome" type="host">*.fontawesome.com</value>
+                <value id="twitter.com" type="host">*.twitter.com</value>
+                <value id="google.com" type="host">*.google.com</value>
+                <value id="google.co.in" type="host">*.google.co.in</value>
+                <value id="facebook.com" type="host">*.facebook.com</value>
+                <value id="gstatic" type="host">*.gstatic.com</value>
+                <value id="typekit" type="host">*.typekit.net</value>
+                <value id="twimg" type="host">*.twimg.com</value>
+                <value id="trustedshops" type="host">*.trustedshops.com</value>
+                <value id="googleapis" type="host">*.googleapis.com</value>
+                <value id="data" type="host">data:</value>
+                <value id="bootstrapcdn" type="host">*.bootstrapcdn.com</value>            
+            </values>
+        </policy>
+        <policy id="frame-src">
+            <values>
+                <value id="twitter.com" type="host">*.twitter.com</value>
+                <value id="google.com" type="host">https://www.google.com</value>
+                <value id="google.co.in" type="host">https://www.google.co.in</value>
+                <value id="facebook.com" type="host">https://www.facebook.com</value>
+                <value id="youtube.com" type="host">https://www.youtube.com</value>
+                <value id="chat.chatra.io" type="host">https://chat.chatra.io</value>
+                <value id="demdex" type="host">*.demdex.net</value>
+            </values>
+        </policy>
+        <policy id="form-action">
+            <values>
+                <value id="twitter.com" type="host">*.twitter.com</value>
+                <value id="foursixty.com" type="host">https://foursixty.com</value>
+                <value id="facebook" type="host">https://www.facebook.com</value>
+                <value id="adroll" type="host">*.adroll.com</value>
+                <value id="app-adroll" type="host">http://app.adroll.com</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>

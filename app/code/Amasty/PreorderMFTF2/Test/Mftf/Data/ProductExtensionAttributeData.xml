@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF2
+ */
+-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="EavStockItemBackorder" type="product_extension_attribute_backorder">
+        <requiredEntity type="stock_item_backorder">Qty_100_backorder</requiredEntity>
+    </entity>
+    <entity name="EavStockItemZero" type="product_extension_attribute_backorder">
+        <requiredEntity type="stock_item_backorder">Qty_0</requiredEntity>
+    </entity>
+</entities>

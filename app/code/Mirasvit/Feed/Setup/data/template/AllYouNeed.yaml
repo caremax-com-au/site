@@ -1,0 +1,57 @@
+---
+name: AllYouNeed
+type: csv
+format_serialized: '{"delimiter":"tab","enclosure":"\"","include_header":1,"schema":[{"order":0,"header":"Product name","type":"","pattern":"","attribute":"name"},{"order":1,"header":"SKU","type":"","pattern":"","attribute":"sku"},{"order":2,"header":"Product price","type":"","pattern":"","attribute":"price"},{"order":3,"header":"Product manufacturer","type":"","pattern":"","attribute":"manufacturer"},{"order":4,"header":"Product categories","type":"","pattern":"","attribute":"category.path"},{"order":5,"header":"Long description","type":"","pattern":"","attribute":"description"},{"order":6,"header":"Short description","type":"","pattern":"","attribute":"short_description"},{"order":7,"header":"Product image","type":"","pattern":"","attribute":"image"}]}'
+csv_delimiter: tab
+csv_enclosure: "
+csv_include_header: 1
+csv_extra_header: null
+csv_schema:
+          - 
+                    order: 0
+                    header: Product name
+                    type: ""
+                    pattern: ""
+                    attribute: name
+          - 
+                    order: 1
+                    header: SKU
+                    type: ""
+                    pattern: ""
+                    attribute: sku
+          - 
+                    order: 2
+                    header: Product price
+                    type: ""
+                    pattern: ""
+                    attribute: price
+          - 
+                    order: 3
+                    header: Product manufacturer
+                    type: ""
+                    pattern: ""
+                    attribute: manufacturer
+          - 
+                    order: 4
+                    header: Product categories
+                    type: ""
+                    pattern: ""
+                    attribute: category.path
+          - 
+                    order: 5
+                    header: Long description
+                    type: ""
+                    pattern: ""
+                    attribute: description
+          - 
+                    order: 6
+                    header: Short description
+                    type: ""
+                    pattern: ""
+                    attribute: short_description
+          - 
+                    order: 7
+                    header: Product image
+                    type: ""
+                    pattern: ""
+                    attribute: image

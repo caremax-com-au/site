@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+<type name="Magento\Catalog\Ui\DataProvider\Product\ProductRenderCollectorComposite">
+    <arguments>
+        <argument name="productProviders" xsi:type="array">
+            <item name="sku" xsi:type="object">CodePlaza\RecentProduct\Ui\DataProvider\Product\Listing\Collector\Sku</item>
+            <item name="category" xsi:type="object">CodePlaza\RecentProduct\Ui\DataProvider\Product\Listing\Collector\Category</item>
+        </argument>
+    </arguments>
+</type>
+</config>

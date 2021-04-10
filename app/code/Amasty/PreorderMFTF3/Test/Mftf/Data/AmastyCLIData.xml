@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF3
+ */
+-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="AmastyPreOrderCLIData">
+        <data key="module_status">ampreorder/functional/enabled</data>
+        <data key="allow_for_zero_and_below">ampreorder/functional/allowemptyqty</data>
+        <data key="disable_for_positive_qty">ampreorder/functional/disableforpositiveqty</data>
+        <data key="show_note_on_category_page">ampreorder/general/show_preorder_note</data>
+        <data key="detect_complex_products">ampreorder/additional/discovercompositeoptions</data>
+    </entity>
+</entities>

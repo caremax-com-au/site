@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+      <add id="Cia_Caremax::greetings" title="Caremax" translate="title" module="Cia_Caremax" parent="Magento_Backend::content" sortOrder="50" dependsOnModule="Cia_Caremax" resource="Cia_Caremax::greetings"/>
+      <add id="Cia_Caremax::greetings_generatecode" title="Generate Code" translate="title" module="Cia_Caremax" parent="Cia_Caremax::greetings" sortOrder="10" dependsOnModule="Cia_Caremax" action="caremax/generatecode" resource="Cia_Caremax::greetings"/>
+    </menu>
+</config>

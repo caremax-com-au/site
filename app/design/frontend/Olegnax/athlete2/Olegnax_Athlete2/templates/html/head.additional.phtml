@@ -1,0 +1,21 @@
+<?php
+$_helper = $this->helper(\Olegnax\Athlete2\Helper\CssFiles::class);
+$themeFont = $block->getViewFileUrl('fonts/athlete2/athlete2.woff');
+if($themeFont){
+?>
+<link rel="preload" as="font" media="all" href="<?= $themeFont ?>" crossorigin />
+<?php
+}
+if ($this->getConfig('athlete2_design/appearance_general/google_font_enable')) {
+    ?>
+	<link rel="preconnect" href="fonts.gstatic.com" crossorigin>
+	<link rel="preload stylesheet" as="style" media="all" href="<?= $_helper->getGoogleFontUrl(); ?>" crossorigin />
+<?php } ?>
+<?php if (!$this->getConfig('athlete2_design/appearance_custom/inline_css')) { ?>
+	<link rel="stylesheet" media="all" type="text/css" 
+		  href="<?php echo $_helper->getDynamicCss('settings') . ($this->getConfig('athlete2_design/appearance_custom/dynamic_file_arg_enable') ? '?v=' . $this->getConfig('athlete2_design/appearance_custom/dynamic_file_arg').'.0' : '') ?>"/>
+<?php } ?>
+<?php if ($this->getConfig('athlete2_design/appearance_general/fontawesome_enabled')) { ?>
+		<link rel="stylesheet preconnect" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" crossorigin="anonymous">
+<?php } ?>
+

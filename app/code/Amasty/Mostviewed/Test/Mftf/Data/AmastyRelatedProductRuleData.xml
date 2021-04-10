@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Mostviewed
+ */
+-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="TestRelatedProductRule1" type="am_test_rule">
+        <data key="rule_name">testRule1</data>
+        <data key="block_title">testTitleBlock</data>
+        <data key="priority">20</data>
+        <data key="max_products">8</data>
+        <data key="max_products_slider">5</data>
+    </entity>
+</entities>

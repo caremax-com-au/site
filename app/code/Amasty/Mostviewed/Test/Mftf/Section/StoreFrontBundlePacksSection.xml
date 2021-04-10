@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Mostviewed
+ */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+
+    <section name="StoreFrontBundlePacksSection">
+        <element name="BundlePackBlock" type="block" selector="div[class='amrelated-pack-wrapper']" />
+        <element name="storeViewSwitcher" type="select" selector="div[id='switcher-language-trigger']" />
+        <element name="storeViewSelect" type="button" selector="(//li[@class='view-{{storeViewName}} switcher-option'])[1]" parameterized="true" />
+        <element name="AddBundlePackToCartButton" type="button" selector="button[class='action primary']" />
+        <element name="successMessage" type="block" selector="div[class='message-success success message']" />
+        <element name="finalBundlePrice" type="block" selector="(//span[@class='price'])[1]" />
+        <element name="showMiniCart" type="button" selector="a[class='action showcart']" />
+        <element name="productsInCart" type="block" selector="strong[class='product-item-name']" />
+        <element name="proceedToCheckoutButton" type="button" selector="button[class='action primary checkout']" />
+        <element name="bestwayShippingCheckBox" type="button" selector="input[value='tablerate_bestway']" />
+        <element name="submitShippingMethodButton" type="button" selector="button[class='button action continue primary']" />
+        <element name="discountBlock" type="block" selector="//span[contains(string(), {{discount1}})]" parameterized="true" />
+        <element name="taxBlock" type="block" selector="(//span[contains(string(), '{{tax}}')])[2]" parameterized="true" />
+        <element name="submitOrderButton" type="button" selector="button[title='Place Order']" />
+        <element name="orderNumberLink" type="button" selector="a[class='order-number']" />
+        <element name="expandTaxBlock" type="button" selector="tr[class='totals-tax-summary']" />
+        <element name="discountBlockWithDifferentQty" type="block" selector="//span[contains(string(), '-$40')]" />
+
+    </section>
+
+</sections>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF3
+ */
+-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="Qty_100_backorder" type="stock_item_backorder">
+        <data key="qty">100</data>
+        <data key="is_in_stock">true</data>
+        <data key="use_config_backorders">false</data>
+        <data key="backorders">101</data>
+    </entity>
+    <entity name="Qty_0" type="stock_item_backorder" extends="Qty_100_backorder">
+        <data key="qty">0</data>
+    </entity>
+</entities>

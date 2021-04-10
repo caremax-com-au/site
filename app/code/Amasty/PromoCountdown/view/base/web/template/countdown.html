@@ -1,0 +1,14 @@
+<!-- ko if: setupTimer() && isVisible -->
+<div id="timer-default" class="amcountdown-block-wrapper" data-bind="css: designClass">
+    <div class="amcountdown-text"><span data-bind="html: textBefore"></span></div>
+    <div class="amcountdown-content">
+        <!--ko if: link && link.length > 0-->
+        <a class="amcountdown-link" data-bind="attr: { href: link }" target="_blank"></a>
+        <!-- /ko -->
+        <!-- ko foreach: getRegion('design') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+    </div>
+    <div class="amcountdown-text -after"><span data-bind="html: textAfter"></span></div>
+</div>
+<!-- /ko -->

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Mostviewed
+ */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+
+    <section name="AdminCmsPageGridSection">
+        <element name="allBundlePacksPageCheckBox" type="checkbox" selector="//tr[contains(string(), 'All Bundle Packs Page')]//label[@class='data-grid-checkbox-cell-inner']" />
+        <element name="actionsDropDown" type="button" selector=".col-xs-2 .action-select" />
+        <element name="enableButton" type="button" selector=".\_active > li:nth-child(3) > .action-menu-item" />
+        <element name="disableButton" type="button" selector=".\_active > li:nth-child(2) > .action-menu-item" />
+    </section>
+
+</sections>

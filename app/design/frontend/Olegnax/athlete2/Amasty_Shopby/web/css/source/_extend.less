@@ -1,0 +1,258 @@
+//  /**
+//  * Athlete2 Theme - Amasty Shopby
+//  * Copyright (c) 2021 Olegnax (http://www.olegnax.com/)
+//  **/
+
+//
+//  Styles Extends
+//  _____________________________________________
+
+
+& when (@media-common = true) {
+    .catalog-topnav{
+        display:block;
+    }
+    .amshopby-slider-container{
+        margin:0;
+        .am-slider .ui-slider-handle{
+            margin-top:0;
+        }
+    }
+    .filter-options-content {
+        .swatch-option{
+            max-width: 100%;
+        }
+        .am-labels-folding{
+            .items-children.-folding {
+                padding-left: 12px;
+                .item{
+                    margin:0;
+                }
+            }
+            .item{
+                display:block;
+            }
+        }
+        .item{
+            input{
+                margin-left:7px;
+            }
+            input:checked + a{
+                background-color: #000000;
+                color: #ffffff;
+            }
+        }
+        .swatch-option-link-layered{
+            input:checked + a .am-shopby-swatch-label .label{
+                background-color: #000000;
+                color: #ffffff;
+            }
+        }
+        a{
+            &.am-swatch-link{
+                margin: 0;
+                padding: 0;
+                position: relative;
+                display: block;
+                background: 0 0;
+            }
+            .count{
+                padding: 0;
+                float: none; 
+            }
+        }
+        .am-swatch-wrapper{
+            display: block;
+        }
+        .am-shopby-form{
+            padding:0;
+        }
+    }
+    .filter-options .am-ranges{
+        margin-left: -5px;
+    }
+    .am-swatch-options .am-shopby-swatch-label{
+        word-wrap: normal;
+        display:block;
+    }
+    .am-filter-current .am-filter-value .am-swatch-options .swatch-option-link-layered{
+        display: flex;
+    }
+    .filter-options-content{
+        .am-swatch-options {
+            .swatch-option-link-layered{
+                .am-swatch-link{
+                    display: flex;
+                }
+            }
+            .am-shopby-swatch-label{
+                width: 100%;
+                max-width:100%;
+                display: inline-flex;
+                .label{
+                    padding: 5px 8px;
+                    line-height: 16px;
+                    -webkit-transition: all 600ms ease-in-out;
+                    -moz-transition: all 600ms ease-in-out;
+                    -o-transition: all 600ms ease-in-out;
+                    transition: all 600ms ease-in-out;
+                    &:hover{
+                        background-color: #000000;
+                        color: #ffffff;
+                        text-decoration: none;
+                        -webkit-transition: all 10ms ease-in-out;
+                        -moz-transition: all 10ms ease-in-out;
+                        -o-transition: all 10ms ease-in-out;
+                        transition: all 10ms ease-in-out;
+                        & + .count {
+                            background-color: @color-gray91;
+                            color:#333333;
+                            -webkit-transition: all 10ms ease-in-out;
+                            -moz-transition: all 10ms ease-in-out;
+                            -o-transition: all 10ms ease-in-out;
+                            transition: all 10ms ease-in-out;
+                        }
+                    }
+                }
+                .count {
+                    padding: 5px 8px 4px;
+                    line-height:16px;
+                    margin-left:auto;
+                    -webkit-transition: all 600ms ease-in-out;
+                    -moz-transition: all 600ms ease-in-out;
+                    -o-transition: all 600ms ease-in-out;
+                    transition: all 600ms ease-in-out;
+                }   
+            }
+        }
+    }
+    .am-filter-current,
+    .filter-options-content{
+        .am-show-more{
+            padding: 5px 8px;
+            line-height: 16px;
+            -webkit-transition: all 600ms ease-in-out;
+            -moz-transition: all 600ms ease-in-out;
+            -o-transition: all 600ms ease-in-out;
+            transition: all 600ms ease-in-out;
+            &:hover{
+                background-color: #000000;
+                color: #ffffff;
+                text-decoration: none;
+                -webkit-transition: all 10ms ease-in-out;
+                -moz-transition: all 10ms ease-in-out;
+                -o-transition: all 10ms ease-in-out;
+                transition: all 10ms ease-in-out;
+                /*&:after,
+                &:before{
+                    background:#ffffff;
+                }*/
+                &:before{
+                    background:none;
+                }
+            }
+            &:before{
+                content: none;
+            }
+            &:after{
+                content: '';
+                display: block;
+                background: black;
+                width: ~"calc(100% - 16px)";
+                height: 1px;
+                position: absolute;
+                bottom: 3px;
+                transform:none;
+                left:8px;
+                right:auto;
+                top:auto;
+            }
+            /*
+            &:after,
+            &:before{
+                right: 5px;
+                width: 6px;
+                background-color: #000000;
+            }
+            &:before{
+                right: 9px;
+            }*/
+        }
+        .am-show-more[data-is-hide="false"] {
+            &:before {
+                right: auto;
+                transform:none;
+            }
+            &:after {
+                transform:none;
+            }
+        }
+    }
+    .inputs-style--underlined{
+        .am-dropdown .am-select,
+        .am-dropdown .chosen-container .chosen-choices {
+            background-color: transparent;
+        }
+    }
+    .toolbar-products + .amasty-catalog-topnav{
+        margin-top:-20px;
+    }
+    .amasty-catalog-topnav {
+        .filter-options-title{
+            font-size: 15px;
+            letter-spacing: 0;
+            padding: 7px 12px;
+            .toggle-minus{
+                margin-left: 5px;
+            }
+        }
+        .filter-options{
+            border:none;
+            margin:0 0 5px 0;
+            padding:0;            
+            min-height:34px;
+            display: block;
+            .filter-options-content{
+                -webkit-box-shadow: 0px 4px 22px 0px rgba(0, 0, 0, 0.08);
+                -moz-box-shadow: 0px 4px 22px 0px rgba(0, 0, 0, 0.08);
+                -ms-box-shadow: 0px 4px 22px 0px rgba(0, 0, 0, 0.08);
+                box-shadow: 0px 4px 22px 0px rgba(0, 0, 0, 0.08);
+                padding: 30px;
+                border: none;
+                width:100%;
+            }
+
+        }
+    }
+    #amasty-shopby-product-list {        
+        #amasty-shopby-overlay {
+            background: rgba(255,255,255,0.5);
+            opacity: 1;
+            .loader {
+                background: url('@{baseDir}images/preloader.svg');
+                background-size: 56px 21px;
+                width: 56px;
+                height: 21px;
+                transform: translate3d(-28px, -10px, 0);
+            }
+        }
+    }
+}
+
+//
+//  Desktop
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .amasty-catalog-topnav .filter-options{
+        margin-top: 0;
+        margin-bottom:0;
+        padding:0;
+        display: inline-block;
+        border-top: none;
+        margin-right: 5px;
+        .filter-options-content{
+            width:auto;
+        }
+    }
+}

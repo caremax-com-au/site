@@ -1,0 +1,72 @@
+name: DooYoo
+type: csv
+csv:
+  delimiter: comma
+  enclosure: '"'
+  include_header: 1
+
+  schema:
+    - order: 0
+      header: category
+      type:
+      pattern:
+      attribute: category.path
+
+    - order: 1
+      header: unique_id
+      type:
+      pattern:
+      attribute: sku
+
+    - order: 2
+      header: title
+      type:
+      pattern:
+      attribute: name
+
+    - order: 3
+      header: description
+      type:
+      pattern:
+      attribute: description
+
+    - order: 4
+      header: price
+      type:
+      pattern:
+      attribute: price
+      modifiers:
+        - {modifier: price}
+
+    - order: 5
+      header: product_URL
+      type:
+      pattern:
+      attribute: url
+
+    - order: 6
+      header: image_URL
+      type:
+      pattern:
+      attribute: image
+
+    - order: 7
+      header: delivery_time
+      type: pattern
+      pattern: 1 week
+
+    - order: 8
+      header: delivery_charge
+      type:
+      pattern:
+      attribute:
+
+    - order: 9
+      header: availability
+      type: pattern
+      pattern: 0
+
+    - order: 10
+      header: guarantee
+      type: pattern
+      pattern: 0

@@ -1,0 +1,54 @@
+<div data-bind="blockLoader: isLoading">
+    <!-- ko if: (savedCards.length >= 0) -->
+    <table class="data-grid">
+
+        <tbody>
+        <!-- ko foreach: { data: savedCards, as: 'savedCard'}  -->
+        <tr>
+            <td class="amstripe-td -radio">
+                <input type="radio" name="save_card_source_id" class="amstripe-radiobutton" data-bind="checked: $parent.selectedCard,
+                 attr: {'data-three-d-secure' : $parent.getThreeDSecure(savedCard), value: $parent.getSourceId(savedCard),
+                  id: $parent.getSourceId(savedCard)}"/>
+            </td>
+            <td class="amstripe-td -сard">
+                <div class="amstripe-card amstripe-td" data-bind="css: $parent.getClass(savedCard)"></div>
+            </td>
+            <td class="amstripe-td -name" data-bind="text: $parent.getBrand(savedCard)"></td>
+            <td class="amstripe-td" data-bind="text: $parent.getLast4(savedCard)"></td>
+            <td class="amstripe-td" data-bind="text: $parent.getExpDate(savedCard)"></td>
+        </tr>
+        <!-- /ko -->
+        </tbody>
+    </table>
+    <!-- /ko -->
+    <!-- ko if: isSavedCardsExist() -->
+    <div class="amstripe-newcard">
+        <input type="radio" class="select" id="new-card" value="new-card"
+               data-bind="checked: selectedCard">
+        <label for="new-card">
+            <span data-bind="text: 'Use a new card'"></span>
+        </label>
+    </div>
+    <!-- /ko -->
+    <div id="customer-co-stripe-form" class="co-stripe-form form amstipe-add-wrapper" novalidate="novalidate"
+         afterRender="initStripe">
+        <fieldset
+                data-bind="attr: {class: 'fieldset payment items ccard amasty_stripe'}, visible: visible">
+            <input type="hidden"
+                   name="card_source_id"
+                   class="amstripe-radiobutton"
+                   data-bind="attr: {value: cardSourceId}"
+            />
+            <div class="field number required">
+                <label data-bind="attr: {for: 'amasty_stripe_card_data'}" class="label">
+                    <span><!-- ko i18n: 'Credit Card Number'--><!-- /ko --></span>
+                </label>
+                <div class="control">
+                    <div data-bind="attr: {id: 'amasty_stripe_card_data'}" class="stripe-control"></div>
+                    <div class="stripe-error amstripe-error"
+                         data-bind="visible: getErrorMessageObserver(), text: getErrorMessageObserver()"></div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>

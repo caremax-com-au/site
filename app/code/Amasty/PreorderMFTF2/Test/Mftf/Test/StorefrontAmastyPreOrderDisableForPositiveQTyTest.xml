@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF2
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontAmastyPreOrderDisableForPositiveQTyTest">
+        <annotations>
+            <title value="PreOrder is disabled for zero or positive QTy"/>
+            <description value="Check that there is no pre order button and note on the category page and PDP"/>
+            <testCaseId value="PRE-1"/>
+            <severity value="CRITICAL"/>
+            <group value="Amasty"/>
+            <group value="PreOrder"/>
+        </annotations>
+        <before>
+            <createData entity="SimpleSubCategory" stepKey="subCategoryCreation"/>
+            <createData entity="SimpleProductBackorder" stepKey="simpleProductWithBackorderCreation">
+                <requiredEntity createDataKey="subCategoryCreation"/>
+            </createData>
+            <createData entity="SimpleProductZero" stepKey="simpleProductWithZeroQTyCreation">
+                <requiredEntity createDataKey="subCategoryCreation"/>
+            </createData>
+        </before>
+        <after>
+            <deleteData createDataKey="subCategoryCreation" stepKey="subCategoryDeletion"/>
+            <deleteData createDataKey="simpleProductWithBackorderCreation" stepKey="simpleProductWithBackorderDeletion"/>
+            <deleteData createDataKey="simpleProductWithZeroQTyCreation" stepKey="simpleProductWithZeroQTyDeletion"/>
+        </after>
+        <actionGroup ref="AmastyFuncOptCLIActionGroup" stepKey="configureFunctionalTab">
+            <argument name="moduleStatus" value="1"/>
+            <argument name="allowNegativeQTy" value="1"/>
+            <argument name="disablePositiveQTy" value="1"/>
+        </actionGroup>
+        <actionGroup ref="AmastyShowNoteOnCategoryCLIActionGroup" stepKey="configureDisplayTab">
+            <argument name="showNoteOnCategory" value="1"/>
+        </actionGroup>
+        <actionGroup ref="AmastyCheckNoteAndButtonOnCategoryActionGroup" stepKey="checkCategoryPage">
+            <argument name="category" value="$$subCategoryCreation.category[name]$$"/>
+            <argument name="product" value="$$simpleProductWithZeroQTyCreation.name$$"/>
+        </actionGroup>
+        <actionGroup ref="AmastyCheckNoteAndButtonAreNotOnCategoryActionGroup" stepKey="checkCategoryPageSecond">
+            <argument name="category" value="$$subCategoryCreation.category[name]$$"/>
+            <argument name="product" value="$$simpleProductWithBackorderCreation.name$$"/>
+        </actionGroup>
+        <actionGroup ref="AmastyCheckNoteAndButtonOnPDPActionGroup" stepKey="checkPDP">
+            <argument name="product" value="$$simpleProductWithZeroQTyCreation.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="AmastyCheckNoteAndButtonAreNotOnPDPActionGroup" stepKey="checkPDPSecond">
+            <argument name="product" value="$$simpleProductWithBackorderCreation.custom_attributes[url_key]$$"/>
+        </actionGroup>
+    </test>
+</tests>

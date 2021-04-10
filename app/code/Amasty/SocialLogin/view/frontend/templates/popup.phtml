@@ -1,0 +1,80 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_SocialLogin
+ */
+?>
+<?php
+/** @var \Amasty\SocialLogin\Block\Popup $block */
+?>
+
+<?php if ($block->isPopupEnabled()): ?>
+    <?php $socialPosition = $block->escapeHtml($block->getPositionTitle()); ?>
+    <div class="amsl-popup-overlay" data-am-js="am-login-overlay" style="display: none">
+        <div id="social-login-popup"
+             class="amsl-popup-block -social-<?= /* @noEscape */ $socialPosition ?>"
+             data-mage-init='{"tabs":{"openedState":"active"}}'
+             tabindex="-1"
+             data-am-js="am-login-popup">
+            <span class="amsl-close"></span>
+            <div class="amsl-content-wrapper" data-am-js="am-content-wrapper"></div>
+            <div class="amsl-tabs-wrapper" data-am-js="am-tabs-wrapper">
+                <ul class="amsl-tablist">
+                    <li data-role="collapsible" class="amsl-title" data-am-js="am-popup-original">
+                        <a href="#amsl-login-content"
+                           class="amsl-link"
+                           data-toggle="switch"
+                           tabindex="-1"><?= $block->escapeHtml(__('Login')) ?></a>
+                    </li>
+                    <li data-role="collapsible" class="amsl-title" data-am-js="am-popup-original">
+                        <a href="#amsl-register-content"
+                           class="amsl-link"
+                           data-toggle="switch"
+                           tabindex="-1"><?= $block->escapeHtml(__('Register')) ?></a>
+                    </li>
+                </ul>
+                <div id="amsl-login-content" class="amsl-content amsl-login-content" data-role="content">
+                    <p class="amsl-error -default" data-am-js="am-default-error"></p>
+                    <div class="amsl-form">
+                        <?= $block->getChildHtmlAndReplaceIds('customer_form_login_popup'); ?>
+                    </div>
+                    <?php if ($block->isSocialsEnabled()): ?>
+                        <?= $block->getChildHtml('amsociallogin-social-popup'); ?>
+                    <?php endif; ?>
+                </div>
+                <div id="amsl-register-content" class="amsl-content amsl-register-content" data-role="content">
+                    <p class="amsl-error -default" data-am-js="am-default-error"></p>
+                    <div class="amsl-form">
+                        <?= $block->getChildHtmlAndReplaceIds('customer_form_register_popup'); ?>
+                    </div>
+                    <?php if ($block->isSocialsEnabled()): ?>
+                        <?= $block->getChildHtml('amsociallogin-social-popup'); ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div class="amsl-tabs-wrapper -forgot" data-am-js="am-tabs-wrapper-forgot">
+                <ul class="amsl-tablist">
+                    <li class="amsl-title active">
+                        <a href="#amsl-forgot-content" class="amsl-link">
+                            <?= $block->escapeHtml(__('Forgot Your Password?')) ?>
+                        </a>
+                    </li>
+                </ul>
+                <div id="amsl-forgot-content" class="amsl-content amsl-forgot-content">
+                    <p class="amsl-error -default" data-am-js="am-default-error"></p>
+                    <div class="amsl-form">
+                        <?= $block->getChildHtml('amsociallogin_forgotPassword'); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/x-magento-init">
+        {
+            "[data-am-js='am-login-popup']" : {
+                "Amasty_SocialLogin/js/am-popup": <?= /* @noEscape */ $block->getJsonConfig(); ?>
+            }
+        }
+        </script>
+    </div>
+<?php endif; ?>

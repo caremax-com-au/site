@@ -1,0 +1,128 @@
+<div data-bind="attr: {class: 'payment-method payment-method-' + getCode()}, css: {'_active': isActive()}">
+    <div class="payment-method-title field choice">
+        <input type="radio"
+               name="payment[method]"
+               class="radio"
+               data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()"/>
+        <label class="label" data-bind="attr: {'for': getCode()}">
+            <span data-bind="text: getTitle()"></span>
+            <img class="amstripe-image" data-bind="attr: {src: getImageStripe()}">
+        </label>
+    </div>
+    <div class="payment-method-content">
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+        <div class="payment-method-billing-address">
+            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+
+        <!-- ko foreach: $parent.getRegion('before-amasty-stripe-form') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+
+        <!-- ko foreach: { data: savedCards, as: 'savedCard'}  -->
+        <div class="amastripe-card-saved">
+            <input type="radio" class="amstripe-radiobutton" data-bind="checked: $parent.selectedCard, attr: {'data-three-d-secure' : $parent.getThreeDSecure(savedCard), value: $parent.getSourceId(savedCard), id: $parent.getSourceId(savedCard)}" />
+            <label class="amstripe-card" data-bind="attr: {for: savedCard.id}, css: $parent.getClass(savedCard)">
+                <span class="amstripe-logo" data-bind="css: $parent.getClass(savedCard)"></span>
+                <span class="amstripe-name" data-bind="text: $parent.getBrand(savedCard)"></span>
+                <span data-bind="text: $parent.getLast4(savedCard)"></span>
+                <span data-bind="text: $parent.getExpDate(savedCard)">
+            </span>
+            </label>
+        </div>
+        <!--/ko-->
+        <!-- ko ifnot: isSavedCardsExist() -->
+        <form class="co-stripe-form form" method="post" action="#" novalidate="novalidate"
+              afterRender="initStripe">
+            <fieldset
+                    data-bind="attr: {class: 'fieldset payment items ccard ' + getCode(), id: 'payment_form_' + getCode()}">
+                <legend class="legend">
+                    <span><!-- ko i18n: 'Credit Card Information'--><!-- /ko --></span>
+                </legend>
+                <div class="field number required">
+                    <label data-bind="attr: {for: getCode() + '_card_data'}" class="label">
+                        <span><!-- ko i18n: 'Credit Card Number'--><!-- /ko --></span>
+                    </label>
+                    <div class="control">
+                        <div data-bind="attr: {id: getCode() + '_card_data'}" class="stripe-control"></div>
+                        <div class="stripe-error amstripe-error"
+                             data-bind="visible: getErrorMessageObserver(), text: getErrorMessageObserver()"></div>
+                    </div>
+                </div>
+            </fieldset>
+            <!-- ko if: isCustomerLoggedIn() && isSaveCardsEnable()-->
+            <div class="amasty-save-card-checkbox">
+                <input type="checkbox"
+                       id="save-card-saved"
+                       name="save-card"
+                       data-bind="checked: saveCard">
+                <label for="save-card-saved">
+                    <span data-bind="i18n: 'Save card for future purchases'"></span>
+                </label>
+            </div>
+            <!-- /ko -->
+        </form>
+        <!--/ko-->
+        <!-- ko if: isSavedCardsExist() -->
+        <div class="amstripe-newcard">
+            <input type="radio" class="select" id="new-card" value="new-card"
+                   data-bind="checked: selectedCard">
+            <label for="new-card">
+                <span data-bind="text: 'Use a new card'"></span>
+            </label>
+        </div>
+        <form class="co-stripe-form form" method="post" action="#" novalidate="novalidate" data-bind="visible: visible"
+              afterRender="initStripe">
+            <fieldset
+                    data-bind="attr: {class: 'fieldset payment items ccard ' + getCode(), id: 'payment_form_' + getCode()}">
+                <legend class="legend">
+                    <span><!-- ko i18n: 'Credit Card Information'--><!-- /ko --></span>
+                </legend>
+                <div class="field number required">
+                    <label data-bind="attr: {for: getCode() + '_card_data'}" class="label">
+                        <span><!-- ko i18n: 'Credit Card Number'--><!-- /ko --></span>
+                    </label>
+                    <div class="control">
+                        <div data-bind="attr: {id: getCode() + '_card_data'}" class="stripe-control"></div>
+                        <div class="stripe-error amstripe-error"
+                             data-bind="visible: getErrorMessageObserver(), text: getErrorMessageObserver()"></div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="amasty-save-card-checkbox">
+                <!-- ko if: isCustomerLoggedIn() && isSaveCardsEnable() -->
+                <input type="checkbox"
+                       name="save-card"
+                       id="save-card"
+                       data-bind="checked: saveCard">
+                <label for="save-card">
+                    <span data-bind="i18n: 'Save card for future purchases'"></span>
+                </label>
+                <!-- /ko -->
+            </div>
+        </form>
+        <!--/ko-->
+        <div class="checkout-agreements-block">
+            <!-- ko foreach: $parent.getRegion('before-place-order') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button class="action primary checkout"
+                        type="submit"
+                        data-bind="
+                        click: placeOrderClick,
+                        css: {disabled: !isPlaceOrderActionAllowed()},
+                        attr: {title: $t('Place Order')}
+                ">
+                    <span data-bind="i18n: 'Place Order'"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF2
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontAmastyPreOrderOneOptionBundleTest">
+        <annotations>
+            <title value="Pre-order bundle product"/>
+            <description value="Pre-order bundle with only one item in it"/>
+            <testCaseId value="PRE-11"/>
+            <severity value="CRITICAL"/>
+            <group value="Amasty"/>
+            <group value="PreOrder"/>
+            <skip>
+                <issueId value="CAT-10529"/>
+            </skip>
+        </annotations>
+        <before>
+            <!-- Create simple product -->
+            <createData entity="SimpleProduct2" stepKey="createSimpleProduct"/>
+            <!-- Create bundle product -->
+            <createData entity="ApiFixedBundleProduct" stepKey="createFixedBundleProduct"/>
+            <createData entity="DropDownBundleOption" stepKey="createBundleOption">
+                <requiredEntity createDataKey="createFixedBundleProduct"/>
+            </createData>
+            <createData entity="ApiBundleLink" stepKey="addLinkOptionToBundleProduct">
+                <requiredEntity createDataKey="createFixedBundleProduct"/>
+                <requiredEntity createDataKey="createBundleOption"/>
+                <requiredEntity createDataKey="createSimpleProduct"/>
+            </createData>
+            <magentoCLI command="indexer:reindex" stepKey="reindex"/>
+        </before>
+        <after>
+            <deleteData createDataKey="createSimpleProduct" stepKey="deleteSimpleProduct"/>
+            <deleteData createDataKey="createFixedBundleProduct" stepKey="deleteFixedBundleProduct"/>
+        </after>
+        <!-- Set settings required -->
+        <actionGroup ref="AmastyFuncOptCLIActionGroup" stepKey="configureFunctionalTab">
+            <argument name="moduleStatus" value="1"/>
+            <argument name="allowNegativeQTy" value="0"/>
+            <argument name="disablePositiveQTy" value="0"/>
+        </actionGroup>
+        <actionGroup ref="AmastyComplexProductsDetectionCLIActionGroup" stepKey="configureAdditionalOptionsTab">
+            <argument name="complexDetectionStatus" value="1"/>
+        </actionGroup>
+        <!-- Enable pre-order for a simple product in bundle-->
+        <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+        <actionGroup ref="SearchForProductOnBackendActionGroup" stepKey="searchForSimpleProduct">
+            <argument name="product" value="$$createSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="OpenEditProductOnBackendActionGroup" stepKey="openEditProduct1">
+            <argument name="product" value="$$createSimpleProduct$$"/>
+        </actionGroup>
+        <actionGroup ref="AmastyEnablePreOrderForAProductActionGroup" stepKey="enablePreorder"/>
+        <!-- Go to bundle product page -->
+        <amOnPage url="{{StorefrontProductPage.url($$createFixedBundleProduct.custom_attributes[url_key]$$)}}" stepKey="navigateToProductPage"/>
+        <waitForPageLoad stepKey="waitForPageLoad"/>
+        <!-- Check if button and note are on PDP -->
+        <actionGroup ref="AmastyCheckNoteAndButtonOnPDPBundleActionGroup" stepKey="checkPDP">
+            <argument name="product"
+                      value="$$createFixedBundleProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <!-- Add product to the cart and checkout -->
+        <actionGroup ref="addToCartFromStorefrontProductPage" stepKey="addProductToCart">
+            <argument name="productName" value="$$createFixedBundleProduct.name$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenCartPageActionGroup" stepKey="goToTheCart"/>
+        <see userInput="{{AmastyDisplayTextDefaultData.pre_order_note}}"
+             selector="{{CheckoutCartProductSection.AmastyPreOrderNote}}"
+             stepKey="seeCartPreOrderNote"/>
+        <click selector="{{CheckoutCartSummarySection.proceedToCheckout}}" stepKey="goToCheckout"/>
+        <actionGroup ref="GuestCheckoutFillingShippingSectionActionGroup" stepKey="fillInShippingInformation"/>
+        <actionGroup ref="CheckoutSelectCheckMoneyOrderPaymentActionGroup" stepKey="selectCMOpayment"/>
+        <actionGroup ref="CheckoutPlaceOrderActionGroup" stepKey="customerPlaceOrder">
+            <argument name="orderNumberMessage" value="CONST.successGuestCheckoutOrderNumberMessage"/>
+            <argument name="emailYouMessage" value="CONST.successCheckoutEmailYouMessage"/>
+        </actionGroup>
+        <grabTextFrom stepKey="grabOrderNumber" selector="{{CheckoutSuccessMainSection.orderNumber}}"/>
+        <!-- Go to the Order Grid-->
+        <actionGroup ref="filterOrderGridById" stepKey="filterOrderGridById">
+            <argument name="orderId" value="$grabOrderNumber"/>
+        </actionGroup>
+        <!-- Check order status-->
+        <see userInput="Yes" selector="{{AdminOrdersGridSection.preOrderCell}}" stepKey="checkOrderStatus"/>
+        <!-- Go to the Order Page -->
+        <actionGroup ref="OpenOrderById" stepKey="openOrderGridById">
+            <argument name="orderId" value="$grabOrderNumber"/>
+        </actionGroup>
+        <!-- Check order note -->
+        <see userInput="$$createFirstSimpleProduct.name$$ {{AmastyDisplayTextDefaultData.pre_order_note}}"
+             selector="{{AdminOrderItemsOrderedSection.productNameColumn}}"
+             stepKey="seeTitle1"/>
+    </test>
+</tests>

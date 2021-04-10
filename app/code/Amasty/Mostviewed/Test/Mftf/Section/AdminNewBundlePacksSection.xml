@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Mostviewed
+ */
+-->
+
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/sectionSchema.xsd">
+
+    <section name="AdminNewBundlePacksSection">
+        <element name="bundlePackName" type="input" selector="input[name='name']" />
+        <element name="fromDate" type="input" selector="input[name='date_from']" />
+        <element name="toDate" type="input" selector="input[name='date_to']" />
+        <element name="displayBundlePackProductsTab" type="button" selector="//strong[@class='admin__collapsible-title']/span[contains(string(), 'Bundle Pack Products')]" />
+        <element name="addBundlePackProducts" type="button" selector="button[data-index='child_buttons']" />
+        <element name="bundlePackProductCheckBox" type="checkbox" selector="//tr[contains(string(), '{{var1}}')]//label[@class='data-grid-checkbox-cell-inner']" parameterized="true" />
+        <element name="filterButton" type="button" selector="(//button[@data-action='grid-filter-expand'])[1]" />
+        <element name="productNameField" type="input" selector="//div[@class='admin__form-field-control']/following::input[@name='name']" />
+        <element name="applyFilterButton" type="button" selector=".\_show .action-secondary > span" />
+        <element name="addSelectedProductsToBundlePack" type="button" selector="button[class='action-primary']" />
+        <element name="addSelectedMainProductsToBundlePack" type="button" selector="(//button[contains(string(), 'Add Selected Products')])[{{var1}}]" parameterized="true" />
+        <element name="saveNewBundlePack" type="button" selector="#save" />
+        <element name="displayMainProductsTab" type="button" selector="(//span[contains(string(), 'Main Products')])[1]" />
+        <element name="addMainProduct" type="button" selector="//span[contains(string(), 'Add Main Products')]" />
+        <element name="filterButtonForMainProduct" type="button" selector="(//button[@data-action='grid-filter-expand'])[3]" />
+        <element name="productNameFieldForMainProduct" type="input" selector="(//input[@name='name'])[3]" />
+        <element name="generalCustomerGroup" type="button" selector="option[data-title='General']" />
+        <element name="bundleProductQtyField" type="input" selector="input[name='product_ids[child_products_container][0][quantity]']" />
+    </section>
+
+</sections>

@@ -1,0 +1,723 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var \Magenest\MapList\Block\Map $block */
+$dataView = $block->getMap();
+$map = $dataView->map;
+$location = $dataView->location;
+$defaultLat = -34.397;
+$defaultLng = 150.644;
+if (!empty($location)) {
+    if ($location[0]['gallery'] != null) {
+        $nameLocation = $location[0]['title'];
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $mediaUrl = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+        if ($location[0]['gallery'] != null) {
+            $image = [];
+            $image[] = explode(';', $location[0]['gallery']);
+            for ($i = 0; $i < sizeof($image[0]); $i++) {
+                $url[$i] = $mediaUrl . 'catalog/category/' . $image[0][$i];
+            }
+        }
+    } else {
+        $nameLocation = null;
+        $url[0] = null;
+    }
+    $defaultLat = $location[0]['latitude'];
+    $defaultLng = $location[0]['longitude'];
+    if ($location[0]['special_date'] != null) {
+        $specialDate = json_decode($location[0]['special_date']);
+    }
+} else {
+    $nameLocation = null;
+    $url[0] = null;
+    $specialDate = null;
+}
+$baseUrl = $this->getBaseUrl() . $this->getRequest()->getRouteName() . "/";
+$countrys = $block->getCountry();
+$MAX_ITEM_MAP = 3;
+$i = 0;
+$scopeConfig = \Magento\Framework\App\ObjectManager::getInstance()->create('Magento\Framework\App\Config\ScopeConfigInterface');
+$arrTime = [];
+$valueMonday = $scopeConfig->getValue('maplist/default_opening_time/default_opening_time_monday');
+$arrTime['opening_hours_monday'] = $valueMonday;
+$valueTuesday = $scopeConfig->getValue('maplist/default_opening_time/default_opening_time_tuesday');
+$arrTime['opening_hours_tuesday'] = $valueTuesday;
+$valueWednesday = $scopeConfig->getValue('maplist/default_opening_time/default_opening_time_wednesday');
+$arrTime['opening_hours_wednesday'] = $valueWednesday;
+$valueThursday = $scopeConfig->getValue('maplist/default_opening_time/default_opening_time_thursday');
+$arrTime['opening_hours_thursday'] = $valueThursday;
+$valueFriday = $scopeConfig->getValue('maplist/default_opening_time/default_opening_time_friday');
+$arrTime['opening_hours_friday'] = $valueFriday;
+$valueSaturday = $scopeConfig->getValue('maplist/default_opening_time/default_opening_time_saturday');
+$arrTime['opening_hours_saturday'] = $valueSaturday;
+$valueSunday = $scopeConfig->getValue('maplist/default_opening_time/default_opening_time_sunday');
+$arrTime['opening_hours_sunday'] = $valueSunday;
+$unitSystem = $scopeConfig->getValue('maplist/map/unit');
+$arrSystem = explode('.', $unitSystem);
+if ($arrSystem[3] == 'METRIC') {
+    $radius = 'KM';
+}
+if ($arrSystem[3] == 'IMPERIAL') {
+    $radius = 'Miles';
+}
+?>
+
+<script type='text/javascript'>
+    var default_lat = <?php echo $defaultLng ?>;
+    var default_lng = <?php echo $defaultLng ?>;
+    window.max_item = '<?php echo $MAX_ITEM_MAP; ?>';
+    window.js_array = <?php echo json_encode($location);?>;
+    window.map_id = <?php echo ($map) ? $map['map_id'] : '0' ?>;
+</script>
+
+<?php if (!empty($location)) { ?>
+    <!--directions on google map-->
+    <div class="container">
+        <div style="display: none" id="directions_panel">
+            <button id="close_direction_panel">X</button>
+            <h5>Start: <a lat="" lng="" id="direction_from_field"></a></h5>
+            <h5>End: <a lat="" lng="" id="direction_to_field"></a></h5>
+            <div id="direction_control">
+                <div style="text-align: center" id="travel_mode">
+                    <form id="map_travel_mode">
+                        <h8>Select your Travel Mode</h8>
+                        <label class="driving"><input value="DRIVING" id="1" type="radio" name="toggle">
+                            <span class="spantravel" data-mode="DRIVING">
+                        <i class="zmdi zmdi-car" aria-hidden="true"></i>
+                    </span>
+                        </label>
+<!--                        <labebox-mapl class="walking"><input value="WALKING" id="2" type="radio" name="toggle">-->
+<!--                            <span class="spantravel" data-mode="WALKING">-->
+<!--                        <i class="zmdi zmdi-walk" aria-hidden="true"></i>-->
+<!--                    </span>-->
+<!--                        </labebox-mapl>-->
+                        <label class="bicycling"><input value="BICYCLING" id="3" type="radio" name="toggle">
+                            <span class="spantravel" data-mode="BICYCLING">
+                        <i class="zmdi zmdi-bike" aria-hidden="true"></i>
+                    </span>
+                        </label>
+                        <label class="transit"><input value="TRANSIT" id="4" type="radio" name="toggle">
+                            <span class="spantravel" data-mode="TRANSIT">
+                        <i class="zmdi zmdi-subway" aria-hidden="true"></i>
+                    </span>
+                        </label>
+                    </form>
+                </div>
+                <button style="display: none" id="start_route">Get direction</button>
+            </div>
+        </div>
+        <div style="display: none"
+            <?php if (($dataView->currentMenu == 'map') && (!!$location)) : ?>
+                class="showDirection"
+            <?php else : ?>
+                class="detailShowDirection"
+            <?php endif; ?>
+             id="showDirection">
+            <div id="right-panel"></div>
+        </div>
+    </div>
+
+    <!--Content-->
+    <div class="prettyMapList above cf">
+        <div class="map-panel">
+            <?php if (($dataView->currentMenu == 'map') && (!!$location)) { ?>
+
+                <!--List of Store and Find Store-->
+                <div class="listStore">
+                    <div class="findStore">
+                        Find a Store Near You
+                    </div>
+
+                    <!--Input Address Store-->
+                    <div id="search-distance" class="box-search tabcontent">
+                        <div class="form-group form-inline" style="width: 100%">
+                            <input id="map-input" type="search" name="q"
+                                   placeholder="<?php echo __('Enter street address, city or state') ?>"
+                                   autocomplete="off" class="input-search-distance input-sm">
+                        </div>
+
+                        <!--Select radius for search-->
+                        <select class="input-range" id="select_radius" type="text">
+                            <option value="0">Select a radius</option>
+                            <option value="5"> 5 <?php echo $radius ?></option>
+                            <option value="10"> 10 <?php echo $radius ?></option>
+                            <option value="20"> 20 <?php echo $radius ?></option>
+                            <option value="50"> 50 <?php echo $radius ?></option>
+                            <option value="100"> 100 <?php echo $radius ?></option>
+                            <option value="150"> 150 <?php echo $radius ?></option>
+                            <option value="200"> 200 <?php echo $radius ?></option>
+                        </select>
+
+                        <!--Button reset-->
+                        <div class="btn-wap">
+                            <button id="reset-search" class="btn-reset-search-distance action primary" title="Reset">
+                                <span>Reset</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!--List Store-->
+                    <div id="ListContainer">
+                        <div id="ajax-loadding">
+                            <img src="<?php echo $block->getViewFileUrl('Magenest_MapList::images/loader.gif'); ?>">
+                        </div>
+                        <ul id="list_listitem" class="unstyled prettyListItems">
+                            <?php $k = 0; ?>
+                            <?php foreach ($location as $k => $theLocation) { ?>
+                                <?php $arrAddress = explode(',', $theLocation['address']) ?>
+                                <?php if (count($arrAddress) > 2) { ?>
+                                    <?php $address2 = $arrAddress[count($arrAddress) - 2] . ',' . $arrAddress[count($arrAddress) - 1] ?>
+                                    <?php unset($arrAddress[count($arrAddress) - 1]);
+                                    unset($arrAddress[count($arrAddress) - 1]) ?>
+                                    <?php $address1 = implode(',', $arrAddress); ?>
+                                <?php } else { ?>
+                                    <?php $address1 = $theLocation['address']; ?>
+                                    <?php $address2 = ""; ?>
+                                <?php } ?>
+
+                                <!--Display each store-->
+                                <?php if ($k == 0) { ?>
+
+                                    <!--If first store when margin-top= -10px-->
+                                    <li class="li-location" style="padding-top: 0;"
+                                        item-id="<?php echo $theLocation['location_id'] ?>"
+                                        marker_order="<?= $k ?>">
+                                        <div id="div_list_location"
+                                             class="corePrettyStyle prettylink map location div_list_location"
+                                             data-role="collapsible"
+                                             data-mage-init='{"accordion":{"collapsible": true, "active": false, "multipleCollapsible": false}}'>
+                                            <div class="viewLocationDetail clearfix" data-role="title">
+                                                <p class="locationTitle"><?php echo $theLocation['title'] ?></p>
+                                            </div>
+                                            <div class="mapLocationDetail" data-role="content">
+                                            </div>
+                                            <div class="mapAddress">
+                                                <div class="mapAddressContent1"><?php echo $address1 ?></div>
+                                                <div class="mapAddressContent2"><?php echo $address2 ?></div>
+                                            </div>
+                                            <div class="viewStore">
+                                                <a id="viewStore"
+                                                   href="<?= $block->getUrl('maplist/view/index') . "id/" . $theLocation['location_id'] ?>">View store </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <?php $k++;
+                                } else { ?>
+
+                                    <!--Next Store-->
+                                    <li class="li-location"
+                                        item-id="<?php echo $theLocation['location_id'] ?>"
+                                        marker_order="<?= $k ?>">
+                                        <div id="div_list_location"
+                                             class="corePrettyStyle prettylink map location div_list_location"
+                                             data-role="collapsible"
+                                             data-mage-init='{"accordion":{"collapsible": true, "active": false, "multipleCollapsible": false}}'>
+                                            <div class="viewLocationDetail clearfix" data-role="title">
+                                                <p class="locationTitle"><?php echo $theLocation['title'] ?></p>
+                                            </div>
+                                            <div class="mapLocationDetail" data-role="content">
+                                            </div>
+                                            <div class="mapAddress">
+                                                <div class="mapAddressContent1"><?php echo $address1 ?></div>
+                                                <div class="mapAddressContent2"><?php echo $address2 ?></div>
+                                            </div>
+                                            <div class="viewStore">
+                                                <a id="viewStore"
+                                                   href="<?= $block->getUrl('maplist/view/index') . "id/" . $theLocation['location_id'] ?>">View store </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <?php $k++;
+                                }
+                            } ?>
+                        </ul>
+                    </div
+                </div>
+        </div>
+
+
+                <!--Store details-->
+            <?php } else if (($dataView->currentMenu == 'location') && (!!$location)) { ?>
+                <div class="listStore">
+                    <div class="contact">
+                        <div class="heading">Store details</div>
+                        <!--Information for Contact-->
+                        <ul>
+                            <?php $arrAddress = explode(',', $location[0]['address']) ?>
+                            <?php if (count($arrAddress) > 2) { ?>
+                                <?php $address2 = $arrAddress[count($arrAddress) - 2] . ',' . $arrAddress[count($arrAddress) - 1] ?>
+                                <?php unset($arrAddress[count($arrAddress) - 1]);
+                                unset($arrAddress[count($arrAddress) - 1]) ?>
+                                <?php $address1 = implode(',', $arrAddress); ?>
+                            <?php } else { ?>
+                                <?php $address1 = $location[0]['address'] ?>
+                                <?php $address2 = "" ?>
+                            <?php } ?>
+                            <li class="address">
+                                <p><?php echo $address1 ?></p>
+                                <p><?php echo $address2 ?></p>
+                            </li>
+                            <li class="website">
+                                <p><a target="_blank"
+                                      href="<?php echo $location[0]['website'] ?>"><?php echo $location[0]['website'] ?></a>
+                                </p>
+                            </li>
+                            <li class="email">
+                                <p><a style="" href="mailto:<?php echo $location[0]['email'] ?>?Subject=Hello"
+                                      target="_top"><?php echo $location[0]['email'] ?></a></p>
+                            </li>
+                            <li class="phone">
+                                <p><?php echo $location[0]['phone_number'] ?></p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--Opening Hours of Store-->
+                    <div class="hours">
+                        <div class="heading">Store Hours</div>
+                        <div id="open_hours">
+                            <table>
+                                <tbody>
+                                <tr id="mmonday">
+                                    <td>
+                                        <p align="left">Monday: </p>
+                                    </td>
+                                    <td>
+                                        <p align="right"><span id="monday"></span></p>
+                                    </td>
+                                </tr>
+                                <tr id="ttuesday">
+                                    <td>
+                                        <p align="left">Tuesday: </p>
+                                    </td>
+                                    <td>
+                                        <p align="right"><span id="tuesday"></span></p>
+                                    </td>
+                                </tr>
+                                <tr id="wwednesday">
+                                    <td>
+                                        <p align="left">Wednesday: </p>
+                                    </td>
+                                    <td>
+                                        <p align="right"><span id="wednesday"></span></p>
+                                    </td>
+                                </tr>
+                                <tr id="tthursday">
+                                    <td>
+                                        <p align="left">Thursday: </p>
+                                    </td>
+                                    <td>
+                                        <p align="right"><span id="thursday"></span></p>
+                                    </td>
+                                </tr>
+                                <tr id="ffriday">
+                                    <td>
+                                        <p align="left">Friday: </p>
+                                    </td>
+                                    <td>
+                                        <p align="right"><span id="friday"></span></p>
+                                    </td>
+                                </tr>
+                                <tr id="ssaturday">
+                                    <td>
+                                        <p align="left">Saturday: </p>
+                                    </td>
+                                    <td>
+                                        <p align="right"><span id="saturday"></span></p>
+                                    </td>
+                                </tr>
+                                <tr id="ssunday">
+                                    <td>
+                                        <p align="left">Sunday: </p>
+                                    </td>
+                                    <td>
+                                        <p align="right"><span id="sunday"></span></p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!--Special date of Store-->
+                    <div class="special-date">
+                        <div class="heading">Special Date</div>
+                        <div id="fisrt-div" style="height: 212px; overflow-y: auto">
+                            <ul id="fisrt-ul" style="list-style: none"></ul>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
+            <!--Display Google Map-->
+            <div class="box-map">
+                <div>
+                    <?php if (($dataView->currentMenu == 'map') && (!!$map)) { ?>
+                    <div class="map" id="map"></div>
+                </div>
+                <form style="width: 70%" id="Map-List-Search" class="prettyMapListSearch true">
+                    <input class="prettySearchValue controls" id="pac-input" type="search"
+                           placeholder="Search place in Map">
+                </form>
+                <?php } else { ?>
+            </div>
+            <div class="map1" id="map"></div>
+        </div>
+        <form style="width: 70%" id="Map-List-Search" class="prettyMapListSearch true">
+            <input class="prettySearchValue controls" id="pac-input" type="search" placeholder="Search place in Map">
+        </form>
+        <?php } ?>
+
+
+        <!--About-->
+        <div class="descrip">
+            <hr width="100%" size="8px" align="center" style="margin-bottom: 40px ;margin-top: -40px;"/>
+            <div class="heading" style="color:#313131;">ABOUT</div>
+            <?php if ($url[0] != null) { ?>
+
+                <!--Slider Image-->
+                <div class="box-image">
+                    <div class="slideshow-container">
+                        <div class="mySlides fade" style='background-image: url(<?php echo $url[0] ?>);'>
+                            <div class="numbertext">1 / <?php echo sizeof($url) ?></div>
+                            <img src=<?php echo $url[0] ?> style="display: none;">
+                        </div>
+                        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                    </div>
+                    <div id="dot-dot" class="dots" style="text-align:center ">
+                    </div>
+                </div>
+            <?php } ?>
+
+            <!--Description-->
+            <div class="contentDes container">
+                <p><?php echo $location[0]['description'] ?></p>
+            </div>
+        </div>
+    </div>
+    <script>
+        require([
+            'jquery',
+            'select2'
+        ], function ($) {
+            $('#location_search').select2();
+        })
+    </script>
+    <!--<script src='http://code.jquery.com/jquery-3.3.1.slim.min.js'></script>-->
+    <script type="application/json" src="../../frontend/jquery.keyframes.js"></script>
+    <script type="application/json" src="../../frontend/jquery.keyframes.min.js"></script>
+
+    <script>
+        require([
+            'jquery',
+            'Magento_Ui/js/modal/alert'
+        ], function ($) {
+            'use strict';
+
+            // set image for for slider
+            var numberGalleryImage = '<?php if ($url != null) {
+                echo sizeof($url);
+            }?>';
+            if (numberGalleryImage) {
+                for (var i = 0; i < numberGalleryImage; i++) {
+                    var arrImages = [];
+                    <?php if ($url != null){ ?>
+                    <?php foreach ($url as $url){ ?>
+                    arrImages.push("<?php echo $url ?>");
+                    <?php } ?>
+                    <?php } ?>
+                }
+                var contentImage = '';
+                var dotImage = '';
+                $.each(arrImages, function (key, value) {
+                    var id = key + 1;
+                    if (key == 0) {
+                        dotImage += '<span class="dot active" id="dot-dot" onclick="currentSlide(' + id + ')"></span>';
+                    }
+                    if (key >= 1) {
+                        contentImage += '<div class="mySlides fade">' +
+                            '<div class="numbertext">' + id + "/" + numberGalleryImage + '</div>' +
+                            '<img src="' + value + '"style="width:100% ; height:98%">' +
+                            '</div>';
+                        dotImage += '<span class="dot" onclick="currentSlide(' + id + ')"></span>';
+                    }
+                });
+
+                // remo button next and prev and dot when have 1 image
+                if (numberGalleryImage == 1) {
+                    $('.prev').remove();
+                    $('.next').remove();
+                    $('#dot-dot').hide();
+                    $('.numbertext').hide();
+
+                }
+                $('.prev').before(contentImage);
+                $('#dot-dot').append(dotImage);
+            }
+
+            //remove field opening hours when is null
+            var page = document.getElementById("open_hours");
+            if (page === null || page === 'undefined') {
+                $('.descrip').remove();
+            }
+            $('.prettyMapList  .level0').css("background-color", "#f1f1f1")
+        });
+    </script>
+
+    <script>
+        require([
+            'jquery',
+        ], function ($) {
+            'use strict';
+
+            //insert hours in field opening hours
+            var customHours = '<?php echo $location[0]['opening_hours'] ?>';
+
+            //customer doesn't using default opening hours
+            if (customHours === 'undefined' || customHours === '') {
+                var arrHours = [];
+                <?php if ($arrTime != null){ ?>
+                <?php foreach ($arrTime as $hours){ ?>
+                arrHours.push("<?php echo $hours ?>");
+                <?php } ?>
+                <?php } ?>
+                $('#monday').text(arrHours[0]);
+                $('#tuesday').text(arrHours[1]);
+                $('#wednesday').text(arrHours[2]);
+                $('#thursday').text(arrHours[3]);
+                $('#friday').text(arrHours[4]);
+                $('#saturday').text(arrHours[5]);
+                $('#sunday').text(arrHours[6]);
+            } else {
+
+                //customer using default opening hours
+                arrHours = JSON.parse(customHours);
+                $('#monday').text(arrHours['opening_hours_monday']);
+                $('#tuesday').text(arrHours['opening_hours_tuesday']);
+                $('#wednesday').text(arrHours['opening_hours_wednesday']);
+                $('#thursday').text(arrHours['opening_hours_thursday']);
+                $('#friday').text(arrHours['opening_hours_friday']);
+                $('#saturday').text(arrHours['opening_hours_saturday']);
+                $('#sunday').text(arrHours['opening_hours_sunday']);
+            }
+
+            var findToday = new Date().getDay();
+
+            //find and highlight the today
+            if (findToday === 0) {
+                $('#ssunday').css("font-weight", "bold");
+                $('#ssunday').css("font-size", "1.1em");
+            } else if (findToday === 1) {
+                $('#mmonday').css("font-weight", "bold");
+                $('#mmonday').css("font-size", "1.1em");
+            } else if (findToday === 2) {
+                $('#ttuesday').css("font-weight", "bold");
+                $('#ttuesday').css("font-size", "1.1em");
+            } else if (findToday === 3) {
+                $('#wwednesday').css("font-weight", "bold");
+                $('#wwednesday').css("font-size", "1.1em");
+            } else if (findToday === 4) {
+                $('#tthursday').css("font-weight", "bold");
+                $('#tthursday').css("font-size", "1.1em");
+            } else if (findToday === 5) {
+                $('#ffriday').css("font-weight", "bold");
+                $('#ffriday').css("font-size", "1.1em");
+            } else {
+                $('#ssaturday').css("font-weight", "bold");
+                $('#ssaturday').css("font-size", "1.1em");
+            }
+        });
+    </script>
+
+    <script>
+        require([
+            'jquery',
+        ], function ($) {
+            'use strict';
+
+            var content_specialDate = '';
+            var specialDate = '<?php echo $location[0]['special_date'] ?>';
+            //remove field special date if none special date
+            if (specialDate === '' || specialDate === 'undefined') {
+                $('.special-date').remove();
+            } else {
+                // insert special date
+                var i = 0;
+                var arrDate = JSON.parse(specialDate);
+                var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                var formatddate;
+                $.each(arrDate, function (key, value) {
+                    var speDate = value['special_date'].split("/");
+                    $.each(months, function (key, value) {
+                        if (parseInt(speDate[0]) === key + 1) {
+                            formatddate = value + '/' + speDate[1] + '/' + speDate[2];
+                        }
+                    });
+                    content_specialDate += '<li id="fisrt-li' + key + '">' +
+                        '<p id="special-date">' + formatddate + '</p>' +
+                        '<p id="description">' + value['description'] + '</p>' +
+                        '</li>';
+                    i++;
+                });
+                var id = i - 1;
+                var idElement = "#fisrt-li" + id;
+                $('#fisrt-ul').append(content_specialDate);
+                $(idElement).css("border-bottom", "none");
+
+            }
+
+            //find and highlight today if it coincides with a special day
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1;
+            var yyyy = today.getFullYear();
+
+            if (mm === 10 || mm === 11 || mm === 12) {
+                return mm1 = mm;
+            } else {
+                var mm1 = '0' + mm;
+            }
+
+            var fullday = mm1 + '/' + dd + '/' + yyyy;
+            var a = fullday.toString();
+            $.each(arrDate, function (key, value) {
+                if (value['special_date'] === a) {
+                    var id = '#fisrt-li' + key;
+                    $(id).css("font-weight", "bold");
+                    $(id).css("font-size", "1.1em");
+                }
+            });
+        });
+    </script>
+    <script>
+        // function button dot for slider image
+        var slideIndex = 0;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var x;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) {
+                slideIndex = 1
+            }
+            if (n < 1) {
+                slideIndex = slides.length
+            }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            if(slideIndex !== 0) {
+                slides[slideIndex - 1].style.display = "block";
+                if (dots.length !== 0) {
+                    dots[slideIndex - 1].className = "dot active";
+                }
+            }
+        }
+    </script>
+<?php }else{ ?>
+<script>
+    // Notification if can't find any store
+    require([
+        'jquery',
+    ], function ($) {
+        'use strict';
+        var el = '<?php if (empty($location)) echo 1 ?>';
+        if (el === '1') {
+            alert('Sorry! We couldn\'t find any Store.')
+        }
+    });
+</script>
+    <!--Content-->
+    <div class="prettyMapList above cf">
+        <div class="map-panel">
+            <?php if (($dataView->currentMenu == 'map')){ ?>
+
+                <!--List of Store and Find Store-->
+                <div class="listStore">
+                    <div class="findStore">
+                        Find a Store Near You
+                    </div>
+
+                    <!--Input Address Store-->
+                    <div id="search-distance" class="box-search tabcontent">
+                        <div class="form-group form-inline" style="width: 100%">
+                            <input id="map-input" type="text" name="q"
+                                   placeholder="<?php echo __('Enter street address, city or state') ?>"
+                                   autocomplete="off" class="input-search-distance input-sm">
+                        </div>
+
+                        <!--Select radius for search-->
+                        <select class="input-range" id="select_radius" type="text">
+                            <option value="0">Select a radius</option>
+                            <option value="5"> 5 <?php echo $radius ?></option>
+                            <option value="10"> 10 <?php echo $radius ?></option>
+                            <option value="20"> 20 <?php echo $radius ?></option>
+                            <option value="50"> 50 <?php echo $radius ?></option>
+                            <option value="100"> 100 <?php echo $radius ?></option>
+                            <option value="150"> 150 <?php echo $radius ?></option>
+                            <option value="200"> 200 <?php echo $radius ?></option>
+                        </select>
+
+                        <!--Button reset-->
+                        <div class="btn-wap">
+                            <button id="reset-search" class="btn-reset-search-distance action primary" title="Reset">
+                                <span>Reset</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!--List Store-->
+                    <div id="ListContainer">
+                        <div id="ajax-loadding">
+                            <img src="<?php echo $block->getViewFileUrl('Magenest_MapList::images/loader.gif'); ?>">
+                        </div>
+                        <ul id="list_listitem" class="unstyled prettyListItems">
+                        </ul>
+                    </div>
+                </div>
+            <?php } ?>
+
+            <!--Display Google Map-->
+            <div class="box-map">
+                <div>
+                    <?php if (($dataView->currentMenu == 'map') && (!!$map)) { ?>
+                    <div class="map" id="map"></div>
+                </div>
+                <form style="width: 70%" id="Map-List-Search" class="prettyMapListSearch true">
+                    <input class="prettySearchValue controls" id="pac-input" type="text"
+                           placeholder="Search place in Map">
+                </form>
+                <?php } else { ?>
+            </div>
+            <div class="map1" id="map"></div>
+        </div>
+        <form style="width: 70%" id="Map-List-Search" class="prettyMapListSearch true">
+            <input class="prettySearchValue controls" id="pac-input" type="text" placeholder="Search place in Map">
+        </form>
+        <?php } ?>
+        <script>
+            require([
+                'jquery',
+                'select2'
+            ], function ($) {
+                $('#location_search').select2();
+            })
+        </script>
+        <!--<script src='http://code.jquery.com/jquery-3.3.1.slim.min.js'></script>-->
+        <script type="application/json" src="../../frontend/jquery.keyframes.js"></script>
+        <script type="application/json" src="../../frontend/jquery.keyframes.min.js"></script>
+    </div>
+<?php } ?>

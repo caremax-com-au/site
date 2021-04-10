@@ -1,0 +1,54 @@
+//
+//  Social Icons  Styles
+//  ____________________________________________
+
+//
+//  Common
+//  --------------------------------------------
+
+& when (@media-common = true) {
+    .amsl-row {
+        .amsl-icon:before {
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        &.-facebook .amsl-icon:before {
+            background-image: @amsl-facebook-icon__background;
+        }
+
+        &.-twitter .amsl-icon:before {
+            background-image: @amsl-twitter-icon__background;
+        }
+
+        &.-google .amsl-icon:before {
+            background-image: @amsl-google-icon__background;
+        }
+
+        &.-linkedin .amsl-icon:before {
+            background-image: @amsl-linkedin-icon__background;
+        }
+
+        &.-twitch .amsl-cell .amsl-icon:before {
+            height: 30px;
+            border-radius: inherit;
+            background-image: @amsl-twitch-icon__background;
+        }
+
+        &.-instagram .amsl-icon:before {
+            background-image: @amsl-instagram-icon__background;
+        }
+
+        &.-paypal .amsl-icon:before {
+            background-image: @amsl-paypal-icon__background;
+        }
+
+        &.-amazon .amsl-icon:before {
+            background-image: @amsl-amazon-icon__background;
+        }
+
+        &.-apple .amsl-icon:before {
+            background-image: @amsl-apple-icon__background;
+        }
+    }
+}

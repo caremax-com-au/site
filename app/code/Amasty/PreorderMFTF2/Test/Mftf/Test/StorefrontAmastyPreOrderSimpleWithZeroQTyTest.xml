@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF2
+ */
+-->
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontAmastyPreOrderSimpleWithZeroQTyTest"
+          extends="StorefrontAmastyPreOrderSimpleWithPositiveQTyTest">
+        <annotations>
+            <title value="PreOrder of a simple product with Zero QTy by a Guest"/>
+            <description value="Simple product creation and tuning, and checkout as a customer from PDP"/>
+            <testCaseId value="PRE-6"/>
+        </annotations>
+        <!-- Create simple product with positive QTy-->
+        <before>
+            <createData entity="SimpleProductZero" stepKey="simpleProductWithBackorderCreation">
+                <requiredEntity createDataKey="subCategoryCreation"/>
+            </createData>
+        </before>
+        <!-- Configure the module to allow pre-order for positive QTy-->
+        <actionGroup ref="AmastyFuncOptCLIActionGroup" stepKey="configureFunctionalTab">
+            <argument name="moduleStatus" value="1"/>
+            <argument name="allowNegativeQTy" value="1"/>
+            <argument name="disablePositiveQTy" value="0"/>
+        </actionGroup>
+    </test>
+</tests>

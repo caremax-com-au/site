@@ -1,0 +1,70 @@
+name: 'Trovaprezzi'
+type: csv
+csv:
+  delimiter: |
+  enclosure: ''
+  include_header: '1'
+  extra_header:
+  schema:
+
+    - header: Codice produttore
+      order: 1
+      type:
+      pattern:
+      attribute: sku
+
+    - header: Nome Prodotto
+      order: 2
+      type:
+      pattern:
+      attribute: name
+
+    - header: Marca
+      order: 3
+      type:
+      pattern:
+      attribute: manufacturer
+
+    - header: Descrizione
+      order: 4
+      type:
+      pattern:
+      attribute: short_description
+
+    - header: URL
+      order: 5
+      type:
+      pattern:
+      attribute: url
+
+    - header: Immagine
+      order: 6
+      type:
+      pattern:
+      attribute: image
+
+    - header: Prezzo
+      order: 7
+      type:
+      pattern:
+      attribute: price
+      modifiers:
+        - {modifier: price}
+
+    - header: EAN
+      order: 8
+      type: pattern
+      pattern: '{{product_barcode}}'
+      attribute:
+
+    - header: Disponibilità
+      order: 9
+      type:
+      pattern:
+      attribute: qty
+
+    - header: Categorie
+      order: 10
+      type:
+      pattern:
+      attribute: category.path

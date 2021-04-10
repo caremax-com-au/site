@@ -1,0 +1,38 @@
+<?php
+$_helper    = $this->helper('Latitude\Payment\Helper\Config');
+?>
+    <div class="latitudepayments-popup" id="open-lpay-popup">
+        <?php if ($_helper->isLatitudepayEnabled()) { ?>
+        <div class="latitude-icon <?php echo ($block->displayIconInMobile('latitudepay')== 0? 'hide--m' : '') ?>" >
+            <span class="latitudepayments-popup__installment-text">
+                <img class="latitudepayments-popup__logo" id="open-lpay-popup" alt="Latitudepay" src="<?= /* @escapeNotVerified */
+                $block->getViewFileUrl('Latitude_Payment::images/lpay_modal_logo.png') ?>" title="Latitudepay"/>
+                <br>
+                <?= $block->getInstallmentText() ?>
+            </span>
+         </div>
+            <?= $block->getChildHtml('latitudepay.content') ?>
+        <?php } ?>
+        <?php if ($_helper->isGenoapayEnabled()) { ?>
+        <div class="latitude-icon <?php echo ($block->displayIconInMobile('genoapay')== 0? 'hide--m' : '') ?>" id="open-lpay-popup">
+            <div class="latitudepayments-popup__installment-text" <?php echo $block->displayIconInMobile('genoapay') ?>>
+                <img class="genoapay-payment-logo" id="open-genoapay-popup" alt="GenoaPay" src="<?= /* @escapeNotVerified */
+                $block->getViewFileUrl('Latitude_Payment::images/genoapay_logo.svg') ?>" title="GenoaPay"/>
+                <br>
+                <?= $block->getInstallmentText() ?>
+            </div>
+        </div>
+            <?= $block->getChildHtml('genoapay.content') ?>
+        <?php } ?>
+
+    </div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "paymentOptionPopup": {}
+        }
+    }
+
+</script>
+

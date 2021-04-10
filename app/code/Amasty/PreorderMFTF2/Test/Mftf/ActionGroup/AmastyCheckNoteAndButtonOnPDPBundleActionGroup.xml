@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF2
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AmastyCheckNoteAndButtonOnPDPBundleActionGroup"
+                 extends="AmastyCheckNoteAndButtonOnPDPActionGroup">
+        <click selector="{{StorefrontBundleProductActionSection.customizeAndAddToCartButton}}"
+               stepKey="clickCustomizeAndAddToCart"
+               after="navigateToProductPage"/>
+        <!-- Check pre-order note and button-->
+        <see userInput="Pre Order" selector="//span[contains(@id,'preorder-note')]" stepKey="seePreOrderNotePDP"/>
+        <see userInput="Pre Order" selector="{{StorefrontProductActionSection.addToCart}}" stepKey="seePreOrderButtonPDP"/>
+    </actionGroup>
+</actionGroups>

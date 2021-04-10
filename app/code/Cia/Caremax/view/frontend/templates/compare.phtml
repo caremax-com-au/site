@@ -1,0 +1,377 @@
+<?php 
+
+
+ $om = \Magento\Framework\App\ObjectManager::getInstance();
+ $product=$om->get('Magento\Catalog\Model\Product');
+ $productFactory=$om->get('Magento\Catalog\Model\ProductFactory');
+ $imageHelper=$om->get('Magento\Catalog\Helper\Image');
+$listBlock = $om->get('Magento\Catalog\Block\Product\ListProduct');
+$eavConfig = $om->get('Magento\Eav\Model\Config');
+$priceHelper = $om->create('Magento\Framework\Pricing\Helper\Data'); 
+
+$products = explode(",",$block->getData('skus'));
+$atts = explode(",",$block->getData('attributes'));
+  $storeid = $block->getStoreId();
+//echo $products;
+$countcols = count($products)+1;
+$headerrow = '<th></th>';
+$footerrow = '<td></td>';
+$ratings = '<th>Ratings</th>';
+$recc = '<th>Treatment for</th>';
+
+$programs = '<th>Pre-set programs</th>';
+$price  = '<th>Price</th>';
+$cart  = '<th></th>';
+foreach($products as $sku)
+{
+	 
+	  $_productId = $product->getIdBySku($sku);
+	 
+	     //$product = $productFactory->create()->load($_productId);
+		 $product = $om->create('Magento\Catalog\Model\Product')->load($_productId);
+
+ $ImageUrl =    $imageHelper->init($product, 'product_base_image')->constrainOnly(true)
+                    ->keepAspectRatio(true)
+                    ->keepTransparency(true)
+                    ->keepFrame(false)
+                    ->resize(196, 196)->getUrl();
+  
+$abstractProductBlock = $block->getLayout()->createBlock('\Magento\Catalog\Block\Product\AbstractProduct');     
+   
+
+  //$addToCartUrl =  $listBlock->getAddToCartUrl($product);
+  $addToCartUrl =  $product->getProductUrl();
+
+
+	$headerrow .="<th><center><a href='".$product->getProductUrl()."'><img src='".$ImageUrl."'/><br>".$product->getName().'</a></center></th>';
+	$footerrow .="<td><center>".$product->getName().'</center></td>';
+	
+	if ($product->getTypeId() == 'bundle') {
+		$bundled_product = new Mage_Catalog_Model_Product();		
+		$bundled_product->load($_productId);
+		$selectionCollection = $bundled_product->getTypeInstance(true)->getSelectionsCollection($bundled_product->getTypeInstance(true)->getOptionsIds($bundled_product), $bundled_product);
+ 
+		$bundled_items = array();
+		foreach($selectionCollection as $option) 
+		{
+			$bundled_items[] = $option->sku;
+		}
+		$ratings .= '<td><center><div class="ruk_rating_snippet bundle-option-custom-rating" data-sku="'.implode(";",$bundled_items).'"></div></center></td>';
+	}
+	else {
+		$ratings .= '<td><center><div class="ruk_rating_snippet bundle-option-custom-rating" data-sku="'.$sku.'"></div></center></td>';
+	}
+	
+	//treatmentfortens
+	 
+ 
+	if($product->getResource()->getAttribute('treatmentfortens')->getFrontend()->getValue($product)=='No')
+	{
+		$recc .= '<td><center>-</center></td>';
+	}
+	else {
+		$recc .= '<td><center>'.$product->getResource()->getAttribute('treatmentfortens')->getFrontend()->getValue($product).'</center></td>';
+	}
+	
+	//presetprg
+	$programs .= '<td><center>'.$product->getResource()->getAttribute('presetprg')->getFrontend()->getValue($product).'</center></td>';
+	
+	
+	if ($product->getTypeId() == 'bundle') {
+		
+		       $summin = $product->getPriceInfo()->getPrice('final_price')->getMinimalPrice()->getValue();            
+		       $summax = $product->getPriceInfo()->getPrice('final_price')->getMaximalPrice()->getValue();            
+
+		
+		$price .= '<td><center>'.Mage::helper('core')->currency($summin, true, false).'-'.Mage::helper('core')->currency($summax, true, false).'</center></td>';
+	}
+	else {
+		$price .= '<td><center>'.$priceHelper->currency($product->getFinalPrice(), true, false) .'</center></td>';
+	}
+	 
+	if ($product->getTypeId() == 'bundle') {
+		$cart .= "<td><center><button type='button' title='Add to Cart' id='product-addtocart-button' class='button btn-cart' onclick=\"setLocation('".$product->getProductUrl()."')\"><span><span>Add to Cart</span></span></button></center></td>";
+	}
+	else{
+		$cart .= "<td><center><button type='button' title='Add to Cart' id='product-addtocart-button' class='button btn-cart' onclick=\"setLocation('".$addToCartUrl."')\"><span><span>Add to Cart</span></span></button></center></td>";
+	}
+ 
+	foreach($atts as $att)
+	{
+		
+		
+		$attributeModel = $om->get(\Magento\Eav\Model\Entity\Attribute::class)
+                               ->loadByCode('catalog_product',$att);
+		   
+
+		 
+		$attrlabel[$att] = $attributeModel->getStoreLabel($storeid);
+		if($product->getResource()->getAttribute($att)->getFrontend()->getValue($product)=='Yes')
+		{
+			$attrlist[$att][$product->getId()]= '<img src="https://www.caremax.com.au/pub/media/wysiwyg/i_msg-success.png" />';
+		}
+		else if ($product->getResource()->getAttribute($att)->getFrontend()->getValue($product)=='No')
+		{
+			$attrlist[$att][$product->getId()]= '<img src="https://www.caremax.com.au/pub/media/wysiwyg/i_msg-error.png" />';
+		}
+		else {
+			$attrlist[$att][$product->getId()]= $product->getResource()->getAttribute($att)->getFrontend()->getValue($product);
+		}
+	}
+	$pids[] = $product->getId();
+}
+ 	 
+  $block->getViewFileUrl('Cia_Caremax::images/i_msg-success.png');
+?>
+ 
+<table class="container-fluid">
+  <col span="1" class="wide">
+	  <thead>
+
+		<tr >
+			<?php echo $headerrow;?>
+		</tr>
+		  </thead>
+
+	<tbody>
+		<tr>
+			<th colspan="<?php echo $countcols;?>"><strong>Description</strong></th>
+		</tr>
+		<tr>
+			<?php echo $ratings;?>
+		</tr>
+		<tr>
+			<?php echo $recc;?>
+		</tr>
+		
+		<tr>
+			<?php echo $programs;?>
+		</tr>
+		<tr>
+			<?php echo $price;?>
+		</tr>
+		<tr>
+			<?php echo $cart;?>
+		</tr>
+		<tr>
+			<th colspan="<?php echo $countcols;?>"><strong>Features</strong></th>
+		</tr>
+		<?php 
+		foreach($attrlabel as $shortname =>$heading)
+		{
+			echo  '<tr>
+					<th>'.$heading.'</th>';
+				foreach($pids as $mplist)
+				{
+					if($attrlist[$shortname][$mplist])
+					{
+						echo '<td><center>'.$attrlist[$shortname][$mplist].'</center></td>';
+					}
+					else {
+						echo '<td><center>-</center></td>';
+					}
+				}
+			echo '</tr>';
+			
+		}
+		?>
+		<tr>
+			<?php echo $footerrow;?>
+		</tr>
+		<tr>
+			<?php echo $cart;?>
+		</tr>
+	</tbody>
+</table>
+<style>
+ 
+@media only screen and (min-width: 800px) {
+table {
+  table-layout: fixed;
+  width: 100%;
+  position: relative;
+  border-collapse: collapse;
+}
+
+
+
+thead th {
+  background: white;
+  position: sticky;
+  z-index: 20;
+  top: 0;
+  text-align: center;
+}
+
+
+table th {
+  text-align: center;
+}
+
+.wide {
+  text-align: center;
+}
+
+
+td {
+    border-right: solid 1px #fafafa;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    border: solid 1px #F2F2F2;
+}
+th {
+    border: solid 1px #fafafa;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+tr:nth-child(even) {
+    background-color: #FAFAFA; 
+    text-align: center;
+}
+.header-container .navi {
+    z-index: 999999;
+}
+.ox-lazy img.lazy {
+     opacity:1!important; 
+}
+
+.ruk-icon-full-star-01:before {
+    content: "\e601";
+}
+tbody tr:hover {
+  background: #A6CAE6;
+}
+}
+
+
+@media only screen and (max-width: 768px) {
+table {
+  width: 100%;
+  position: relative;
+  border-collapse: collapse;
+}
+
+
+
+thead th {
+  background: white;
+  position: sticky;
+  z-index: 20;
+  top: 0;
+  text-align: center;
+}
+
+table th {
+  text-align: center;
+}
+
+.wide {
+  text-align: center;
+}
+
+
+td {
+    border-right: solid 1px #F2F2F2;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    border: solid 1px #F2F2F2;
+
+}
+th {
+    border: solid 1px #F2F2F2;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+
+}
+tr:nth-child(even) {
+    background-color: #FAFAFA;  
+
+}
+.header-container .navi {
+    z-index: 999999;
+}
+.ox-lazy img.lazy {
+     opacity:1!important; 
+}
+
+.ruk-icon-full-star-01:before {
+    content: "\e601";
+}
+tbody tr:hover {
+  background: #A6CAE6;
+}
+
+
+}
+
+
+</style>
+
+
+
+
+
+<script>
+function setLocation(url) {
+    window.location.href = url;
+}
+
+ 
+ 
+
+</script>
+<link rel="stylesheet" href="https://widget.reviews.co.uk/rating-snippet/dist.css" /> 
+<script src="https://widget.reviews.io/product/dist.js"></script>
+<script src="https://widget.reviews.io/rating-snippet/dist.js">
+</script><script>window.onload = function () {
+	
+/*		
+	 jQuery('#fixedhead').mage('sticky', {
+        container: '.columns',
+        spacingTop: 10
+    });
+	*/ 
+if( jQuery(window).width() >= 768 ){ 
+	  jQuery(window).scroll(function() {
+	   if (jQuery(window).scrollTop() > jQuery('#fixedhead').offset().top && !(jQuery('#fixedhead').hasClass('stickyy'))) {
+            jQuery('#fixedhead').addClass('stickyy');
+        } else if (jQuery(window).scrollTop() == 0) {
+            jQuery('#fixedhead').removeClass('stickyy');
+        }
+    });
+	
+}else{
+ 
+}
+ 
+ 
+	
+						var productSku = jQuery("[data-sku]").attr("data-sku");
+
+						if(productSku) {
+
+							 
+
+						 
+						 jQuery(".product-info-price").css("margin-bottom", "0px");
+						 jQuery(".product-info-price").after("<div class='ruk_rating_snippet' data-sku='" + productSku + "'></div>");
+
+						 ratingSnippet("ruk_rating_snippet",{
+							 store: "caremaxcomau",
+							 color: "#f47e27",
+							 linebreak: false,
+							 text: "Reviews"
+						 });
+
+						 var snippet = document.querySelectorAll(".ruk_rating_snippet");
+								 
+
+						}
+
+
+				 };
+</script>	

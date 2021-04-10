@@ -1,0 +1,75 @@
+name: Bizrate
+type: txt
+csv:
+  delimiter: tab
+  enclosure: '"'
+  include_header: 1
+
+  schema:
+    - order: 0
+      header: Category ID
+      type:
+      pattern:
+      attribute: category.entity_id
+
+    - order: 1
+      header: Title
+      type:
+      pattern:
+      attribute: name
+
+    - order: 2
+      header: Description
+      type:
+      pattern:
+      attribute: description
+
+    - order: 3
+      header: item_sku
+      type:
+      pattern:
+      attribute: sku
+
+    - order: 4
+      header: Price
+      type:
+      pattern:
+      attribute: price
+      modifiers:
+        - {modifier: price}
+
+    - order: 5
+      header: Product URL
+      type:
+      pattern:
+      attribute: url
+
+    - order: 6
+      header: manufacturer
+      type:
+      pattern:
+      attribute: manufacturer
+
+    - order: 7
+      header: Image URL
+      type:
+      pattern:
+      attribute: image
+
+    - order: 8
+      header: Shipping Weight
+      type:
+      pattern:
+      attribute: weight
+
+    - order: 9
+      header: Availability
+      type: pattern
+      pattern: 'In Stock'
+      attribute:
+
+    - order: 10
+      header: Condition
+      type: pattern
+      pattern: New
+      attribute:

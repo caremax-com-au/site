@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF2
+ */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="AdminOrdersGridSection">
+        <element name="preOrderRow" type="button" selector="//div[@data-role='grid-wrapper']//span[text()='Pre-Order']"/>
+        <element name="preOrderCell" type="text" selector="tr td:last-child>div"/>
+    </section>
+</sections>

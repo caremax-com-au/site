@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Mostviewed
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+
+    <actionGroup name="AdminAmastyCreateRelatedProductRuleActionGroup">
+        <arguments>
+            <argument name="am_test_rule" />
+        </arguments>
+        <amOnPage url="{{AdminRelatedProductRulesGridPage.url}}" stepKey="amOnRulesGridPageForCreate" />
+        <waitForElementVisible selector="{{AdminRelatedProductRulesGridSection.addNewRule}}" stepKey="waitForAddRuleButtonVisible" />
+        <click selector="{{AdminRelatedProductRulesGridSection.addNewRule}}" stepKey="pressAddRuleButton" />
+        <waitForElementVisible selector="{{AdminNewRelatedProductRulesSection.relatedProductRuleName}}" stepKey="waitForNewRuleFormVisible" />
+        <fillField userInput="{{am_test_rule.rule_name}}" selector="{{AdminNewRelatedProductRulesSection.relatedProductRuleName}}" stepKey="fillFieldRuleName" />
+        <clearField selector="{{AdminNewRelatedProductRulesSection.relatedProductRulePriority}}" stepKey="clearFieldRulePriority" />
+        <fillField userInput="{{am_test_rule.priority}}" selector="{{AdminNewRelatedProductRulesSection.relatedProductRulePriority}}" stepKey="fillFieldPriority" />
+        <click selector="{{AdminNewRelatedProductRulesSection.allStoreViewSelect}}" stepKey="pressAllStoreViewSelect" />
+        <click selector="{{AdminNewRelatedProductRulesSection.displaySettingsTab}}" stepKey="pressDisplaySettingsTab" />
+        <waitForElementVisible selector="{{AdminNewRelatedProductRulesSection.relatedBlockTitle}}" stepKey="waitForNewRuleDisplaySettingsTabVisible" />
+        <fillField userInput="{{am_test_rule.block_title}}" selector="{{AdminNewRelatedProductRulesSection.relatedBlockTitle}}" stepKey="fillFieldRelatedProductBlockTitle" />
+        <clearField selector="{{AdminNewRelatedProductRulesSection.maxProductsToDisplayField}}" stepKey="clearFieldMaxProductToDisplay" />
+        <fillField userInput="{{am_test_rule.max_products}}" selector="{{AdminNewRelatedProductRulesSection.maxProductsToDisplayField}}" stepKey="fillFieldMaxProductsToDisplay" />
+        <click selector="{{AdminNewRelatedProductRulesSection.saveNewRelatedProductRule}}" stepKey="pressSaveNewRelatedProductRuleButton" />
+        <waitForElementVisible selector="{{AdminRelatedProductRulesGridSection.successMessage}}" stepKey="waitForSuccessMessageVisible" />
+        <see userInput="The Rule was successfully saved" selector="{{AdminRelatedProductRulesGridSection.successMessage}}" stepKey="checkSaveRuleMessage" />
+    </actionGroup>
+
+    <actionGroup name="AdminAmastyCreateRelatedProductRuleWithWhereToDisplayConditionActionGroup">
+        <arguments>
+            <argument name="am_test_rule" />
+            <argument name="product1" />
+            <argument name="product2" />
+        </arguments>
+        <amOnPage url="{{AdminRelatedProductRulesGridPage.url}}" stepKey="amOnRulesGridPageForCreate" />
+        <waitForElementVisible selector="{{AdminRelatedProductRulesGridSection.addNewRule}}" stepKey="waitForAddRuleButtonVisible" />
+        <click selector="{{AdminRelatedProductRulesGridSection.addNewRule}}" stepKey="pressAddRuleButton" />
+        <waitForElementVisible selector="{{AdminNewRelatedProductRulesSection.relatedProductRuleName}}" stepKey="waitForNewRuleFormVisible" />
+        <fillField userInput="{{am_test_rule.rule_name}}" selector="{{AdminNewRelatedProductRulesSection.relatedProductRuleName}}" stepKey="fillFieldRuleName" />
+        <clearField selector="{{AdminNewRelatedProductRulesSection.relatedProductRulePriority}}" stepKey="clearFieldRulePriority" />
+        <fillField userInput="{{am_test_rule.priority}}" selector="{{AdminNewRelatedProductRulesSection.relatedProductRulePriority}}" stepKey="fillFieldPriority" />
+        <click selector="{{AdminNewRelatedProductRulesSection.whereToDisplayConditionTab}}" stepKey="pressToExpandWhereToDisplayConditionTab" />
+        <waitForElementVisible selector="{{AdminNewRelatedProductRulesSection.newRuleParam}}" stepKey="waitForNewRuleRuleParamElementVisible" />
+        <click selector="{{AdminNewRelatedProductRulesSection.newRuleParam}}" stepKey="pressToExpandWhereToDisplayConditionDropDown" />
+        <click selector="{{AdminNewRelatedProductRulesSection.skuRuleButton}}" stepKey="pressToChangeWhereToDisplayConditionBySku" />
+        <waitForAjaxLoad stepKey="waitForRuleFilterAjaxLoad" />
+        <click selector="{{AdminNewRelatedProductRulesSection.skuSelectButton}}" stepKey="pressToShowSkuField" />
+        <fillField userInput="{{product1}}" selector="{{AdminNewRelatedProductRulesSection.ruleConditionInput}}" stepKey="fillFieldSKU" />
+        <click selector="{{AdminNewRelatedProductRulesSection.applyRuleParamButton}}" stepKey="pressToExpandWhereToDisplayConditionTab5" />
+        <click selector="{{AdminNewRelatedProductRulesSection.allStoreViewSelect}}" stepKey="pressAllStoreViewSelect" />
+        <click selector="{{AdminNewRelatedProductRulesSection.displaySettingsTab}}" stepKey="pressDisplaySettingsTab" />
+        <waitForElementVisible selector="{{AdminNewRelatedProductRulesSection.relatedBlockTitle}}" stepKey="waitForNewRuleDisplaySettingsTabVisible" />
+        <fillField userInput="{{am_test_rule.block_title}}" selector="{{AdminNewRelatedProductRulesSection.relatedBlockTitle}}" stepKey="fillFieldRelatedProductBlockTitle" />
+        <click selector="{{AdminNewRelatedProductRulesSection.saveNewRelatedProductRule}}" stepKey="pressSaveNewRelatedProductRuleButton" />
+        <waitForElementVisible selector="{{AdminRelatedProductRulesGridSection.successMessage}}" stepKey="waitForSuccessMessageVisible" />
+        <see userInput="The Rule was successfully saved" selector="{{AdminRelatedProductRulesGridSection.successMessage}}" stepKey="checkSaveRuleMessage" />
+    </actionGroup>
+
+    <actionGroup name="StoreFrontAmastyCheckRelatedProductRulesBlockWithWhereToDisplayConditions">
+        <arguments>
+            <argument name="am_test_rule" />
+            <argument name="product1" />
+            <argument name="product2" />
+        </arguments>
+        <amOnPage url="$$createSimpleProduct1.custom_attributes[url_key]$$.html" stepKey="goToSimpleProduct1PageDefaultStore" />
+        <waitForElementVisible selector="{{StoreFrontRelatedProductRulesSection.RelatedProductRuleBlock}}" stepKey="waitForRelatedProductBlockVisibleOnDefaultStoreView" />
+        <seeElement selector="{{StoreFrontRelatedProductRulesSection.RelatedProductRuleBlock}}" stepKey="seeBlockWithRelatedProductRuleOnDefaultStoreView" />
+        <waitForElementVisible selector="{{StoreFrontRelatedProductRulesSection.RelatedProductRuleBlock}}" stepKey="waitForRelatedProductBlockVisibleOnDifferentStoreView" />
+        <seeElement selector="{{StoreFrontRelatedProductRulesSection.RelatedProductRuleBlock}}" stepKey="seeBlockWithRelatedProductRule" />
+        <amOnPage url="$$createSimpleProduct2.custom_attributes[url_key]$$.html" stepKey="goToSimpleProduct2PageDefaultStore" />
+        <waitForPageLoad stepKey="waitForPageLoad" />
+        <dontSeeElement selector="StoreFrontRelatedProductRulesSection.RelatedProductRuleBlock" stepKey="dontSeeBlockWithRelatedProductRule" />
+    </actionGroup>
+
+    <actionGroup name="StoreFrontAmastyCheckRelatedProductRulesBlockOnDifferentStoreViews">
+        <arguments>
+            <argument name="am_test_rule" />
+        </arguments>
+        <amOnPage url="$$createSimpleProduct.custom_attributes[url_key]$$.html" stepKey="goToSimpleProductPageDefaultStore" />
+        <waitForElementVisible selector="{{StoreFrontRelatedProductRulesSection.RelatedProductRuleBlock}}" stepKey="waitForRelatedProductBlockVisibleOnDefaultStoreView" />
+        <seeElement selector="{{StoreFrontRelatedProductRulesSection.RelatedProductRuleBlock}}" stepKey="seeBlockWithRelatedProductRuleOnDefaultStoreView" />
+        <click selector="{{StoreFrontRelatedProductRulesSection.storeViewSwitcher}}" stepKey="pressToExpandChangingStoreViewDropDown" />
+        <waitForElementVisible selector="{{StoreFrontRelatedProductRulesSection.storeViewSelect(customStoreARP.code)}}" stepKey="waitForStoreViewDropdownVisible" />
+        <click selector="{{StoreFrontRelatedProductRulesSection.storeViewSelect(customStoreARP.code)}}" stepKey="pressToSelectDifferentStoreView" />
+        <waitForPageLoad stepKey="waitForPageLoad1" />
+        <click selector="{{StoreFrontRelatedProductRulesSection.apiCategorySelect(ApiCategory.name)}}" stepKey="pressToGoToApiCategoryPage" />
+        <waitForPageLoad stepKey="waitForPageLoad2" />
+        <click selector="{{StoreFrontRelatedProductRulesSection.apiProductSelect}}" stepKey="pressToGoToApiProductPage" />
+        <waitForPageLoad stepKey="waitForPageLoad3" />
+        <waitForElementVisible selector="{{StoreFrontRelatedProductRulesSection.RelatedProductRuleBlock}}" stepKey="waitForRelatedProductBlockVisibleOnDifferentStoreView" />
+        <seeElement selector="{{StoreFrontRelatedProductRulesSection.RelatedProductRuleBlock}}" stepKey="seeBlockWithRelatedProductRuleOnDifferentStoreView" />
+    </actionGroup>
+
+    <actionGroup name="AdminAmastyDeleteRelatedProductRuleActionGroup">
+        <arguments>
+            <argument name="am_test_rule" />
+        </arguments>
+        <amOnPage url="{{AdminRelatedProductRulesGridPage.url}}" stepKey="amOnRulesGridPageForDelete" />
+        <waitForAjaxLoad stepKey="waitForRulesGridAjaxLoad" />
+        <click selector="{{AdminRelatedProductRulesGridSection.expandFilterButton}}" stepKey="pressExpandFilterRuleButton" />
+        <fillField userInput="{{am_test_rule.rule_name}}" selector="{{AdminRelatedProductRulesGridSection.filterRuleName}}" stepKey="fillFieldRuleNameForFilter" />
+        <click selector="{{AdminRelatedProductRulesGridSection.applyFilterButton}}" stepKey="pressApplyFilterRuleButton" />
+        <waitForAjaxLoad stepKey="waitForRuleFilterAjaxLoad" />
+        <click selector="{{AdminRelatedProductRulesGridSection.checkboxRulesGrid}}" stepKey="pressRuleCheckbox" />
+        <click selector="{{AdminRelatedProductRulesGridSection.dropdownActions}}" stepKey="pressRuleActionDropDown" />
+        <click selector="{{AdminRelatedProductRulesGridSection.dropdownDeleteAction}}" stepKey="pressRuleDeleteAction" />
+        <waitForElementVisible selector="{{AdminRelatedProductRulesGridSection.popupSubmitAction}}" stepKey="waitForDeleteRulePopUp" />
+        <click selector="{{AdminRelatedProductRulesGridSection.popupSubmitAction}}" stepKey="confirmDeleteRulePopUp" />
+        <waitForElementVisible selector="{{AdminRelatedProductRulesGridSection.successMessage}}" stepKey="waitForSuccessMessageVisible" />
+        <see userInput="A total of 1 record(s) have been deleted." selector="{{AdminRelatedProductRulesGridSection.successMessage}}" stepKey="checkRuleSuccessMessage" />
+        <waitForElementNotVisible selector="{{AdminRelatedProductRulesGridSection.ajaxSpinner}}" stepKey="waitForElementAjaxSpinnerNotVisible" />
+        <click selector="{{AdminRelatedProductRulesGridSection.resetRulesGridFilter}}" stepKey="resetCardsGridFilter" />
+    </actionGroup>
+
+    <actionGroup name="AdminAmastyCreateRelatedProductRuleForOutOfStockProductsOnlyActionGroup" extends="AdminAmastyCreateRelatedProductRuleActionGroup">
+        <arguments>
+            <argument name="am_test_rule" />
+        </arguments>
+        <click selector="{{AdminNewRelatedProductRulesSection.whereToDisplayConditionTab}}" stepKey="pressToExpandWhereToDisplayConditionTab" after="pressAllStoreViewSelect" />
+        <waitForElementVisible selector="{{AdminNewRelatedProductRulesSection.outOfStockProductToggle}}" stepKey="waitForOutOfStockProductToggle" after="pressToExpandWhereToDisplayConditionTab" />
+        <click selector="{{AdminNewRelatedProductRulesSection.outOfStockProductToggle}}" stepKey="pressToEnableDisplayForOutOfStockProduct" after="pressToExpandWhereToDisplayConditionTab" />
+    </actionGroup>
+
+    <actionGroup name="StoreFrontAmastyCheckRelatedProductRulesBlockOnOutOfStockProductPageActionGroup">
+        <arguments>
+            <argument name="am_test_rule" />
+            <argument name="product1" />
+            <argument name="product2" />
+        </arguments>
+        <amOnPage url="$$createOutOfStockSimpleProduct.custom_attributes[url_key]$$.html" stepKey="goToSimpleProduct1PageDefaultStore" />
+        <waitForElementVisible selector="{{StoreFrontRelatedProductRulesSection.RelatedProductRuleBlock}}" stepKey="waitForRelatedProductBlockVisibleOnDefaultStoreView" />
+        <seeElement selector="{{StoreFrontRelatedProductRulesSection.RelatedProductRuleBlock}}" stepKey="seeBlockWithRelatedProductRuleOnDefaultStoreView" />
+        <waitForElementVisible selector="{{StoreFrontRelatedProductRulesSection.RelatedProductRuleBlock}}" stepKey="waitForRelatedProductBlockVisibleOnDifferentStoreView" />
+        <seeElement selector="{{StoreFrontRelatedProductRulesSection.RelatedProductRuleBlock}}" stepKey="seeBlockWithRelatedProductRule" />
+        <amOnPage url="$$createSimpleProduct2.custom_attributes[url_key]$$.html" stepKey="goToSimpleProduct2PageDefaultStore" />
+        <waitForPageLoad stepKey="waitForPageLoad" />
+        <dontSeeElement selector="StoreFrontRelatedProductRulesSection.RelatedProductRuleBlock" stepKey="dontSeeBlockWithRelatedProductRule" />
+    </actionGroup>
+
+    <actionGroup name="StoreFrontAmastyCheckRelatedProductRulesGridWithEightProductsActionGroup">
+        <arguments>
+            <argument name="am_test_rule" />
+            <argument name="product2" />
+        </arguments>
+        <amOnPage url="$$createSimpleProduct2.custom_attributes[url_key]$$.html" stepKey="goToSimpleProduct2PageDefaultStore" />
+        <waitForPageLoad stepKey="waitForPageLoad" />
+        <seeNumberOfElements userInput="{{am_test_rule.max_products}}" selector="{{AdminNewRelatedProductRulesSection.gridProductBlock}}" stepKey="checkNumberOfProductsInGrid" />
+    </actionGroup>
+
+    <actionGroup name="AdminAmastyCreateRelatedProductRuleSliderWithFiveProductsActionGroup" extends="AdminAmastyCreateRelatedProductRuleActionGroup">
+        <arguments>
+            <argument name="am_test_rule" />
+        </arguments>
+        <click selector="{{AdminNewRelatedProductRulesSection.blockLayoutDropDown}}" stepKey="expandBlockLayoutDropDown" after="fillFieldRelatedProductBlockTitle" />
+        <click selector="{{AdminNewRelatedProductRulesSection.selectSliderButton}}" stepKey="selectSliderButton" after="expandBlockLayoutDropDown" />
+        <fillField userInput="{{am_test_rule.max_products_slider}}" selector="{{AdminNewRelatedProductRulesSection.maxProductsToDisplayField}}" stepKey="fillFieldMaxProductsToDisplay" />
+    </actionGroup>
+
+    <actionGroup name="StoreFrontAmastyCheckRelatedProductRulesSliderWithFiveProductsActionGroup">
+        <arguments>
+            <argument name="am_test_rule" />
+            <argument name="product2" />
+        </arguments>
+        <amOnPage url="$$createSimpleProduct2.custom_attributes[url_key]$$.html" stepKey="goToSimpleProduct2PageDefaultStore" />
+        <waitForPageLoad stepKey="waitForPageLoad" />
+        <scrollTo selector="{{AdminNewRelatedProductRulesSection.sliderProductBlock2}}" stepKey="scrollToAnchor" />
+        <seeNumberOfElements parameterArray="[1,{{am_test_rule.max_products_slider}}]" selector="{{AdminNewRelatedProductRulesSection.sliderProductBlock1}}" stepKey="checkNumberOfProductsInSlider1" />
+    </actionGroup>
+
+    <actionGroup name="AdminAmastyCreateRelatedProductRuleWithoutTitleActionGroup" extends="AdminAmastyCreateRelatedProductRuleActionGroup">
+        <arguments>
+            <argument name="am_test_rule" />
+        </arguments>
+        <scrollTo selector="{{AdminNewRelatedProductRulesSection.relatedBlockTitle}}" stepKey="fillFieldRelatedProductBlockTitle" />
+    </actionGroup>
+
+    <actionGroup name="StoreFrontAmastyCheckRelatedProductRulesWithoutTitleActionGroup">
+        <arguments>
+            <argument name="am_test_rule" />
+            <argument name="product2" />
+        </arguments>
+        <amOnPage url="$$createSimpleProduct2.custom_attributes[url_key]$$.html" stepKey="goToSimpleProduct2PageDefaultStore" />
+        <waitForPageLoad stepKey="waitForPageLoad" />
+        <dontSeeElement selector="{{AdminNewRelatedProductRulesSection.storeFrontRelatedProductRuleTitle}}" stepKey="dontSeeRelatedProductRuleTitleBlock" />
+    </actionGroup>
+
+    <actionGroup name="AdminAmastyCreateRelatedProductRuleWithoutAddToCartButton" extends="AdminAmastyCreateRelatedProductRuleActionGroup">
+        <arguments>
+            <argument name="am_test_rule" />
+        </arguments>
+        <click selector="{{AdminNewRelatedProductRulesSection.displayAddToCartButtonToggle}}" stepKey="disableAddToCartButton" after="fillFieldRelatedProductBlockTitle" />
+    </actionGroup>
+
+    <actionGroup name="StoreFrontAmastyCheckRelatedProductRulesWithoutAddToCartButtonActionGroup">
+        <arguments>
+            <argument name="am_test_rule" />
+            <argument name="product2" />
+        </arguments>
+        <amOnPage url="$$createSimpleProduct2.custom_attributes[url_key]$$.html" stepKey="goToSimpleProduct2PageDefaultStore" />
+        <waitForPageLoad stepKey="waitForPageLoad" />
+        <dontSeeElement selector="{{AdminNewRelatedProductRulesSection.storeFrontAddToCartButton}}" stepKey="dontSeeAddToCartButtons" />
+    </actionGroup>
+
+</actionGroups>

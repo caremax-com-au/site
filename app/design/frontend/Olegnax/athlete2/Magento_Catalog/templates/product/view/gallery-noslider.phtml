@@ -1,0 +1,217 @@
+<?php
+/**
+ * Athlete2 Theme
+ *
+ * @author      Olegnax
+ * @package     Olegnax_Athlete2
+ * @copyright   Copyright (c) 2021 Olegnax (https://olegnax.com). All rights reserved.
+ * @license     https://www.olegnax.com/license
+ */
+?>
+<?php
+$galleryClasses = [];
+$galleryClasses[] = 'gallery-placeholder ox-gallery';
+$theme_settings = $this->helper('Olegnax\Athlete2\Helper\Helper')->getConfig('athlete2_settings');
+/** @var \Olegnax\Athlete2\Helper\Video $videoHelper */
+$videoHelper = $this->helper(\Olegnax\Athlete2\Helper\Video::class);
+$productImageWidth = $theme_settings['product_images']['product_image_width'] ?: $block->getImageAttribute('product_page_image_medium', 'width');
+$productImageHeight = $theme_settings['product_images']['product_image_height'] ?: $block->getImageAttribute('product_page_image_medium', 'height');
+$imageRatio = $productImageHeight/$productImageWidth*100 . '%';
+$popupEnabled = $theme_settings['product']['gallery_popup'];
+$galleryMobile = $theme_settings['product']['gallery_mobile'];
+$mobileBreakpoint = $theme_settings['product']['gallery_mobile_breakpoint'] ?: '767';
+$stickyEnabled = $theme_settings['product']['gallery_sticky'];
+$galleryColumns = $theme_settings['product']['gallery_layout'];
+$imagesMinCount = $theme_settings['product']['gallery_images_min_count'];
+$zoomCursor = $theme_settings['product']['gallery_zoom_cursor'];
+$imageStretch = $theme_settings['product']['gallery_images_stretch'];
+$lazy = $theme_settings['general']['lazyload'] && ! $theme_settings['product']['gallery_disable_lazy'];
+$galleryImages = $this->getGalleryImages();
+$imagesCount = count($galleryImages);
+$helper = $block->getData('imageHelper');
+if ($imagesCount < $imagesMinCount) {
+    $galleryClasses[] = 'gallery--1col';
+} else {
+    $galleryClasses[] = 'gallery--' . $galleryColumns;
+}
+if ($imagesCount <= 1) {
+    $galleryClasses[] = 'single-image';
+}
+if ($popupEnabled){
+    $galleryClasses[] = 'gallery--with-popup';
+}
+if (true){
+    $galleryClasses[] = 'gallery--with-replace';
+}
+$imageWrapperStyles ='';
+if ($imageStretch == 'stretch' || $imageStretch == 'center'){
+    $galleryClasses[] = 'gallery--' . $imageStretch . '-images';
+	$imageWrapperStyles = ' style="padding-bottom: ' . $imageRatio . '"';
+}
+if($zoomCursor){
+	$galleryClasses[] = 'ox-custom-cursor';
+}
+if($galleryMobile){
+	$galleryClasses[] = 'ox-gallery-mobile';
+}
+$index = 1;
+?>
+<div class="<?= implode(' ', $galleryClasses) ?>" data-gallery-role="gallery-placeholder"
+	<?php if($galleryMobile){?> data-mage-init='{"OXmobileNoSlider":{"mediaBreakpoint": <?= $mobileBreakpoint ?>}}' <?php } ?>>
+    <?php if ($zoomCursor): ?>
+		<div id="ox-zoom-cursor"><span></span></div>
+    <?php
+	endif;
+    if (!empty($galleryImages)):
+        $imageAlt = $block->getProduct()->getName();
+		foreach ($galleryImages as $image):
+			$_product = $block->getProduct();
+			?>
+			
+			<div class="gallery__item">
+                <?php if ($videoHelper->issetVideo($_product) && $videoHelper->videoPosition($_product) == $index): ?>
+					<div class="gallery__image-wrapper gallery__video-wrapper <?php if($videoHelper->showControls($_product)){ echo 'video-w-controls'; }?>"<?= $imageWrapperStyles ?>>
+						<?php if ($lazy) : ?>
+							<img class="gallery__image lazy"
+								 width="<?= $productImageWidth ?>" height="<?= $productImageHeight ?>"
+								 src="<?= $this->getViewFileUrl('Olegnax_Core/images/preloader-img.svg'); ?>"
+								 data-preloader="<?= $this->getViewFileUrl('Olegnax_Core/images/preloader-img.svg'); ?>"
+								 data-original="<?= $block->escapeUrl($image->getMediumImageUrl()) ?>"
+								 alt="<?php echo $imageAlt ?>"/>
+						<?php else : ?>
+							<img class="gallery__image"
+								 src="<?php echo $image->getMediumImageUrl(); ?>"
+								 alt="<?php echo $imageAlt ?>"
+							/>
+						<?php endif; ?>
+						<?= $videoHelper->getVideo($_product, [
+							'video_attrs' => [
+								'width' => $productImageWidth,
+								'height' => $productImageHeight,                            
+								'controls' => $videoHelper->showControls($_product),
+								'loop' => $videoHelper->stopOnClick($_product),
+								'autoplay' => $videoHelper->autoplayVideo($_product),
+								'muted' => $videoHelper->autoplayVideo($_product) || !$videoHelper->showControls($_product),
+							],
+						]); ?>
+					</div>
+                <?php else: ?>
+                <?php if ($popupEnabled):
+					if ($image->getMediaType() != 'external-video'): ?>
+							<div class="gallery__image-wrapper"<?= $imageWrapperStyles ?>>
+								<?php if ($lazy) : ?>
+									<img class="gallery__image lazy"
+										 width="<?= $productImageWidth ?>" height="<?= $productImageHeight ?>"
+										 src="<?= $this->getViewFileUrl('Olegnax_Core/images/preloader-img.svg'); ?>"
+										 data-preloader="<?= $this->getViewFileUrl('Olegnax_Core/images/preloader-img.svg'); ?>"
+										 data-original="<?= $block->escapeUrl($image->getMediumImageUrl()) ?>"
+										 data-full="<?= $block->escapeUrl($image->getLargeImageUrl()) ?>"
+										 data-ox="gallery_product"
+										 data-index="<?= $index; ?>"
+										 alt="<?php echo $imageAlt ?>"/>
+								<?php else : ?>
+									<img class="gallery__image"
+										 src="<?php echo $image->getMediumImageUrl(); ?>"
+										 data-full="<?= $block->escapeUrl($image->getLargeImageUrl()) ?>"
+										 data-ox="gallery_product"
+										 data-index="<?= $index; ?>"
+										 alt="<?php echo $imageAlt ?>"
+									/>
+								<?php endif; ?>
+							</div>
+                    <?php else: ?>
+							<div class="gallery__image-wrapper"<?= $imageWrapperStyles ?>>
+								<?php if ($lazy) : ?>
+									<img class="gallery__image lazy"
+										 width="<?= $productImageWidth ?>" height="<?= $productImageHeight ?>"
+										 src="<?= $this->getViewFileUrl('Olegnax_Core/images/preloader-img.svg'); ?>"
+										 data-preloader="<?= $this->getViewFileUrl('Olegnax_Core/images/preloader-img.svg'); ?>"
+										 data-original="<?= $block->escapeUrl($image->getMediumImageUrl()) ?>"
+										 data-full="<?= $block->escapeUrl($image->getVideoUrl()) ?>"
+										 data-type="video"
+										 data-ox="gallery_product"
+										 data-index="<?= $index; ?>"
+										 alt="<?php echo $imageAlt ?>"/>
+								<?php else : ?>
+									<img class="gallery__image"
+										 src="<?php echo $image->getMediumImageUrl(); ?>"
+										 data-full="<?= $block->escapeUrl($image->getVideoUrl()) ?>"
+										 data-type="video"
+										 data-ox="gallery_product"
+										 data-index="<?= $index; ?>"
+										 alt="<?php echo $imageAlt ?>"/>
+								<?php endif; ?>
+							</div>
+                    <?php endif ?>
+                <?php else: ?>
+                    <?php if ($image->getMediaType() != 'external-video'): ?>
+						<div class="gallery__image-wrapper"<?= $imageWrapperStyles ?>>
+							<?php if ($lazy) : ?>
+								<img class="gallery__image lazy"
+									 width="<?= $productImageWidth ?>" height="<?= $productImageHeight ?>"
+									 src="<?= $this->getViewFileUrl('Olegnax_Core/images/preloader-img.svg'); ?>"
+									 data-preloader="<?= $this->getViewFileUrl('Olegnax_Core/images/preloader-img.svg'); ?>"
+									 data-original="<?= $block->escapeUrl($image->getMediumImageUrl()) ?>"
+									 data-ox="gallery_product"
+									 alt="<?php echo $imageAlt ?>"/>
+							<?php else : ?>
+								<img class="gallery__image" src="<?php echo $image->getMediumImageUrl(); ?>"
+									 data-ox="gallery_product" alt="<?php echo $imageAlt ?>"/>
+							<?php endif; ?>
+						</div>
+                    <?php else: ?>
+						<iframe width="<?= $productImageWidth ?>" height="<?= $productImageHeight ?>" src="<?= $image->getVideoUrl(); ?>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <?php endif ?>
+                <?php endif ?>
+                <?php endif ?>
+			</div>
+		<?php 			 $index++; ?>
+        <?php endforeach ?>
+    <?php else: ?>
+        <?= $helper->getDefaultPlaceholderUrl('image'); ?>
+    <?php endif; ?>
+</div>
+<script type="text/x-magento-init">
+    {
+		<?php if ( $stickyEnabled ) : ?>
+			"*": {
+				"sticky-sidebar": {
+					"wrapper": ".athlete2_product_info__wrapper",
+					"sticky": ".product-info-main, .product.media"
+				}
+			},
+		<?php endif; ?>
+        ".gallery--with-popup[data-gallery-role=gallery-placeholder]": {
+            "photoswipe-init": {
+            	"itemSelector": ".gallery__item .gallery__image[data-full]",
+            	"defaultVideoSize": "<?= $productImageWidth . 'x' . $productImageHeight ?>"
+            }
+        }
+
+    }
+</script>
+
+<?php if($galleryMobile){ ?>
+<style>
+    @media (max-width: <?= $mobileBreakpoint ?>px){
+        .gallery--2cols.ox-gallery-mobile{
+                margin-left:0;
+                margin-right:0;
+		}
+		.gallery--1cols.ox-gallery-mobile:not(.owl-loaded),
+		.gallery--2cols.ox-gallery-mobile:not(.owl-loaded){
+				display: flex;
+				flex-wrap: nowrap;
+				overflow: hidden;
+		}
+		.gallery--2cols.ox-gallery-mobile .gallery__item{
+			-ms-flex: 0 0 100%;
+			flex: 0 0 100%;
+			max-width: 100%;
+			padding-right:0;
+			padding-left:0;
+			margin-bottom: 0;               
+        }
+    }	
+</style>
+<?php }

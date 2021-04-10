@@ -1,0 +1,33 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Wishlist\Block\Catalog\Product\View\AddTo\Wishlist $block */
+$wishlist_disabled = $this->helper('Olegnax\Athlete2\Helper\Helper')->getConfig('athlete2_settings/product/wishlist_disable');
+if(!$wishlist_disabled):
+$buttomClasses = '';
+$_helper = $this->helper( 'Olegnax\Athlete2\Helper\CssFiles' );
+$theme_helper = $this->helper('Olegnax\Athlete2\Helper\Helper');
+$actions_position = $theme_helper->getConfig('athlete2_settings/product/actions_position');
+if ( '2' == $actions_position ) {
+	$buttomClasses = 'js-tippy-btn';
+}
+?>
+<?php if ($block->isWishListAllowed()) : ?>
+    <a href="#"
+       class="action towishlist athlete2-icon-heart <?= $buttomClasses ?>"
+       data-post='<?= /* @noEscape */ $block->getWishlistParams() ?>'
+       data-action="add-to-wishlist" data-tippy-content="<?= $block->escapeHtml(__('Add to Wish List')) ?>"><span><?= $block->escapeHtml(__('Add to Wish List')) ?></span></a>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "body": {
+            "addToWishlist": <?= /* @noEscape */ $block->getWishlistOptionsJson() ?>
+        }
+    }
+</script>
+<?php endif; ?>

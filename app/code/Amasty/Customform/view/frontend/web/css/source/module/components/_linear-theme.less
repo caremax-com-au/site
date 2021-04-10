@@ -1,0 +1,258 @@
+//
+//  Linear Theme
+//  _____________________________________
+
+//
+//  Common
+//  -------------------------------------
+
+& when (@media-common = true) {
+    .linear-theme.rendered-form {
+        max-width: 720px;
+    }
+
+    .linear-theme .fields {
+        margin: 0 -@amcform__indent__l;
+        padding: 0 @amcform__indent__l;
+    }
+
+    .linear-theme.rendered-form .form-control,
+    .linear-theme.rendered-form .amform-date,
+    .linear-theme.rendered-form .amform-time {
+        & {
+            position: relative;
+            z-index: 1;
+            padding: 0;
+            min-height: 30px;
+            max-width: 100%;
+            width: 100%;
+            border: 0;
+            border-bottom: 1px solid #ccc;
+            background-color: transparent;
+            color: @amcform-title__color;
+        }
+
+        &:focus {
+            & {
+                outline: none;
+                border-color: @amcform-button__background;
+                box-shadow: none;
+            }
+
+            &:-ms-input-placeholder {
+                color: @amcform-pager__disabled__color;
+            }
+
+            &::placeholder {
+                color: @amcform-pager__disabled__color;
+            }
+        }
+
+        &.mage-error {
+            border-color: @amcform-error__color;
+        }
+
+        &[multiple] {
+            padding-top: @amcform__indent;
+        }
+
+        &:-ms-input-placeholder {
+            color: transparent;
+        }
+
+        &::placeholder {
+            color: transparent;
+        }
+    }
+
+    .linear-theme.rendered-form textarea.form-control {
+        padding-top: 6px;
+        min-height: 46px;
+    }
+
+    .linear-theme.rendered-form .field,
+    .linear-theme.rendered-form .fieldset > .field.form-group,
+    .linear-theme.rendered-form .fieldset > .fields > .field.form-group {
+        & {
+            position: relative;
+            margin-bottom: 24px;
+            padding: 0 20px;
+        }
+
+        &.amform-layout-two {
+            margin-right: 0;
+            max-width: 50%;
+        }
+
+        &.amform-layout-three {
+            margin-right: 0;
+            max-width: 100% / 3;
+        }
+
+        & .required {
+            color: inherit;
+        }
+
+        & .tooltip-element {
+            z-index: 2;
+            background: @amcform-button__background;
+        }
+
+        & > .label {
+            & {
+                position: absolute;
+                top: 6px;
+                display: block;
+                margin: 0;
+                width: 100%;
+                font-weight: 400;
+                font-size: 14px;
+                transition: top .2s ease-in-out, font-size .2s ease-in-out;
+            }
+
+            &.fb-checkbox-group-label,
+            &.fb-radio-group-label,
+            &.fb-file-label {
+                position: relative;
+                top: -8px;
+                color: #737373;
+                font-size: 10px;
+                line-height: 12px;
+            }
+        }
+
+        &.-active > .label,
+        &.-has-content > .label,
+        &.fb-time > .label {
+            top: -8px;
+            color: #737373;
+            font-size: 10px;
+            line-height: 12px;
+        }
+
+        &.-active > .label {
+            color: @amcform-button__background;
+        }
+    }
+
+    .linear-theme.rendered-form div.mage-error[generated] {
+        margin-top: 2px;
+        color: @amcform-error__color;
+        font-size: 10px;
+        line-height: 12px;
+    }
+
+    .linear-theme.rendered-form .amform-date._has-datepicker ~ .ui-datepicker-trigger {
+        & {
+            margin-left: -15px;
+        }
+
+        &:before {
+            width: 12px;
+            height: 13px;
+            background-image: @amcform-datepicker__icon;
+            content: '';
+        }
+    }
+
+
+    .linear-theme.rendered-form input[type=checkbox],
+    .linear-theme.rendered-form input[type=radio] {
+        & {
+            margin-right: 5px;
+            width: 16px;
+            height: 16px;
+            outline: none;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    /* Pagination */
+
+    .linear-theme .amcform-page-titles {
+        align-items: stretch;
+        padding: 0 20px;
+    }
+
+    .linear-theme .amcform-step {
+        display: none;
+    }
+
+    .linear-theme .amcform-title-wrap {
+        & {
+            display: block;
+            flex: 1;
+            margin: 0 0 16px 0;
+            text-align: left;
+
+            &:after,
+            &:before {
+                display: none;
+            }
+        }
+
+        &.ui-state-active .amcform-title {
+            border-color: @amcform-pager__background;
+        }
+
+        &.-disabled .amcform-title {
+            border-color: @amcform-pager__border-color;
+        }
+
+        &.-error .amcform-title {
+            border-color: @amcform-error__color;
+        }
+    }
+
+    .linear-theme .amcform-title {
+        display: block;
+        margin: 0;
+        padding-bottom: 7px;
+        min-height: 100%;
+        max-width: 100%;
+        border-bottom: 7px solid @amcform-pager__track-color;
+        text-align: left;
+    }
+}
+
+//
+//  Mobile
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .linear-theme .amcform-page-titles {
+        padding: 0 @amcform__indent__m;
+    }
+
+    .linear-theme .amcform-title-wrap {
+        & {
+            display: block;
+            min-width: 50%;
+            max-width: 100%;
+        }
+
+        &.ui-state-active ~ &:nth-last-child(2) {
+            display: block;
+        }
+    }
+
+    .linear-theme .fields {
+        margin: 0 -@amcform__indent__m;
+        padding: 0 @amcform__indent__m;
+    }
+
+    .linear-theme.rendered-form  .fieldset > .field.form-group,
+    .linear-theme.rendered-form  .fieldset > .fields > .field.form-group {
+        & {
+            padding: 0 @amcform__indent__m;
+        }
+
+        &.amform-layout-two,
+        &.amform-layout-three {
+            max-width: 100%;
+        }
+    }
+}

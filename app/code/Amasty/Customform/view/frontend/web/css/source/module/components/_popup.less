@@ -1,0 +1,146 @@
+//
+//  Popup
+//  _____________________________________
+
+//
+//  Common
+//  -------------------------------------
+
+& when (@media-common = true) {
+    .amcform-popup-block {
+        & {
+            z-index: 9999;
+            box-sizing: border-box;
+        }
+
+        .modal-title {
+            padding: 0;
+            border: none;
+        }
+
+        .modal-inner-wrap {
+            max-width: 520px;
+            width: 100%;
+            border: 1px solid #fff;
+            border-radius: 4px;
+        }
+
+        .modal-header {
+            box-sizing: border-box;
+            margin: 0;
+            padding: @amcform__indent__l * 2 @amcform__indent @amcform__indent;
+            width: 100%;
+            border: none;
+            text-align: center;
+        }
+
+        .modal-title {
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .amcform-notice {
+            display: block;
+            margin: 0;
+            padding: 0 0 @amcform__indent;
+            width: 100%;
+            border-bottom: 1px solid #c1c1c1;
+            text-align: center;
+            word-break: break-word;
+            font-weight: 400;
+            font-size: 12px;
+        }
+
+        .modal-footer {
+            padding: @amcform__indent__m @amcform__indent__m @amcform__indent__xl;
+        }
+
+        .amcform-button {
+            margin: 0 @amcform__indent 0 0;
+        }
+    }
+
+    .amform-popup-close {
+        position: absolute;
+        top: 5px;
+        right: 20px;
+        display: inline-block;
+        float: right;
+        color: #aaa;
+        font-weight: bold;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .amform-popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        display: none;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, .4);
+    }
+
+    .amform-show {
+        display: inline-block;
+        margin: @amcform__indent;
+        vertical-align: middle;
+    }
+
+    .amform-popup-close .amform-close {
+        position: fixed;
+    }
+
+    .amform-content {
+        position: relative;
+        overflow-y: auto;
+        box-sizing: border-box;
+        padding: 20px;
+        max-height: 80%;
+        height: auto;
+        border: 1px solid #888;
+        border-radius: 2%;
+        background-color: #fefefe;
+    }
+}
+
+//
+// Desktop
+// --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .amform-content {
+        max-width: 700px;
+        width: 80%;
+    }
+}
+
+//
+//  Tablet +
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .amcform-popup-block .modal-inner-wrap .modal-footer {
+        border-top: none;
+    }
+
+    .amform-content {
+        top: 10%;
+        margin: 0 auto;
+        width: 60%;
+    }
+}
+
+//
+//  Mobile
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xs) {
+    .amform-content {
+        top: 15%;
+        max-height: 60%;
+        width: 100%;
+    }
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Mostviewed
+ */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AdminAmastyEnableAllBundlePacksPageActionGroup">
+        <annotations>
+            <description>Enable All Bundle Packs CMS Page.</description>
+        </annotations>
+        <amOnPage url="/admin/cms/page/" stepKey="amOnCmsPagesGridPage"/>
+        <waitForElementVisible selector="{{AdminCmsPageGridSection.allBundlePacksPageCheckBox}}" stepKey="waitForAllBundlePacksPageCheckboxVisible"/> 
+        <click selector="{{AdminCmsPageGridSection.allBundlePacksPageCheckBox}}" stepKey="pressToEnableAllBundlePacksPage1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad"/>
+        <click selector="{{AdminCmsPageGridSection.actionsDropDown}}" stepKey="pressToSelectAllBundlePacksPage"/>
+        <click selector="{{AdminCmsPageGridSection.enableButton}}" stepKey="pressToEnableAllBundlePacksPage"/>
+    </actionGroup>
+
+    <actionGroup name="AdminAmastyDisableAllBundlePacksPageActionGroup">
+        <annotations>
+            <description>Disable All Bundle Packs CMS Page.</description>
+        </annotations>
+        <amOnPage url="/admin/cms/page/" stepKey="amOnCmsPagesGridPage"/>
+        <waitForElementVisible selector="{{AdminCmsPageGridSection.allBundlePacksPageCheckBox}}" stepKey="waitForAllBundlePacksPageCheckboxVisible"/>
+        <click selector="{{AdminCmsPageGridSection.allBundlePacksPageCheckBox}}" stepKey="pressToSelectAllBundlePacksPage1"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad"/>
+        <click selector="{{AdminCmsPageGridSection.actionsDropDown}}" stepKey="pressToSelectAllBundlePacksPage"/>
+        <click selector="{{AdminCmsPageGridSection.enableButton}}" stepKey="pressToDisableAllBundlePacksPage"/>
+    </actionGroup>
+</actionGroups>

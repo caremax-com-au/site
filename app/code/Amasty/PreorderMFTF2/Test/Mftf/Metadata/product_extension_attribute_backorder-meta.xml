@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF2
+ */
+-->
+<operations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataOperation.xsd">
+    <operation name="CreateProductExtensionAttributeBackorder"
+               dataType="product_extension_attribute_backorder" type="create">
+        <field key="stock_item">stock_item_backorder</field>
+    </operation>
+    <operation name="UpdateProductExtensionAttributeBackorder"
+               dataType="product_extension_attribute_backorder" type="update">
+        <field key="stock_item">stock_item_backorder</field>
+    </operation>
+</operations>

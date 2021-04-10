@@ -1,0 +1,58 @@
+//
+//  Base Styles
+//  ____________________________________________
+
+//
+//  Keyframes
+//  --------------------------------------------
+
+@keyframes loading {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg)
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg)
+    }
+}
+
+//
+//  Common
+//  --------------------------------------------
+
+& when (@media-common = true) {
+    .amsl-social-chart {
+        & {
+            position: relative;
+            min-width: 400px;
+            min-height: 250px;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, .15);
+        }
+
+        &.-loading:before {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            box-sizing: border-box;
+            width: 50px;
+            height: 50px;
+            border: 6px solid #e2dfdf;
+            border-top-color: #23a0f2;
+            border-radius: 50%;
+            content: '';
+            animation: loading 1.2s linear infinite;
+        }
+
+        // Override Amchart's style
+        .amcharts-chart-div > a {
+            top: initial !important;
+            right: 5px;
+            bottom: 5px;
+            left: initial !important;
+            color: #333 !important;
+            font-size: 10px !important;
+        }
+        // END Override Amchart's style
+    }
+}

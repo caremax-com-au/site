@@ -1,0 +1,25 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+
+/** @var $block \Magento\Catalog\Block\Product\View\AddTo\Compare */
+$compare_disabled = $this->helper('Olegnax\Athlete2\Helper\Helper')->getConfig('athlete2_settings/product/compare_disable');
+if(!$compare_disabled):
+$buttomClasses = '';
+$actions_position = $this->helper('Olegnax\Athlete2\Helper\Helper')->getConfig('athlete2_settings/product/actions_position');
+if ('2' == $actions_position) {
+    $buttomClasses = 'js-tippy-btn';
+}
+?>
+
+<?php $viewModel = $block->getData('addToCompareViewModel'); ?>
+<?php if ($viewModel->isAvailableForCompare($block->getProduct())): ?>
+	<a href="#" data-post='<?= /* @noEscape */ $block->getPostDataParams() ?>'
+	   data-role="add-to-links"
+	   class="action tocompare athlete2-icon-compare <?= $block->escapeHtmlAttr($buttomClasses) ?>"
+	   data-tippy-content="<?= $block->escapeHtmlAttr(__('Add to Compare')) ?>"><span><?= $block->escapeHtml(__('Add to Compare')) ?></span></a>
+<?php endif; ?>
+<?php endif; ?>

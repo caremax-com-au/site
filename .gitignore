@@ -1,0 +1,17 @@
+# 2021-03-17 Dmitry Fedyuk https://www.upwork.com/fl/mage2pro
+*
+!*/
+!/.editorconfig
+!/.gitignore
+!/composer.json
+!/readme.md
+!/app/code/**/*
+!/app/design/frontend/Olegnax/**/*
+!/app/etc/config.php
+/update/
+/dev
+/vendor/codeception
+/vendor/magento/framework/Test
+/vendor/magento/magento2-base
+/vendor/magento/magento2-functional-testing-framework
+/vendor/tubalmartin

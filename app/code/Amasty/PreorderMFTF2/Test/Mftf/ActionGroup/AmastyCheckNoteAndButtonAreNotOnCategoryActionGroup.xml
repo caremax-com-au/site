@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF2
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AmastyCheckNoteAndButtonAreNotOnCategoryActionGroup"
+                 extends="AmastyCheckNoteAndButtonOnCategoryActionGroup">
+        <dontSee userInput="{{AmastyDisplayTextDefaultData.pre_order_note}}"
+                 selector="{{StorefrontCategoryProductSection.AmastyPreOrderNote(product)}}"
+                 stepKey="seePreOrderNote"/>
+        <dontSee userInput="{{AmastyDisplayTextDefaultData.add_to_cart_button_text}}"
+                 selector="{{StorefrontCategoryProductSection.ProductAddToCartByName(product)}}"
+                 stepKey="seePreOrderButton"/>
+    </actionGroup>
+</actionGroups>

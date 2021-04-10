@@ -1,0 +1,45 @@
+name: AdForm
+type: csv
+csv:
+  delimiter: comma
+  enclosure: '"'
+  include_header: 1
+
+  schema:
+    - order: 0
+      header: product_id
+      type:
+      pattern:
+      attribute: entity_id
+
+    - order: 1
+      header: product_name
+      type:
+      pattern:
+      attribute: name
+
+    - order: 2
+      header: product_category_id
+      type:
+      pattern:
+      attribute: category.name
+
+    - order: 3
+      header: product_deeplink
+      type:
+      pattern:
+      attribute: url
+
+    - order: 4
+      header: product_image
+      type:
+      pattern:
+      attribute: image
+
+    - order: 5
+      header: product_price
+      type:
+      pattern:
+      attribute: price
+      modifiers:
+        - {modifier: price}

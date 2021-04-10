@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Stripe
+ */
+-->
+<!--
+  @author Amasty Team
+  @copyright Copyright (c) 2019 Amasty (https://www.amasty.com)
+  @package Amasty_Stripe
+  -->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/guest-carts/:cartId/estimate-shipping-methods-apple-pay" method="POST">
+        <service class="Amasty\Stripe\Api\Quote\ApplePayGuestShippingMethodManagementInterface" method="estimateByExtendedAddress"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route url="/V1/carts/mine/estimate-shipping-methods-apple-pay" method="POST">
+        <service class="Amasty\Stripe\Api\Quote\ApplePayShippingMethodManagementInterface" method="estimateByExtendedAddress"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+
+    <route url="/V1/guest-carts/:cartId/select-shipping-method-apple-pay" method="PUT">
+        <service class="Amasty\Stripe\Api\Quote\ApplePayGuestShippingMethodManagementInterface" method="set"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route url="/V1/carts/mine/select-shipping-method-apple-pay" method="PUT">
+        <service class="Amasty\Stripe\Api\Quote\ApplePayShippingMethodManagementInterface" method="set"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+</routes>

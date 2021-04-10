@@ -1,0 +1,77 @@
+<div data-bind="blockLoader: isLoading">
+    <!-- ko if: (savedCards.length >= 0) -->
+    <table class="data-grid">
+        <thead>
+        <tr>
+            <th data-bind="i18n: 'Cards', visible: visible" class="data-grid-th"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- ko foreach: { data: savedCards, as: 'savedCard'}  -->
+        <tr>
+            <td class="amstripe-td -сard">
+                <div class="amstripe-card amstripe-td" data-bind="css: $parent.getClass(savedCard)"></div>
+            </td>
+            <td class="amstripe-td -name" data-bind="text: $parent.getBrand(savedCard)"></td>
+            <td class="amstripe-td" data-bind="text: $parent.getLast4(savedCard)"></td>
+            <td class="amstripe-td" data-bind="text: $parent.getExpDate(savedCard)"></td>
+            <td class="amstripe-td -button">
+                <div class="actions-toolbar amstripe-action">
+                    <div class="primary amstripe-primary">
+                        <button class="action primary amstripe-button"
+                                type="submit"
+                                data-bind="
+                            click: $parent.deleteClick.bind($parent, savedCard),
+                            attr: {title: $t('Delete')}
+                    ">
+                            <span data-bind="i18n: 'Delete'"></span>
+                        </button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <!-- /ko -->
+        </tbody>
+    </table>
+    <!-- /ko -->
+    <!-- ko if: isSaveCardsEnable()-->
+    <form id="customer-co-stripe-form" class="co-stripe-form form amstipe-add-wrapper" method="post" action="#" novalidate="novalidate"
+          afterRender="initStripe">
+        <fieldset
+                data-bind="attr: {class: 'fieldset payment items ccard amasty_stripe', id: 'payment_form_amasty_stripe'}">
+            <legend class="legend">
+                <span><!-- ko i18n: 'Add a New Card'--><!-- /ko --></span>
+            </legend>
+            <!-- ko if: (billingAddress) -->
+            <div class="field number required">
+                <label data-bind="attr: {for: 'amasty_stripe_card_data'}" class="label">
+                    <span><!-- ko i18n: 'Credit Card Number'--><!-- /ko --></span>
+                </label>
+                <div class="control">
+                    <div data-bind="attr: {id: 'amasty_stripe_card_data'}" class="stripe-control"></div>
+                    <div class="stripe-error amstripe-error"
+                         data-bind="visible: getErrorMessageObserver(), text: getErrorMessageObserver()"></div>
+                </div>
+            </div>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button class="action primary amstripe-button"
+                            type="submit"
+                            data-bind="
+                        click: addNewCard,
+                        attr: {title: $t('Save')}
+                ">
+                        <span data-bind="i18n: 'Save'"></span>
+                    </button>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko ifnot: (billingAddress) -->
+            <div class="message info">
+                <span data-bind="i18n: 'You will be able to add new saved cards as soon as you provide your full billing address.'" ></span>
+            </div>
+            <!-- /ko -->
+        </fieldset>
+    </form>
+    <!-- /ko -->
+</div>

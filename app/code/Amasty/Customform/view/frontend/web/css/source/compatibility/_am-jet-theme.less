@@ -1,0 +1,39 @@
+//
+//  Compatibility with Amasty Jet Theme
+//  ____________________________________
+
+//
+//  Common
+//  ------------------------------------
+
+& when (@media-common = true) {
+    .amform-form {
+        input[type='checkbox'],
+        input[type='radio'] {
+            & {
+                top: initial;
+                z-index: 1;
+                overflow: visible;
+                clip: initial;
+                margin: 2px 0;
+                width: 15px;
+                height: 15px;
+                opacity: 0;
+                cursor: pointer;
+            }
+
+            &:focus {
+                box-shadow: none;
+            }
+        }
+
+        .amcform-gdpr .amform-checkbox {
+            position: initial;
+            opacity: 1;
+        }
+    }
+
+    .amform-rating-container .amform-versiontwo-label:before {
+        display: none;
+    }
+}

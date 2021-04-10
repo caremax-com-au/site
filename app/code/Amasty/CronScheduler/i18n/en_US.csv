@@ -1,0 +1,68 @@
+"Run Cron","Run Cron"
+"Cron Jobs","Cron Jobs"
+"Changes Saved","Changes Saved"
+"%1 job(s) has been successfully deleted","%1 job(s) has been successfully deleted"
+"%1 job(s) has been failed to delete","%1 job(s) has been failed to delete"
+"%1 job(s) has been successfully disabled","%1 job(s) has been successfully disabled"
+"%1 job(s) has been failed to disable","%1 job(s) has been failed to disable"
+"%1 job(s) has been successfully enabled","%1 job(s) has been successfully enabled"
+"%1 job(s) has been failed to enable","%1 job(s) has been failed to enable"
+"Disabled job can't be runed","Disabled job can't be runed"
+"Invalid callback: %1::%2 can't be called","Invalid callback: %1::%2 can't be called"
+"The job has been run","The job has been run"
+"Cron Timeline","Cron Timeline"
+Disabled,Disabled
+Enabled,Enabled
+"Unable to save job with ID %1. Error: %2","Unable to save job with ID %1. Error: %2"
+"Unable to save job. Error: %1","Unable to save job. Error: %1"
+"Job with specified ID ""%1"" not found.","Job with specified ID ""%1"" not found."
+"Unable to remove job with ID %1. Error: %2","Unable to remove job with ID %1. Error: %2"
+"Unable to remove job. Error: %1","Unable to remove job. Error: %1"
+"Zoom In","Zoom In"
+"Zoom Out","Zoom Out"
+"Cron Scheduler","Cron Scheduler"
+"Email Notification","Email Notification"
+"Send email notification on a task failure","Send email notification on a task failure"
+"Email Sender","Email Sender"
+"Send notification to","Send notification to"
+"Please input any new email address on a new line","Please input any new email address on a new line"
+"Email Subject","Email Subject"
+"You can use any of these variables to configure an email subject:<br/>
+                    - {{job_code}}: code of the schedule job<br/>
+                    - {{executed_at}}: execution datetime<br/>
+                    - {{message}}: error message","You can use any of these variables to configure an email subject:<br/>
+                    - {{job_code}}: code of the schedule job<br/>
+                    - {{executed_at}}: execution datetime<br/>
+                    - {{message}}: error message"
+"Email content","Email content"
+"You can use any of these variables to configure an email content:<br/>
+                    - {{job_code}}: code of the schedule job<br/>
+                    - {{executed_at}}: execution datetime<br/>
+                    - {{message}}: error message","You can use any of these variables to configure an email content:<br/>
+                    - {{job_code}}: code of the schedule job<br/>
+                    - {{executed_at}}: execution datetime<br/>
+                    - {{message}}: error message"
+"Notifications Time Filter","Notifications Time Filter"
+"Please enter the value in minutes. Enter 0 to receive notifications without filtering","Please enter the value in minutes. Enter 0 to receive notifications without filtering"
+"The setting is used to avoid 'spamming' from a frequently executed jobs. If there is a multifunctional job that runs every 5 minutes, then it would disturb you with emails every 5 minutes as well. Using the field you can specify the time period when a single job will not disturb you with the same failure email after the first message was sent. It does not affect notifications from other jobs.<br/>
+e.g. If the setting value is 60, then any multifunctional job will be able to send you notification not more than once per hour.","The setting is used to avoid 'spamming' from a frequently executed jobs. If there is a multifunctional job that runs every 5 minutes, then it would disturb you with emails every 5 minutes as well. Using the field you can specify the time period when a single job will not disturb you with the same failure email after the first message was sent. It does not affect notifications from other jobs.<br/>
+e.g. If the setting value is 60, then any multifunctional job will be able to send you notification not more than once per hour."
+Status,Status
+"Select status..","Select status.."
+Enable,Enable
+"Enable Jobs","Enable Jobs"
+"Are you sure you want to enable selected jobs?","Are you sure you want to enable selected jobs?"
+Disable,Disable
+"Disable Jobs","Disable Jobs"
+"Are you sure you want to disable selected jobs?","Are you sure you want to disable selected jobs?"
+Delete,Delete
+"Delete Jobs","Delete Jobs"
+"Are you sure you want to delete selected jobs?","Are you sure you want to delete selected jobs?"
+ID,ID
+"Job Code","Job Code"
+Group,Group
+Instance,Instance
+Method,Method
+Schedule,Schedule
+"Modified Schedule","Modified Schedule"
+"Run Job","Run Job"

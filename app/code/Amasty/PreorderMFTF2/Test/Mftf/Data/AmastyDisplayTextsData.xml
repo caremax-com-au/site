@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF2
+ */
+-->
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="AmastyDisplayTextDefaultData">
+        <data key="add_to_cart_button_text">Pre Order</data>
+        <data key="pre_order_note">Pre Order</data>
+        <data key="pre_order_warning_in_order">Please be aware this is a preorder. The products will be shipped to you once they become available.</data>
+        <data key="pre_order_warning_in_shopping_cart1">We don't have as many "</data>
+        <data key="pre_order_warning_in_shopping_cart2">" as you requested, but we'll back order the remaining 1.</data>
+        <data key="pre_order_warning_for_below_zero_qty">The requested qty for "%1$s" is not available, only %2$s left.</data>
+    </entity>
+</entities>

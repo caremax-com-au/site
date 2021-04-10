@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category CodePlaza
+ * @package CodePlaza\InventoryManagement
+ * @author Echosystem <info@echosystech>
+ * @copyright Copyright (c) 2018 Echosystem Technolodgy, Ltd (http://echosystech.com/)
+ * @license http://opensource.org/licenses/afl-3.0.php Academic Free License (AFL 3.0)
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="CodePlaza_RecentProduct" setup_version="0.1.0" />
+</config>
+

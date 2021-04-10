@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package Amasty_Stripe
+ */
+-->
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp:etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="script-src">
+            <values>
+                <value id="stripe" type="host">js.stripe.com</value>
+            </values>
+        </policy>
+        <policy id="frame-src">
+            <values>
+                <value id="stripe" type="host">js.stripe.com</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>

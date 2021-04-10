@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2020 Amasty (https://www.amasty.com)
+ * @package PreorderMFTF3
+ */
+-->
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="AmastyCheckNoteAndButtonOnCategoryActionGroup">
+        <arguments>
+            <argument name="category" type="string"/>
+            <argument name="product" type="string"/>
+        </arguments>
+        <!-- Go to the category-->
+        <amOnPage url="{{StorefrontCategoryPage.url(category)}}" stepKey="navigateToCategoryPage"/>
+        <!-- Check pre-order note and button -->
+        <moveMouseOver selector="{{StorefrontCategoryProductSection.ProductTitleByName(product)}}" stepKey="hoverOverProduct"/>
+        <see userInput="{{AmastyDisplayTextDefaultData.pre_order_note}}" selector="{{StorefrontCategoryProductSection.AmastyPreOrderNote(product)}}" stepKey="seePreOrderNote"/>
+        <see userInput="{{AmastyDisplayTextDefaultData.add_to_cart_button_text}}" selector="{{StorefrontCategoryProductSection.ProductAddToCartByName(product)}}" stepKey="seePreOrderButton"/>
+    </actionGroup>
+</actionGroups>

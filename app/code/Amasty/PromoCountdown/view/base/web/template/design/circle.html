@@ -1,0 +1,66 @@
+<div class="amcountdown-list">
+    <div class="amcountdown-wrap">
+        <div class="amcountdown-item">
+            <span class="amcountdown-number" data-bind="text: $parent.days"></span>
+            <!-- ko i18n: 'days' --><!-- /ko -->
+            <div class="amcountdown-svg-wrapper">
+                <svg class="amcountdown-image">
+                    <g>
+                        <circle r="25" cx="27" cy="27" class="amcountdown-bottom"/>
+                        <g>
+                            <circle class="amcountdown-top"  stroke-dashoffset="62" r="25" cx="27" cy="27"
+                                    data-bind="style: { 'stroke' : $parent.backgroundColor }, attr:{'stroke-dashoffset': offsetDays() }"></circle>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        <div class="amcountdown-item">
+            <span class="amcountdown-number" data-bind="text: $parent.hours"></span>
+            <!-- ko i18n: 'hours' --><!-- /ko -->
+            <div class="amcountdown-svg-wrapper">
+                <svg class="amcountdown-image">
+                    <g>
+                        <circle r="25" cx="27" cy="27" class="amcountdown-bottom"/>
+                        <g>
+                            <circle class="amcountdown-top" stroke-dashoffset="62" r="25" cx="27" cy="27"
+                                    data-bind="style: { 'stroke' : $parent.backgroundColor }, attr:{'stroke-dashoffset': offsetHour() }"></circle>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div class="amcountdown-wrap">
+        <div class="amcountdown-item">
+            <span class="amcountdown-number" data-bind="text: $parent.min"></span>
+            <!-- ko i18n: 'min' --><!-- /ko -->
+            <div class="amcountdown-svg-wrapper">
+                <svg class="amcountdown-image">
+                    <g>
+                        <circle r="25" cx="27" cy="27" class="amcountdown-bottom"/>
+                        <g>
+                            <circle class="amcountdown-top" stroke-dashoffset="62" r="25" cx="27" cy="27"
+                                    data-bind="style: { 'stroke' : $parent.backgroundColor }, attr:{'stroke-dashoffset': offsetMin() }"></circle>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        <div class="amcountdown-item">
+            <span class="amcountdown-number" data-bind="text: $parent.sec"></span>
+            <!-- ko i18n: 'sec' --><!-- /ko -->
+            <div class="amcountdown-svg-wrapper">
+                <svg class="amcountdown-image">
+                    <g>
+                        <circle r="25" cx="27" cy="27"  class="amcountdown-bottom"/>
+                        <g>
+                            <circle class="amcountdown-top" stroke-dashoffset="62" r="25" cx="27" cy="27"
+                                    data-bind="style: { 'stroke' : $parent.backgroundColor }, attr:{'stroke-dashoffset': offsetSec() }"></circle>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </div>
+</div>
