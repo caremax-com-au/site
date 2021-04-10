@@ -9,6 +9,9 @@
 !/app/design/frontend/Olegnax/**/*
 !/app/etc/config.php
 # 2021-04-10 Dmitry Fedyuk https://www.upwork.com/fl/mage2pro
+# "How to fix product images in Magento ≥ 2.3.5 in Windows?": https://mage2.pro/t/6210
+!/vendor/magento/framework/Image/Adapter/Gd2.php
+# 2021-04-10 Dmitry Fedyuk https://www.upwork.com/fl/mage2pro
 # "How to fix «file_put_contents(generated/metadata/primary|global|plugin-list.php):
 # failed to open stream: No such file or directory
 # in lib\internal\Magento\Framework\Interception\PluginListGenerator.php on line 414»
