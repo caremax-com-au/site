@@ -17,6 +17,7 @@
         "fooman/googleanalyticsplus-m2": "^4.0",
         "fooman/printorderpdf-m2": "^3.0",
         "hybridauth/hybridauth": "~3.3",
+        "mage2pro/core": "*",
         "magefan/module-blog": "2.9.6.1",
         "magento/composer-root-update-plugin": "~1.0",
         "magento/product-community-edition": "2.4.1",
