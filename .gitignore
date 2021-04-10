@@ -14,6 +14,10 @@
 # in lib\internal\Magento\Framework\Interception\PluginListGenerator.php on line 414»
 # in Magento 2.4-develop in Windows?": https://mage2.pro/t/6178
 !/vendor/magento/framework/Interception/PluginListGenerator.php
+# 2021-04-10 Dmitry Fedyuk https://www.upwork.com/fl/mage2pro
+# "How to fix the «Invalid template file» / «require_js.phtml» failure of Magento ≥ 2.3 in Windows?":
+# https://mage2.pro/t/5774
+!/vendor/magento/framework/View/Element/Template/File/Validator.php
 /update/
 /dev
 /vendor/codeception
