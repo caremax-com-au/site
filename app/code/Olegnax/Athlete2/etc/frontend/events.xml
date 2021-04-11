@@ -27,7 +27,10 @@
     <event name="layout_generate_blocks_after">
         <observer name="ox_modify_blog_blocks" instance="Olegnax\Athlete2\Observer\ModifyBlogLayout" shared="false" />
     </event>
+<!-- 2021-04-10 Dmitry Fedyuk https://www.upwork.com/fl/mage2pro
+It breaks some JavaScript code.
     <event name="controller_front_send_response_before">
         <observer name="ox_deferjs" instance="Olegnax\Athlete2\Observer\DeferJS" shared="false" />
     </event>
+-->
 </config>
