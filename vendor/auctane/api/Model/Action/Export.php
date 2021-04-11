@@ -357,6 +357,10 @@ class Export
     {
         $billing = $order->getBillingAddress();
         if (!empty($billing)) {
+            # 2021-04-11 Dmitry Fedyuk https://www.upwork.com/fl/mage2pro
+            # «Argument 2 passed to Auctane\Api\Model\Action\Export::addXmlElement() must be of the type string, null given»:
+            # https://github.com/caremax-com-au/site/issues/1
+            df_sentry_extra($this, 'Billing Address', df_dump($billing->getData()));
             $name = $billing->getFirstname() . ' ' . $billing->getLastname();
             $this->_xmlData .= "\t<BillTo>\n";
             $this->addXmlElement("Name", '<![CDATA[' . $name . ']]>');
